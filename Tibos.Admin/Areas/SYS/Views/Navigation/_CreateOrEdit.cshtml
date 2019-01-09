@@ -1,0 +1,84 @@
+﻿@model Tibos.Domain.NavigationDto
+
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //自定义验证规则
+        form.verify({
+
+        });
+        //监听开关
+        form.on('checkbox(dict)', function (data) {
+            var d = $(this).attr("name");
+            if (data.elem.checked) {
+                $("#" + d).val('1');
+            } else {
+                $("#" + d).val('0');
+            }
+        });
+        //监听提交
+        form.on('submit(layuiadmin-app-form-submit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/sys/navigation/create", field,"add");
+        });
+        form.on('submit(layuiadmin-app-form-edit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/sys/navigation/edit", field,"edit");
+        });
+        $('#btnIcon').on('click', function () {
+            layer.open({
+                type: 2,
+                title: '选择图标',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['98%', '97%'],
+                content: '/sys/navigation/GetFont/' //iframe的url
+            }); 
+
+
+
+        })
+
+        //提取公共提交表单方法
+        function postForm(url, field,type)
+        {
+            var array = new Array();
+            $("input[name='Dict']").each(function ()
+            {
+                var dict = {};
+                dict.Id = $(this).attr("id");
+                dict.Status = parseInt($(this).val());
+                array.push(dict);
+            }) 
+            field.DictList = array;
+            console.log(field);
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引  
+            //提交 Ajax 成功后，关闭当前弹层并重载表格
+            var load = layer.load(1, {
+                shade: [0.3, '#808080'] //0.1透明度的白色背景
+            });
+            $.post(url, field, function (data)
+            {
+                layer.close(load);
+                if (data.code == 200) {
+                    parent.layui.table.reload('tableList'); //重载表格
+                    if (type == "add") {
+                        parent.addNode(data.data);//访问父页面方法
+                    } else {
+                        parent.editNode(data.data);//访问父页面方法
+                    }
+                    parent.layer.close(index); //再执行关闭 
+                    parent.layer.msg("操作成功!", {
+                        time: 1000,
+                        icon: 1,
+                    });
+                } else {
+                    parent.layer.msg("操作失败!", {
+                        time: 1000,
+                        icon: 2,
+                    });
+                }
+            })
+        }
+    });
+</script>

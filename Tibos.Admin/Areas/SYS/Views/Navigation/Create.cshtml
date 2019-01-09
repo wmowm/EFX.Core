@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "创建";
+    Layout = "/Views/Shared/_IFrame.cshtml";
+    var lavel = Model?.Level + 1;
+}
+@model Tibos.Domain.NavigationDto
+    <link href="~/css/font-awesome.min93e3.css" rel="stylesheet" />
+    <form id="form" class="layui-form" action="">
+        <div class="layui-col-xs11" style="margin-top:5%">
+            <div class="layui-form-item">
+                <label class="layui-form-label">上级菜单</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="Level" required lay-verify="" readonly placeholder="" autocomplete="off" class="layui-input" value="@lavel">
+                    <input type="hidden" name="ParentId" required lay-verify="" readonly placeholder="" autocomplete="off" class="layui-input" value="@Model?.Id">
+                    <input type="text" name="PName" required lay-verify="" readonly placeholder="" autocomplete="off" class="layui-input" value="@Model?.Name">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Name" lay-verify="required" placeholder="请输入菜单名" autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">图标</label>
+                <div class="layui-input-block">
+
+                    <span id="btnIcon" style="margin-top:5px;" class="layui-btn layui-btn-sm layui-btn-normal"><i id="imgIcon" class="fa fa-hand-pointer-o"></i> 选择图标</span>
+                    <input type="hidden" id="Icon" name="Icon" required placeholder="请选择图标" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Link" lay-verify="required" placeholder="请输入链接" autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-block">
+                    <input type="number" name="Sort" lay-verify="number" placeholder="请输入排序" autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模块</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Areas" lay-verify="required" placeholder="请输入模块" autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">控制器</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ControllerName" lay-verify="required" placeholder="请输入控制器" autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否系统菜单</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="IsSys" value="0" title="否" checked>
+                    <input type="radio" name="IsSys" value="1" title="是">
+
+                </div>
+            </div>
+            <div class="layui-form-item" pane="" style="margin:0px">
+                <label class="layui-form-label">菜单权限</label>
+                <div class="layui-input-block">
+                    @{
+                        foreach (var item in Model.DictList)
+                        {
+                            var status = "";
+                            if (item.Status == 1)
+                            {
+                                status = "checked";
+                            }
+                            <input type="checkbox" lay-skin="primary" lay-filter="dict" name="@item.Id" title="@item.Name" @status>
+                            <input type="hidden" id="@item.Id" name="Dict" value="@item.Status" />
+                        }
+                    }
+                </div>
+            </div>
+            <div class="layui-form-item layui-hide">
+                <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+                <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+            </div>
+
+        </div>
+    </form>
+
+    @Html.Partial("~/Areas/SYS/Views/Navigation/_CreateOrEdit.cshtml", Model)
+

@@ -1,0 +1,217 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图表工具</title>
+    <link href="/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet" />
+    <link href="/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet" />
+    <link href="/css/animate.min.css" rel="stylesheet" />
+    <link href="/css/style.min862f.css?v=4.1.0" rel="stylesheet" />
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="~/js/echarts.js"></script>
+    <script src="/js/content.min.js?v=1.0.0"></script>
+</head>
+<body class="gray-bg">
+    <style>
+        .dashboard-stats {
+            float: left;
+            width: 20%;
+        }
+
+        .dashboard-stats-item {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            cursor: pointer;
+            height: 105px;
+            margin-right: 25px;
+            margin-bottom: 10px;
+            padding: 20px 20px;
+        }
+
+            .dashboard-stats-item .m-top-none {
+                margin-top: 2px;
+            }
+
+            .dashboard-stats-item h2 {
+                font-size: 35px;
+                font-family: inherit;
+                line-height: 1.1;
+                font-weight: 500;
+            }
+
+            .dashboard-stats-item .stat-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 30px;
+                opacity: .3;
+            }
+
+        .panel-default > .panel-body ul {
+            overflow: hidden;
+            padding: 0;
+            margin: 0px;
+            margin-top: -5px;
+        }
+
+            .panel-default > .panel-body ul li {
+                line-height: 27px;
+                list-style-type: none;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+        a {
+            color: #475059;
+            outline: none !important;
+        }
+
+        .panel-default > .panel-body ul li .time {
+            color: #a1a1a1;
+            float: right;
+            padding-right: 5px;
+        }
+    </style>
+    <div class="col-lg-12 center-vertical" style="margin-top:2%">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-line-chart fa-lg" style="padding-right: 5px;"></i>关键数据实时指标
+                    <div style="float: right; position: relative; top: -4px; right: 0px;">
+                        <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=1" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                    </div>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #fc8675;">
+                        <h2 class="m-top-none">100021</h2>
+                        <h5>学生总数</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #6bafbd;">
+                        <h2 class="m-top-none">500</h2>
+                        <h5>企业总数</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-amazon fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #f3ce85;">
+                        <h2 class="m-top-none">63</h2>
+                        <h5>高校总数</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-institution fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #949FB1;">
+                        <h2 class="m-top-none">63541</h2>
+                        <h5>就业人数</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-paper-plane-o fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #65cea7; margin-right: 0px;">
+                        <h2 class="m-top-none">0</h2>
+                        <h5>违约待处理</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-bug fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 center-vertical col-lg-8" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="echarts" id="echarts-line-chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="echarts" id="echarts-line-chart2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-8" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="echarts" id="echarts-line-chart3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="echarts" id="echarts-line-chart4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 center-vertical col-lg-4" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>签约高校
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>签约企业
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-send fa-lg" style="padding-right: 5px;"></i>就业信息
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+</script>

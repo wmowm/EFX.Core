@@ -1,0 +1,100 @@
+html{height:100%}body.signin{height:auto;background:url(../img/login-background.jpg) no-repeat center fixed;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;color:rgba(255,255,255,.95)}.signinpanel{width:750px;margin:10% auto 0}.signinpanel .logopanel{float:none;width:auto;padding:0;background:0 0}.signinpanel .signin-info ul{list-style:none;padding:0;margin:20px 0}.signinpanel .form-control{display:block;margin-top:15px}.signinpanel .uname{background:#fff url(../img/user.png) no-repeat 95% center;color:#333}.signinpanel .pword{background:#fff url(../img/locked.png) no-repeat 95% center;color:#333}.signinpanel .btn{margin-top:15px}.signinpanel form{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);-moz-box-shadow:0 3px 0 rgba(12,12,12,.03);-webkit-box-shadow:0 3px 0 rgba(12,12,12,.03);box-shadow:0 3px 0 rgba(12,12,12,.03);-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;padding:30px}.signup-footer{border-top:solid 1px rgba(255,255,255,.3);margin:20px 0;padding-top:15px}@media screen and (max-width:768px){.signinpanel,.signuppanel{margin:0 auto;width:420px!important;padding:20px}.signinpanel form{margin-top:20px}.signup-footer,.signuppanel .form-control{margin-bottom:10px}.signup-footer .pull-left,.signup-footer .pull-right{float:none!important;text-align:center}.signinpanel .signin-info ul{display:none}}@media screen and (max-width:320px){.signinpanel,.signuppanel{margin:0 20px;width:auto}}
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          .animated {
+            -webkit-animation-duration: .5s;
+            -moz-animation-duration: .5s;
+            -o-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-fill-mode: both;
+            -moz-animation-fill-mode: both;
+            -o-animation-fill-mode: both;
+            animation-fill-mode: both
+        }
+        .container {
+            display: none;
+        }
+        .container.show {
+            display: block;
+        }
+        /* ¸²¸ÇÒ³Ãæ */
+        .pageload-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        .pageload-overlay.show {
+            visibility: visible;
+        }
+        .pageload-overlay svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .pageload-overlay svg path {
+            fill: #fff;
+        }
+        .pageload-overlay::after,
+        .pageload-overlay::before {
+            content: '';
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border-radius: 50%;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 1000;
+            -webkit-transition: opacity 0.15s, visibility 0s 0.15s;
+            transition: opacity 0.15s, visibility 0s 0.15s;
+        }
+        .pageload-overlay::after {
+            background: #6cc88a;
+            -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+            -webkit-animation: moveRight 0.6s linear infinite alternate;
+            animation: moveRight 0.6s linear infinite alternate;
+        }
+        .pageload-overlay::before {
+            background: #4fc3f7;
+            -webkit-transform: translateX(20px);
+            transform: translateX(20px);
+            -webkit-animation: moveLeft 0.6s linear infinite alternate;
+            animation: moveLeft 0.6s linear infinite alternate;
+        }
+        @-webkit-keyframes moveRight {
+            to {
+                -webkit-transform: translateX(20px);
+            }
+        }
+        @keyframes moveRight {
+            to {
+                transform: translateX(20px);
+            }
+        }
+        @-webkit-keyframes moveLeft {
+            to {
+                -webkit-transform: translateX(-20px);
+            }
+        }
+        @keyframes moveLeft {
+            to {
+                transform: translateX(-20px);
+            }
+        }
+        .pageload-loading.pageload-overlay::after,
+        .pageload-loading.pageload-overlay::before {
+            opacity: 1;
+            visibility: visible;
+            -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+        }
+        .copyright p {
+            line-height: 1.2em;
+        }
+

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web</title>
+
+    <link href="~/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/ui-dialog.css" rel="stylesheet" />
+    <link href="/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="~/css/labelauty.css" rel="stylesheet" />
+    <link href="~/css/common.css" rel="stylesheet" />
+    @RenderSection("head", false)
+
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/bootstrap-select.js"></script>
+    <script src="~/js/bootstrap-table.js"></script>
+    <script src="~/js/bootstrap-table-export.js"></script>
+    <script src="~/js/tableExport.js"></script>
+    <script src="~/js/bootstrap-table-zh-CN.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <script src="/js/content.min.js?v=1.0.0"></script>
+    <script src="~/js/dialog-plus-min.js"></script>
+    <script src="~/js/labelauty.js"></script>
+    <script src="~/js/common.js"></script>
+
+</head>
+<body>
+    @*页面布局
+        1.列表主页
+        2.新增,修改的dialog
+        3.审核的dialog
+        4.js部分*@
+    @RenderSection("list", false)
+    @RenderSection("add", false)
+    @RenderSection("exam", false)
+    @RenderSection("js", false)
+    @RenderBody();
+</body>
+</html>

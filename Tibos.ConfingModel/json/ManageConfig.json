@@ -1,0 +1,16 @@
+﻿{
+  "ManageConfig": {
+    //文件预览路径
+    "FileUpPath": "http://localhost:6232/",
+    //图片预览路径
+    "ImagesPath": "http://localhost:6231/",
+    //数据库类型(sqlserver,mysql,sqlite)
+    "DBType": "mysql",
+    //数据库连接地址
+    "ConnName": "server=193.112.104.103;database=tibos;uid=root;pwd=123456;port=3308;Charset=utf8;",
+    //允许上传的文件格式
+    "AttachExtension": "gif,jpg,jpeg,png,bmp,rar,zip,doc,docx,xls,xlsx,ppt,pptx,txt,flv,apk,mp4,mpg,ts,mpeg,mp3,bak,pdf",
+    //图片上传最大值KB(默认5M)
+    "AttachImagesize": 5120
+  }
+}

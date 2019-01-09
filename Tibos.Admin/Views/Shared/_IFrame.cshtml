@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Tibos.Admin</title>
+
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container body-content">
+        <script src="~/js/jquery.js"></script>
+        <script src="~/lib/layui/layui.js"></script>
+        @RenderBody()
+        <footer></footer>
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

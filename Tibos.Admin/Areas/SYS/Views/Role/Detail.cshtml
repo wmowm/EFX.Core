@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    Layout = null;
+}
+
+<link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+
+
+<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+<script src="~/lib/layui/layui.js"></script>
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer;
+
+        layer.open({
+            type: 2,
+            area: ['800px', '650px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: '/cms/news/create',
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                $("#form").length;//直接获取表单长度=0
+                $(layero).find("#form").length;//表单长度还是等于0
+                var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                submit.click();
+
+            }
+
+        });
+    });
+</script>

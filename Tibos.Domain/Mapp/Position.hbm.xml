@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Tibos.Domain" namespace="Tibos.Domain">
+	<class name="Position" table="Position">
+				<id name="Id" column="Id" type="string" unsaved-value="0">
+      					
+      	</id>
+      	      		
+		<property name="Name" column="Name" type="string"  />
+		<property name="OrgId" column="OrgId" type="string"  />
+		<property name="RoleIds" column="RoleIds" type="string"  />
+				
+	</class>
+</hibernate-mapping>

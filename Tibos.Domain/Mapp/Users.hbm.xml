@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Tibos.Domain" namespace="Tibos.Domain">
+	<class name="Users" table="Users">
+				<id name="Id" column="Id" type="string" unsaved-value="0">
+      					
+      	</id>
+      	      		
+		<property name="UserName" column="UserName" type="string"  />
+		<property name="Password" column="Password" type="string"  />
+		<property name="Mobile" column="Mobile" type="string"  />
+		<property name="Email" column="Email" type="string"  />
+		<property name="Status" column="Status" type="int"  />
+    <property name="Sex" column="Sex" type="int"  />
+		<property name="LoginTime" column="LoginTime" type="DateTime"  />
+		<property name="LoginIp" column="LoginIp" type="string"  />
+				
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+﻿@{
+    var list = Model as List<Navigation>;
+    var list_menu = list.Where(m => m.Level == 1).OrderBy(m => m.Sort);
+    foreach (var item in list_menu)
+    {
+        var list_submenu = list.Where(m => m.Level == 2 && m.ParentId == item.Id).OrderBy(m => m.Sort);
+        <li class="">
+            <a href="#"><i class="@item.Icon"></i><span class="nav-label">@item.Name</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                @foreach (var subitem in list_submenu)
+                {
+                    <li><a class="J_menuItem" href="@subitem.Link" data-index="1"><i class="@subitem.Icon"></i>@subitem.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+}

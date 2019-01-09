@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Tibos.Domain" namespace="Tibos.Domain">
+	<class name="Navigation" table="Navigation">
+				<id name="Id" column="Id" type="string" unsaved-value="0">
+      					
+      	</id>
+      	      		
+		<property name="ParentId" column="ParentId" type="string"  />
+		<property name="Level" column="Level" type="int"  />
+		<property name="Name" column="Name" type="string"  />
+		<property name="Icon" column="Icon" type="string"  />
+		<property name="Link" column="Link" type="string"  />
+		<property name="Sort" column="Sort" type="int"  />
+		<property name="IsSys" column="IsSys" type="int"  />
+		<property name="ControllerName" column="ControllerName" type="string"  />
+		<property name="Areas" column="Areas" type="string"  />
+				
+	</class>
+</hibernate-mapping>

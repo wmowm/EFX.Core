@@ -1,0 +1,746 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<link href="~/css/animate.min.css" rel="stylesheet" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body>
+    <form id="form1">
+        <label for="input">使用RSA 2048位加密,加密字符串的长度不能超过245bytes(2048/8-11)</label><br />
+        公钥:<textarea id="pubkey" style="height:50px;width:1600px">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwnsbSgsVdgscvfHpcwIE+3/Ny5swzVlUpJMveQDmdNool++SESap8r9Vhsc1lvO8W3omj6KAQ0j6as8ZTSGS3ngp0uf7nTgnuVxLfCF8UNhtOkbWomGZWoobM8LM+RX0VzzbPsVB7q0gmUPkH4M2TcPV2cjDyl2t3Om0ZDh0qaQjtTCUrc6BmCfYoAZpBoMIlM8gUViBi9TxxW2HvKlreUkM/IOyikRRmkIm/rkhqHO4z5HQoZzz0+QkxoqFMmkV5YZaoM0DQ7957vMNZUOxvmjg17GjJHVJzF/Keo25bEYdvnTVnjmAc+EMc+6qjrFIVuhE+T5l3rfE+4jqdzkN+QIDAQAB</textarea><br />
+        token:<input id="token" value="SURDTV9CSVhJTkdfSURDTQ==" />(对应webSite的编码字段)<br />
+        token加密成sign:<textarea id="sign" style="height:50px;width:1600px"></textarea><br />
+
+        <fieldset>
+            <legend>注册</legend>
+            国家编码(CN,EN):<input id="countryCode" type="text" name="name" value="CN" /><br />
+
+            国家区号(+86):<input id="areaCode" type="text" name="name" value="" /><br />
+
+            手机或邮箱:<input id="phoneOrEmail" type="text" name="name" value="505613915@qq.com" /><br />
+
+            账号:<input id="account" type="text" name="name" value="tibostibos131" /><br />
+
+            密码:<input id="password" type="text" name="name" value="tibos@tibos1321231" /><br />
+
+            注册类型：1.手机;2.邮箱:<input id="verifyDeviceType" type="text" name="name" value="2" /><br />
+
+
+
+
+
+            <fieldset>
+                <legend>注册提交信息</legend>
+                签名:<textarea id="registerSign" style="height:50px;width:1600px"></textarea><br />
+                明文:<textarea id="register" style="height:50px;width:1600px"></textarea><br />
+                密文:<textarea id="registerPassWord" style="height:50px;width:1600px"></textarea><br />
+
+            </fieldset>
+
+            <fieldset>
+                <legend>注册返回信息</legend>
+                状态:<span id="registerStatus"></span><br />
+
+                消息:<span id="registerMsg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+
+        <fieldset>
+            <legend>登录</legend>
+
+            国家区号(+86):<input id="lgoin_areaCode" type="text" name="name" value="86" /><br />
+
+            账号:<input id="lgoin_account" type="text" name="name" value="15019400599" /><br />
+
+            密码:<input id="lgoin_password" type="text" name="name" value="qwe123qwe" /><br />
+
+
+
+
+
+
+            <fieldset>
+                <legend>登录提交信息</legend>
+                签名:<textarea id="loginSign" style="height:50px;width:1600px"></textarea><br />
+                明文:<textarea id="login" style="height:50px;width:1600px"></textarea><br />
+                密文:<textarea id="loginPassWord" style="height:50px;width:1600px"></textarea><br />
+
+            </fieldset>
+
+            <fieldset>
+                <legend>登录返回信息</legend>
+                状态:<span id="loginStatus"></span><br />
+
+                消息:<span id="loginMsg"></span><br />
+
+                票据:<span id="loginToken"></span><br />
+            </fieldset>
+
+
+        </fieldset>
+
+        <fieldset>
+            <legend>修改</legend>
+
+            国家区号(+86):<input id="edit_areaCode" type="text" name="name" value="" /><br />
+
+            手机号or邮箱or密码:<input id="edit_phoneOrEmailOrPassword" type="text" name="name" value="tibos@tibos1321231" /><br />
+
+            账号:<input id="edit_account" type="text" name="name" value="tibostibos131" /><br />
+
+            修改类型:1.手机号,2.邮箱,3.密码:<input id="editType" type="text" name="name" value="2" /><br />
+
+
+
+
+
+
+            <fieldset>
+                <legend>修改提交信息</legend>
+                签名:<textarea id="editSign" style="height:50px;width:1600px"></textarea><br />
+                明文:<textarea id="edit" style="height:50px;width:1600px"></textarea><br />
+                密文:<textarea id="editPassWord" style="height:50px;width:1600px"></textarea><br />
+
+            </fieldset>
+
+            <fieldset>
+                <legend>修改返回信息</legend>
+                状态:<span id="editStatus"></span><br />
+
+                消息:<span id="editMsg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+
+        <fieldset>
+            <legend>获取用户资产</legend>
+            UserID:<input id="get_UserID" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="get_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="getStatus"></span><br />
+
+                消息:<span id="getMsg"></span><br />
+
+                数据:<span id="getData"></span><br />
+            </fieldset>
+
+
+        </fieldset>
+
+
+
+        <fieldset>
+            <legend>设置PIN</legend>
+            请输入PIN:<input id="PIN" type="text" name="name" value="" /><br />
+            再次输入PIN:<input id="PIN2" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="pin_token" style="height:50px;width:1600px"></textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="pin_Status"></span><br />
+
+                消息:<span id="pin_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+
+
+
+        <fieldset>
+            <legend>用户资产转入/转出</legend>
+            PIN:<input id="Amount_PIN" type="text" name="name" value="" /><br />
+            资产ID(VHKD):<input id="AssetsID" type="text" name="name" value="9PqFnATs2U6oYPFxJjAooQ" /><br />
+            实际转入/转出金额:<input id="ChangeAvailableAmount" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="Amount_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="Amount_Status"></span><br />
+
+                消息:<span id="Amount_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+        <fieldset>
+            <legend>BTC->VHKD(卖出)</legend>
+            PIN:<input id="vhkd_PIN" type="text" name="name" value="" /><br />
+            交易对(基于VHKD):<input id="Symbol" type="text" name="name" value="BTC/VHKD" /><br />
+            转出数量:<input id="TotalAmount" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="vhkd_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="vhkd_Status"></span><br />
+
+                消息:<span id="vhkd_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+
+        <fieldset>
+            <legend>VHKD->BTC(买入)</legend>
+            PIN:<input id="curr_PIN" type="text" name="name" value="" /><br />
+            交易对(基于VHKD):<input id="curr_Symbol" type="text" name="name" value="BTC/VHKD" /><br />
+            转出数量:<input id="curr_TotalAmount" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="curr_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="curr_Status"></span><br />
+
+                消息:<span id="curr_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+        <fieldset>
+            <legend>查询币币交易订单</legend>
+            交易对:<input id="get_Symbol" type="text" name="name" value="BTC/VHKD" /><br />
+            订单号:<input id="get_orderID" type="text" name="name" value="" /><br />
+            用户账户:<input id="get_Account" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="get_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="get_Status"></span><br />
+
+                消息:<span id="get_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+        <fieldset>
+            <legend>取消币币交易订单</legend>
+            交易对(基于VHKD):<input id="cancel_Symbol" type="text" name="name" value="BTC/VHKD" /><br />
+            订单号:<input id="cancel_orderID" type="text" name="name" value="" /><br />
+            交易方向(BUY买入,SELL卖出):<input id="cancel_Side" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="cancel_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="cancel_Status"></span><br />
+
+                消息:<span id="cancel_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+        <fieldset>
+            <legend>查询审核单详情</legend>
+            单号:<input id="review_id" type="text" name="name" value="" /><br />
+            <fieldset>
+                <legend>提交信息</legend>
+                用户票据:<textarea id="review_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+            </fieldset>
+
+            <fieldset>
+                <legend>返回信息</legend>
+                状态:<span id="review_Status"></span><br />
+
+                消息:<span id="review_Msg"></span><br />
+
+            </fieldset>
+
+
+        </fieldset>
+
+        <input id="testme" type="button" value="生成sign" />
+
+        <input id="btn" type="button" value="注册" />
+
+        <input id="btn2" type="button" value="登录" />
+
+        <input id="btn3" type="button" value="修改(手机or邮箱or密码)" />
+
+        <input id="btn4" type="button" value="获取用户资产" />
+
+        <input id="btn6" type="button" value="设置用户PIN" />
+
+        <input id="btn5" type="button" value="用户资产转入/转出" />
+
+        <input id="btn7" type="button" value="BTC->VHKD" />
+
+        <input id="btn8" type="button" value="VHKD->BTC" />
+
+        <input id="btn9" type="button" value="查询币币交易订单" />
+
+        <input id="btn10" type="button" value="取消币币交易订单" />
+
+        <input id="btn11" type="button" value="查询审核单详情" />
+
+        <input id="btn12" type="button" value="根据审核单挂币币交易卖单" />
+    </form>
+</body>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://passport.cnblogs.com/scripts/jsencrypt.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $.decrypt = function(str)
+        {
+            var pubkey = $("#pubkey").html();
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(pubkey);
+            var res = encrypt.encrypt(str);
+            return res;
+         }
+
+        $('#testme').click(function () {
+            var res = $.decrypt($("#token").val());
+            $("#sign").html(res);
+        });
+
+        //var path = "http://localhost:8339";
+        //var path = "http://preapi.bi-xing.com:8303";
+        //var path = "http://preapi.idcm.io:8339";
+        //var path = "https://api.idcm.io:8323";
+
+        //var path = "https://api.bi-xing.com:8323";
+
+        var path = "http://preapi.pokerblock.io:8339";
+        $("#btn").click(function () {
+            var param = {
+                "countryCode": $("#countryCode").val(),
+                "areaCode": $("#areaCode").val(),
+                "phoneOrEmail": $("#phoneOrEmail").val(),
+                "account": $("#account").val(),
+                "password": $("#password").val(),
+                "verifyDeviceType": $("#verifyDeviceType").val()
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#register").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $("#registerSign").html($("#sign").html());
+            $("#registerPassWord").html(json);
+            if ($("#sign").html() == "")
+            {
+                alert("请获取签名!")
+                return;
+             }
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/RegisterUser",
+                data: {"json":json},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#registerStatus").html(data.StatusCode);
+                    $("#registerMsg").html(data.Msg);
+                    $("#get_UserID").val(data.Data.ID);
+                    $("#get_token").html(data.Data.Token);
+                }
+            });
+        })
+        $("#btn2").click(function () {
+            var param = {
+                "areaCode": $("#lgoin_areaCode").val(),
+                "account": $("#lgoin_account").val(),
+                "password": $("#lgoin_password").val(),
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $("#loginSign").html($("#sign").html());
+            $("#loginPassWord").html(json);
+            if ($("#sign").html() == "") {
+                alert("请获取签名!")
+                return;
+            }
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/SignIn",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                    xhr.setRequestHeader("ClientType", "4");
+                },
+                success: function (data, status) {
+                    $("#loginStatus").html(data.StatusCode);
+                    $("#loginMsg").html(data.Msg);
+                    $("#loginToken").html(data.Data.Token);
+                    $("#get_UserID").val(data.Data.ID);
+                    $("#get_token").html(data.Data.Token);
+
+                    $("#pin_token").html(data.Data.Token);
+                    $("#Amount_token").html(data.Data.Token);
+                    $("#vhkd_token").html(data.Data.Token);
+                    $("#curr_token").html(data.Data.Token);
+                    $("#get_token").html(data.Data.Token);
+                    $("#cancel_token").html(data.Data.Token);
+                    $("#review_token").html(data.Data.Token);
+                }
+            });
+        })
+
+
+
+
+        $("#btn3").click(function () {
+            var param = {
+                "areaCode": $("#edit_areaCode").val(),
+                "account": $("#edit_account").val(),
+                "phoneOrEmailOrPassword": $("#edit_phoneOrEmailOrPassword").val(),
+                "editType": $("#editType").val()
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#edit").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $("#editSign").html($("#sign").html());
+            $("#editPassWord").html(json);
+            if ($("#sign").html() == "") {
+                alert("请获取签名!")
+                return;
+            }
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/FindPhoneOrEmailOrPassword",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#editStatus").html(data.StatusCode);
+                    $("#editMsg").html(data.Msg);
+                }
+            });
+        })
+
+        $("#btn4").click(function () {
+            var param = {
+                "UserID": $("#get_UserID").val(),
+            };
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/GetAssets",
+                data: param,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#get_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                },
+                success: function (data, status) {
+                    $("#getStatus").html(data.StatusCode);
+                    $("#getMsg").html(data.Msg);
+                    $("#getData").html(JSON.stringify(data.Data));
+                }
+            });
+        })
+
+        $("#btn5").click(function () {
+            //if ($("#Amount_PIN").val() == "")
+            //{
+            //    alert("请输入PIN值!");
+            //    return;
+            //}
+            var param = {
+                "PIN": $("#Amount_PIN").val(),
+                "AssetsID": $("#AssetsID").val(),
+                "ChangeAvailableAmount": $("#ChangeAvailableAmount").val(),
+                "FeeAmount": 0
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/UpdateAssets",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#Amount_token").html());
+                    xhr.setRequestHeader("ClientType", "4");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#Amount_Status").html(data.StatusCode);
+                    $("#Amount_Msg").html(data.Msg);
+                }
+            });
+        })
+
+        $("#btn6").click(function ()
+        {
+            if ($("#PIN").val() != $("#PIN2").val())
+            {
+                alert("两次输入PIN不一致!");
+                return;
+            }
+            var param = {
+                "str": $("#PIN").val(),
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/SetSafePwd",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#pin_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                },
+                success: function (data, status) {
+                    $("#pin_Status").html(data.StatusCode);
+                    $("#pin_Msg").html(data.Msg);
+                }
+            });
+        })
+
+
+
+
+
+
+        $("#btn7").click(function () {
+            var param = {
+                "PIN": $("#vhkd_PIN").val(),
+                "Symbol": $("#Symbol").val(),
+                "TotalAmount": $("#TotalAmount").val(),
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/UpdateAssetsCurrency_VHKD",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#vhkd_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#vhkd_Status").html(data.StatusCode);
+                    $("#vhkd_Msg").html(data.Msg);
+                }
+            });
+        })
+
+        $("#btn8").click(function () {
+            var param = {
+                "PIN": $("#curr_PIN").val(),
+                "Symbol": $("#curr_Symbol").val(),
+                "TotalAmount": $("#curr_TotalAmount").val(),
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/UpdateAssetsVHKD_Currency",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#curr_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#curr_Status").html(data.StatusCode);
+                    $("#curr_Msg").html(data.Msg);
+                }
+            });
+        })
+
+        $("#btn9").click(function () {
+            var param = {
+                "orderID": $("#get_orderID").val(),
+                "Symbol": $("#get_Symbol").val(),
+                "Account": $("#get_Account").val()
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/GetOrderInfo",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    //xhr.setRequestHeader("Token", $("#get_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#get_Status").html(data.StatusCode);
+                    $("#get_Msg").html(data.Msg);
+                }
+            });
+        })
+
+        $("#btn10").click(function () {
+            var param = {
+                "orderID": $("#cancel_orderID").val(),
+                "Symbol": $("#cancel_Symbol").val(),
+                "Side": $("#cancel_Side").val(),
+            };
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/CancelOrder",
+                data: param,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#cancel_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#get_Status").html(data.StatusCode);
+                    $("#get_Msg").html(data.Msg);
+                }
+            });
+        })
+
+        $("#btn11").click(function () {
+            var param = {
+                "str": $("#review_id").val(),
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+
+
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/GetReviewOrder",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#review_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#review_Status").html(data.StatusCode);
+                    $("#review_Msg").html(data.Msg);
+                }
+            });
+        })
+
+
+        $("#btn12").click(function () {
+            var param = {
+                "orderID": "zBYloAQACE-b_DOX_Z9lqA",
+                "Symbol": "BTC/VHKD",
+            };
+            //1.json对象转字符串
+            var json = JSON.stringify(param);
+            $("#login").html(json);
+            //2.字符串RSA加密
+            json = $.decrypt(json);
+            $.ajax({
+                type: "post",
+                url: path + "/api/ExternalAPI/UpdateAssetsOrder",
+                data: { "json": json },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Token", $("#review_token").html());
+                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("sign", $("#sign").html());
+                },
+                success: function (data, status) {
+                    $("#uao_Status").html(data.StatusCode);
+                    $("#uao_Msg").html(data.Msg);
+                }
+            });
+        })
+
+
+
+        //$("#btn13").click(function () {
+        //    var param = {
+        //        "orderID": "B7VPwldm_EqMQfom6r-kcA",
+        //        "Symbol": "BTC/VHKD",
+        //    };
+        //    //1.json对象转字符串
+        //    var json = JSON.stringify(param);
+        //    $("#login").html(json);
+        //    //2.字符串RSA加密
+        //    json = $.decrypt(json);
+        //    $.ajax({
+        //        type: "post",
+        //        url: path + "/api/ExternalAPI/GetIsReviewAmount",
+        //        data: { "json": json },
+        //        beforeSend: function (xhr) {
+        //            //xhr.setRequestHeader("Token", $("#review_token").html());
+        //            xhr.setRequestHeader("ClientType", "3");
+        //            xhr.setRequestHeader("sign", $("#sign").html());
+        //        },
+        //        success: function (data, status) {
+        //            $("#uao_Status").html(data.StatusCode);
+        //            $("#uao_Msg").html(data.Msg);
+        //        }
+        //    });
+        //})
+    });
+</script>
+</html>

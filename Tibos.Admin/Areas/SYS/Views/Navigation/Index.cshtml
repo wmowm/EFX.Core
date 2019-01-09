@@ -1,0 +1,353 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+
+<link href="~/lib/zTree/css/bootstrapStyle/bootstrapStyle.css" rel="stylesheet" />
+<link href="~/css/font-awesome.min93e3.css" rel="stylesheet" />
+<script src="~/lib/zTree/js/jquery.ztree.core.js"></script>
+<script src="~/lib/zTree/js/jquery.ztree.excheck.js"></script>
+<script src="~/lib/zTree/js/jquery.ztree.exhide.js"></script>
+<script src="~/lib/zTree/js/jquery.ztree.all.js"></script>
+
+
+
+<body layadmin-themealias="default" style="">
+    <div class="layui-fluid layui-col-xs2">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <h2>菜单设置</h2>
+            </div>
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:666px">
+                <ul id="tree" class="ztree"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="layui-fluid layui-col-xs10" style="padding-left:0px">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <h2>菜单列表</h2>
+            </div>
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:666px">
+
+                <table class="layui-hide" id="table"></table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+
+<script type="text/javascript">
+var setting = {
+        view: {
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            selectedMulti: false
+        },
+        edit: {
+            enable: true,
+
+            //给节点额外增加属性来控制“重命名”、“删除”图标的显示或隐藏
+
+            showRenameBtn: showRenameBtn,
+            showRemoveBtn: showRemoveBtn
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeDrag: beforeDrag,
+            beforeEditName: beforeEditName,
+            beforeRemove: beforeRemove,
+            beforeRename: beforeRename,
+            onRemove: onRemove,
+            onRename: onRename
+        }
+    };
+
+
+    var zNodes;
+    var log, className = "dark";
+    var treeNodeEdit;
+    function beforeDrag(treeId, treeNodes) {
+        return false;
+    }
+    function beforeEditName(treeId, treeNode) {
+        className = (className === "dark" ? "" : "dark");
+        showLog("[ " + getTime() + " beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.selectNode(treeNode);
+        treeNodeEdit = treeNode;
+        var url = "?Id=" + treeNode.id;
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 2,
+                area: ['800px', '600px'],
+                fixed: false, //不固定
+                maxmin: true,
+                title: '编辑',
+                content: '/sys/navigation/edit' + url,
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    $("#form").length;//直接获取表单长度=0
+                    $(layero).find("#form").length;//表单长度还是等于0
+                    var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-edit");
+                    submit.click();
+                }
+            });
+        });
+        return false;
+    }
+
+
+    //回调,修改节点
+    function editNode(data) {
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        treeNodeEdit.name = data.name;
+        treeNodeEdit.noEditBtn = data.noEditBtn;
+        treeNodeEdit.noRemoveBtn = data.noRemoveBtn;
+        zTree.updateNode(treeNodeEdit);
+    }
+
+        function beforeRemove(treeId, treeNode, isDel) {
+        zTree.selectNode(treeNode);
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.confirm('确认要删除吗？', {
+                btn: ['确定', '取消']
+            }, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: '/sys/navigation/del',
+                    type: 'post',
+                    async: false,//使用同步的方式,true为异步方式
+                    data: { Id: treeNode.id },//这里使用json对象
+                    success: function (data) {
+                        if (data.code == 200) {
+                            zTree.removeNode(treeNode);
+                            layui.table.reload('tableList'); //重载表格
+                            layer.msg("操作成功!", {
+                                time: 1000,
+                                icon: 1,
+                            });
+                        } else {
+                            layer.msg("操作失败!", {
+                                time: 1000,
+                                icon: 2,
+                            });
+                        }
+                    }
+                });
+            }, function (index) {
+
+            });
+        });
+        return false;
+    }
+    function onRemove(e, treeId, treeNode) {
+        showLog("[ " + getTime() + " onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+    }
+    function beforeRename(treeId, treeNode, newName) {
+        className = (className === "dark" ? "" : "dark");
+        showLog("[ " + getTime() + " beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        if (newName.length == 0) {
+            alert("节点名称不能为空.");
+            var zTree = $.fn.zTree.getZTreeObj("tree");
+            setTimeout(function () { zTree.editName(treeNode) }, 10);
+            return false;
+        }
+        return true;
+    }
+    function onRename(e, treeId, treeNode) {
+        showLog("[ " + getTime() + " onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+    }
+    function showLog(str) {
+        if (!log) log = $("#log");
+        log.append("<li class='" + className + "'>" + str + "</li>");
+        if (log.children("li").length > 8) {
+            log.get(0).removeChild(log.children("li")[0]);
+        }
+    }
+    function getTime() {
+        var now = new Date(),
+            h = now.getHours(),
+            m = now.getMinutes(),
+            s = now.getSeconds(),
+            ms = now.getMilliseconds();
+        return (h + ":" + m + ":" + s + " " + ms);
+    }
+
+
+    //是否显示编辑按钮
+    function showRenameBtn(treeId, treeNode) {
+        //获取节点所配置的noEditBtn属性值
+        if (treeNode.noEditBtn != undefined && treeNode.noEditBtn) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    //是否显示删除按钮
+    function showRemoveBtn(treeId, treeNode) {
+        //获取节点所配置的noRemoveBtn属性值
+        if (treeNode.noRemoveBtn != undefined && treeNode.noRemoveBtn) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    var newCount = 1;
+    var treeNodeAdd; //用来记录当前添加的节点对象
+    function addHoverDom(treeId, treeNode) {
+
+        if (treeNode.level > 1) {
+            return false;
+        } else {
+            //给节点添加"新增"按钮
+            var sObj = $("#" + treeNode.tId + "_span");
+            if (treeNode.editNameFlag || $("#addBtn_" + treeNode.id).length > 0) return;
+            var addStr = "<span class='button add' id='addBtn_" + treeNode.id
+                + "' title='add node' onfocus='this.blur();'></span>";
+            sObj.after(addStr);
+            var btn = $("#addBtn_" + treeNode.id);
+            if (btn) btn.bind("click", function () {
+
+                treeNodeAdd = treeNode;
+                var url = "?Id=" + treeNode.id + "&Name=" + treeNode.name;
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 2,
+                        area: ['800px', '650px'],
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: '/sys/navigation/create' + url,
+                        title: '添加',
+                        btn: ['确定', '取消'],
+                        yes: function (index, layero) {
+                            $("#form").length;//直接获取表单长度=0
+                            $(layero).find("#form").length;//表单长度还是等于0
+                            var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                            submit.click();
+                        }
+                    });
+                });
+
+                return false;
+            });
+        }
+
+    };
+
+    //回调,添加节点
+    function addNode(data) {
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.addNodes(treeNodeAdd, { id: data.id, pId: treeNodeAdd.id, name: data.name, noEditBtn: data.noEditBtn, noRemoveBtn: data.noRemoveBtn });
+    }
+
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_" + treeNode.id).unbind().remove();
+    };
+    function selectAll() {
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.setting.edit.editNameSelectAll = $("#selectAll").attr("checked");
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/sys/navigation/listtree',
+            type: 'post',
+            async: false,//使用同步的方式,true为异步方式
+            data: {},//这里使用json对象
+            success: function (data) {
+                zNodes = data.data;
+            }
+        });
+        zTree = $.fn.zTree.init($("#tree"), setting, zNodes);
+        layui.use('layer', function () {
+            layer = layui.layer;
+        });
+
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+        $("#selectAll").bind("click", selectAll);
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.render({
+                elem: '#table'
+                , request: {
+                    pageName: 'pageIndex' //页码的参数名称，默认：page
+                    , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                }
+                , response: {
+                    statusName: 'status' //规定数据状态的字段名称，默认：code
+                    , statusCode: 0 //规定成功的状态码，默认：0
+                    , msgName: 'msg' //规定状态信息的字段名称，默认：msg
+                    , countName: 'total' //规定数据总数的字段名称，默认：count
+                    , dataName: 'data' //规定数据列表的字段名称，默认：data
+                },
+                id: 'tableList'
+                , method: 'post'
+                , url: '/sys/navigation/list'
+                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    { title: '菜单名称', width: 200, templet: '#Name' }
+                    , { templet: '#Icon', width: 80, title: '图标' }
+                    , { field: 'Level', width: 80, title: '层级' }
+                    , { field: 'Link', width: 180, title: '链接' }
+                    , { field: 'Sort', width: 80, title: '排序' }
+                    , { field: 'Areas', minWidth: 80, title: '模块' }
+                    , { field: 'ControllerName', minWidth: 80, title: '控制器' }
+                    , { title: '系统菜单', width: 100, templet: '#IsSys' }
+                    , { title: '菜单权限', width: 480, templet: '#Dict' }
+                ]]
+            });
+        });
+    });
+
+    for (var i = 0; i < length; i++) {
+
+    }
+
+</script>
+
+<script type="text/html" id="Name">
+    {{#  if(d.Level === 1){ }}
+    <span>|--{{ d.Name }}</span>
+    {{#  } else { }}
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;|--{{ d.Name }}</span>
+    {{#  } }}
+</script>
+
+
+<script type="text/html" id="Icon">
+    {{#  if(d.Icon === null){ }}
+    <span></span>
+    {{#  } else { }}
+    <span><i class="{{ d.Icon }}"></i></span>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="IsSys">
+    {{#  if(d.IsSys === 1){ }}
+    <span class="layui-badge">√</span>
+    {{#  } else { }}
+    <span class="layui-badge layui-bg-gray">×</span>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="Dict">
+    {{#  for (var i = 0; i < d.DictList.length; i++) { }}
+    {{d.DictList[i].Name}}:
+    {{#  if(d.DictList[i].Status == 1){ }}
+    <span class="layui-badge">√</span>
+    {{#  } else { }}
+    <span class="layui-badge layui-bg-gray">×</span>
+    {{#  } }}
+    {{#  } }}
+</script>

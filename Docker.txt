@@ -1,0 +1,103 @@
+[yum/apt-get] install docker-ce
+
+docker images
+docker ps
+docker ps -a
+docker rm [id]
+docker logs --since 30m [id]
+docker start [id]
+docker stop [id]
+docker exec -it [id] /bin/bash
+docker inspect [id]
+
+
+
+--nginx
+ps -ef|grep nginx
+kill -QUIT 2072
+
+/usr/sbin/nginx -c /etc/nginx/nginx.conf
+
+nginx -t
+nginx
+nginx -s reload
+
+
+docker run --name mysq -p 3307:3306 -v /my/mysql/datadir:/var/lib/mysql -v /my/mysql/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+
+docker run --name mysql -p 3308:3306 -v /my/mysql2/datadir:/var/lib/mysql -v /my/mysql2/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+
+
+[ent]
+default-character-set=utf8
+
+[mysqld]
+default-storage-engine=INNODB
+character-set-server=utf8
+collation-server=utf8_general_ci
+lower_case_table_names=1
+
+
+
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
+WORKDIR /app
+COPY . .
+EXPOSE 80
+ENTRYPOINT ["dotnet", "Test.Docker.dll","-b","0.0.0.0"]
+
+docker build -t testimage .
+
+docker run --name=test -p 7711:5101 -d  testimage
+
+
+--打标签
+docker tag [imageid] wmowm/tibos:v1.0
+
+--推送
+docker push wmowm/tibos:v1.0
+
+--拉取
+docker pull wmowm/tibos:v1.0
+
+
+--mysql解决中文乱码
+
+vim /etc/mysql/my.cnf 
+
+[client]
+default-character-set=utf8
+
+[mysqld]
+default-storage-engine=INNODB
+character-set-server=utf8
+collation-server=utf8_general_ci
+
+
+--redis
+docker run -d -p 6379:6379 --name redistest1 redis redis-server --appendonly yes
+
+docker run -d --privileged=true -p 6379:6379 -v /my/redis/conf/redis.conf:/etc/redis/redis.conf -v /my/redis/data:/data --name redis redis redis-server /etc/redis/redis.conf --appendonly yes --requirepass "admin"
+
+
+--zookeeper
+docker run -d --name zookeeper -p 2181:2181 -t wurstmeister/zookeeper
+
+--kafka
+docker run -d --name zookeeper --publish 2181:2181 --volume /etc/localtime:/etc/localtime zookeeper:latest
+
+docker run  -d --name kafka \
+
+-v /my/kafka/kafkaconf:/opt/kafkacluster/kafkaconf \
+-p 9092:9092 \
+-e KAFKA_BROKER_ID=0 \ 
+
+-e KAFKA_ZOOKEEPER_CONNECT=132.232.4.73:2181 \ 
+
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://132.232.4.73:9092 \
+
+-e KAFKA_HEAP_OPTS="-Xmx256m -Xms256m" \
+-e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka 
+
+
+
+

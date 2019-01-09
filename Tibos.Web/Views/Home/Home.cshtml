@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图表工具</title>
+    <link href="~/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="~/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="~/css/animate.min.css" rel="stylesheet">
+    <link href="~/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="~/js/jquery.min.js?v=2.1.4"></script>
+    <script src="~/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="~/js/echarts.js"></script>
+    <script src="~/js/content.min.js?v=1.0.0"></script>
+</head>
+<body class="gray-bg">
+    <style>
+        .dashboard-stats {
+            float: left;
+            width: 20%;
+        }
+
+        .dashboard-stats-item {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            cursor: pointer;
+            height: 105px;
+            margin-right: 25px;
+            margin-bottom: 10px;
+            padding: 20px 20px;
+        }
+
+            .dashboard-stats-item .m-top-none {
+                margin-top: 2px;
+            }
+
+            .dashboard-stats-item h2 {
+                font-size: 35px;
+                font-family: inherit;
+                line-height: 1.1;
+                font-weight: 500;
+            }
+
+            .dashboard-stats-item .stat-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 30px;
+                opacity: .3;
+            }
+
+        .panel-default > .panel-body ul {
+            overflow: hidden;
+            padding: 0;
+            margin: 0px;
+            margin-top: -5px;
+        }
+
+            .panel-default > .panel-body ul li {
+                line-height: 27px;
+                list-style-type: none;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+        a {
+            color: #475059;
+            outline: none !important;
+        }
+
+        .panel-default > .panel-body ul li .time {
+            color: #a1a1a1;
+            float: right;
+            padding-right: 5px;
+        }
+    </style>
+    <div class="col-lg-12 center-vertical" style="margin-top:2%">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-line-chart fa-lg" style="padding-right: 5px;"></i>关键数据实时指标
+                    <div style="float: right; position: relative; top: -4px; right: 0px;">
+                        <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=1" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                    </div>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #fc8675;">
+                        <h2 class="m-top-none">8</h2>
+                        <h5>对私待处理任务</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #6bafbd;">
+                        <h2 class="m-top-none">12</h2>
+                        <h5>对私待签收任务</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-hdd-o fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #f3ce85;">
+                        <h2 class="m-top-none">2</h2>
+                        <h5>对公待处理任务</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-shopping-cart fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #949FB1;">
+                        <h2 class="m-top-none">6</h2>
+                        <h5>对公待签收任务</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-gavel fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #65cea7; margin-right: 0px;">
+                        <h2 class="m-top-none">268</h2>
+                        <h5>本月交易订单数量</h5>
+                        <div class="stat-icon">
+                            <i class="fa fa-truck fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 center-vertical col-lg-8" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="echarts" id="echarts-line-chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="echarts" id="echarts-line-chart2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>最新签约
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li><a href="#">南京森鹿皮件服饰有限公司</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">曲靖市绿能燃气运输有限公司</a><span class="time">2016-07-20</span></li>
+                    <li><a href="#">青海航天信息有限公司</a><span class="time">2016-07-19</span></li>
+                    <li><a href="#">吉林省蔬菜花卉科学研究院</a><span class="time">2016-07-17</span></li>
+                    <li><a href="#">青海省广播电视信息网络股份有限公司</a><span class="time">2016-07-17</span></li>
+                    <li><a href="#">国营长空精密机械制造公司</a><span class="time">2016-07-13</span></li>
+                    <li><a href="#">广东友元国土信息工程有限公司</a><span class="time">2016-07-12</span></li>
+                    <li><a href="#">广东友元国土信息工程有限公司</a><span class="time">2016-07-12</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4" style="padding-right:0px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li><a href="#">【通知】新版员工守则，即日执行</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【公告】OA办公使用指南</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【公告】劳动节集体出游指南</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【通知】2016年G20财长和央行行</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【通知】2016年G20财长和央行行</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【通知】品牌价值的最佳选择</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【公告】采购商城全新升级自营业正品</a><span class="time">2016-07-21</span></li>
+                    <li><a href="#">【公告】采购商城全新升级自营业正品</a><span class="time">2016-07-21</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 center-vertical col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-send fa-lg" style="padding-right: 5px;"></i>企业文化
+                </h3>
+            </div>
+            
+            <div class="panel-body">
+                <ul>
+                    <li><a href="#">创新企业党建思想政治工作</a><span class="time">2016-07-02</span></li>
+                    <li><a href="#">现代国有企业道德体系初构</a><span class="time">2016-06-18</span></li>
+                    <li><a href="#">国有企业文化问题根源及文化重塑任务分析</a><span class="time">2016-06-26</span></li>
+                    <li><a href="#">国有企业文化建设必须突出员工文化</a><span class="time">2016-04-20</span></li>
+                    <li><a href="#">加强企业公民建设 推进企业和谐发展</a><span class="time">2016-03-08</span></li>
+                    <li><a href="#">不断提升大庆精神 实现企业持续发展</a><span class="time">2016-02-22</span></li>
+                    <li><a href="#">科学发展作指导 人水和谐路更宽</a><span class="time">2016-02-15</span></li>
+                    <li><a href="#">科学发展作指导 人水和谐路更宽</a><span class="time">2016-02-15</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    myChart = echarts.init(document.getElementById('echarts-line-chart'));
+    myChart.showLoading();
+    $.post("/Chart/GetChart", "", function (data) {
+        myChart.hideLoading();
+        // 填入数据
+        myChart.setOption({
+            title: {
+                text: '模块访问量'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: data[0]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: data[1]
+
+                , yAxis: [
+            {
+                type: 'value'
+            }
+                ],
+            series: data[2]
+        });
+    })
+
+
+    myChart2 = echarts.init(document.getElementById('echarts-line-chart2'));
+    option = {
+        title: {
+            text: '嵌套环形图',
+            x: 'right',
+            y: 'top',
+            textAlign: 'right'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                selectedMode: 'single',
+                radius: [0, '30%'],
+
+                label: {
+                    normal: {
+                        position: 'inner'
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    { value: 335, name: '直达', selected: true },
+                    { value: 679, name: '营销广告' },
+                    { value: 1548, name: '搜索引擎' }
+                ]
+            },
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: ['40%', '55%'],
+
+                data: [
+                    { value: 335, name: '直达' },
+                    { value: 310, name: '邮件营销' },
+                    { value: 234, name: '联盟广告' },
+                    { value: 135, name: '视频广告' },
+                    { value: 1048, name: '百度' },
+                    { value: 251, name: '谷歌' },
+                    { value: 147, name: '必应' },
+                    { value: 102, name: '其他' }
+                ]
+            }
+        ]
+    };
+    myChart2.setOption(option);
+</script>

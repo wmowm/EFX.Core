@@ -1,0 +1,160 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <meta name="description" content="此代码内容为超萌的猫头鹰登录界面" />
+    <title>超萌的猫头鹰登录界面</title>
+    <link rel="stylesheet" href="~/css/jq22.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/loading.css" />
+    <link href="~/css/ui-dialog.css" rel="stylesheet" />
+    <link href="~/css/common.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- begin -->
+    <div id="login">
+        <div class="wrapper">
+            <div class="login">
+                <form asp-controller="Home" asp-action="Login" data-ajax="true" data-ajax-mode="replace" data-ajax-begin="ValidateLog" data-ajax-success="tips(data)" data-ajax-method="post" class="container offset1 loginform">
+                    <div id="owl-login">
+                        <div class="hand"></div>
+                        <div class="hand hand-r"></div>
+                        <div class="arms">
+                            <div class="arm"></div>
+                            <div class="arm arm-r"></div>
+                        </div>
+                    </div>
+                    <div class="pad">
+                        <div class="control-group">
+                            <div class="controls">
+                                <label for="user_name" class="control-label fa fa-envelope"></label>
+                                <input id="user_name" type="text" name="user_name" placeholder="用户名/手机号" tabindex="1" autofocus="autofocus" required=required class="form-control input-medium" value="admin" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <label for="password" class="control-label fa fa-asterisk"></label>
+                                <input id="password" type="password" name="password" placeholder="密码" tabindex="2" required=required class="form-control input-medium" value="123456" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="col-md-8" style="padding-left: 0px">
+                                <label for="code" class="control-label fa fa-hand-o-right"></label>
+                                <input id="code" type="text" name="code" placeholder="验证码" tabindex="3" required=required class="form-control" />
+
+                            </div>
+                            <div class="col-md-4">
+                                <img id="imgcode" class="" src="~/Home/GetAuthCode" style="width:100%;height:100%;margin-top:5px" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="jq22-container">
+
+                                <ul id="spinners">
+                                    <li class="" data-id="1">
+                                        <div id="preloader_1">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+
+                                    </li>
+
+                                    @*<li data-id="2">
+
+                                            <div id="preloader_2">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+
+                                        </li>
+
+                                        <li data-id="3">
+
+                                            <div id="preloader_3"></div>
+
+                                        </li>
+
+                                        <li data-id="4">
+
+                                            <div id="preloader_4">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+
+                                        </li>
+
+                                        <li data-id="5">
+                                            <div id="preloader5"></div>
+                                        </li>
+
+                                        <li data-id="6">
+                                            <div id="preloader6">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+
+                                        </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-info col-sm-12">登 录</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end -->
+</body>
+</html>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/loading.js"></script>
+<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+<script src="~/js/dialog-plus-min.js"></script>
+<script src="~/js/common.js"></script>
+<script src="~/js/bootstrap.js"></script>
+<script>
+    $(function () {
+
+        $('#login #password').focus(function () {
+            $('#owl-login').addClass('password');
+        }).blur(function () {
+            $('#owl-login').removeClass('password');
+        });
+    });
+
+    //登录前js验证
+    function ValidateLog() {
+        $("#spinners li").addClass('active')
+    }
+
+    //登录回调函数
+    function tips(data) {
+        $("#spinners li").removeClass('active')
+        if (data.status == "0") {
+            
+            window.location.href = data.returnUrl;
+        } else {
+            $("#imgcode").attr("src", "/Home/GetAuthCode?time=" + Math.random());
+            $.dialog(data.msg, -1);
+        }
+    }
+
+    $("#imgcode").click(function () {
+        $(this).attr("src", "/Home/GetAuthCode?time=" + Math.random());
+    });
+</script>
+

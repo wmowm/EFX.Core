@@ -1,0 +1,88 @@
+﻿@model Tibos.Domain.Users
+@{
+    ViewData["Title"] = "创建";
+}
+<form id="form" class="layui-form" action="">
+    <div class="layui-col-xs11" style="margin-top:5%">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="UserName" required lay-verify="title" placeholder="请输入用户名" autocomplete="off" class="layui-input" value="@Model?.UserName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="PassWord" required lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-block">
+                <input type="text" name="Mobile" required placeholder="请输入手机号" autocomplete="off" class="layui-input" value="@Model?.Mobile">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="Mobile" required placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="@Model?.Email">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单选框</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="男">
+                <input type="radio" name="sex" value="2" title="女" checked>
+                <input type="radio" name="sex" value="0" title="保密">
+
+            </div>
+        </div>
+     
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+
+    </div>
+</form>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            }
+            , pass: [/(.+){6,12}$/, '密码必须6到12位']
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+        //监听提交
+        form.on('submit(layuiadmin-app-form-submit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/cms/news/create", field);
+        });
+        form.on('submit(layuiadmin-app-form-edit)', function (data) {
+
+            return false;
+        });
+
+        //提取公共提交表单方法
+        function postForm(url, field)
+        {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引  
+            //提交 Ajax 成功后，关闭当前弹层并重载表格
+            $.post(url, field, function (data)
+            {
+                if (data)
+                {
+                    //parent.layui.table.reload('tableList'); //重载表格
+                    //parent.layer.close(index); //再执行关闭 
+                }
+            })
+        }
+    });
+</script>

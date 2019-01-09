@@ -1,0 +1,94 @@
+﻿@model Tibos.Domain.Dict
+<link href="~/css/font-awesome.min93e3.css" rel="stylesheet" />
+<form id="form" class="layui-form" action="">
+    <div class="layui-col-xs11" style="margin-top:5%">
+        <div class="layui-form-item">
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.Tid)
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input" value="@Model?.Name">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入描述" name="Description" class="layui-textarea">@Model?.Description</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="Sort" lay-verify="number" placeholder="请输入排序" autocomplete="off" class="layui-input" value="@Model?.Sort">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                @{ 
+                    var status = "";
+                    if (Model?.Status == 1)
+                    {
+                        status = "checked=''";
+                    }
+                }
+                <input type="checkbox" id="Status" name="Status" lay-skin="switch" lay-text="启用|关闭" title="是否启用" lay-filter="status" value="@Model?.Status" @status>
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+
+    </div>
+</form>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //自定义验证规则
+        form.verify({
+
+        });
+        //监听开关
+        form.on('switch(status)', function (data) {
+            if (data.elem.checked) {
+                $("#Status").val('1');
+            } else {
+                $("#Status").val('0');
+            }
+        });
+        form.on('submit(layuiadmin-app-form-submit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/sys/dict/create", field, "add");
+        });
+        form.on('submit(layuiadmin-app-form-edit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/sys/dict/edit", field, "edit");
+        });
+        //提取公共提交表单方法
+        function postForm(url, field, type) {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            //提交 Ajax 成功后，关闭当前弹层并重载表格
+            var load = layer.load(1, {
+                shade: [0.3, '#808080'] //0.1透明度的白色背景
+            });
+            $.post(url, field, function (data) {
+                layer.close(load);
+                if (data.code == 200) {
+                    parent.layui.table.reload('tableList'); //重载表格
+                    parent.layer.close(index); //再执行关闭
+                    parent.layer.msg("操作成功!", {
+                        time: 1000,
+                        icon: 1,
+                    });
+                } else {
+                    parent.layer.msg("操作失败!", {
+                        time: 1000,
+                        icon: 2,
+                    });
+
+                }
+            })
+        }
+    });
+</script>

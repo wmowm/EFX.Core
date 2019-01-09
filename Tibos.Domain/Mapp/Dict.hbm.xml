@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Tibos.Domain" namespace="Tibos.Domain">
+	<class name="Dict" table="Dict">
+				<id name="Id" column="Id" type="string" unsaved-value="0">
+      					
+      	</id>
+      	      		
+		<property name="Name" column="Name" type="string"  />
+		<property name="Tid" column="Tid" type="string"  />
+		<property name="Description" column="Description" type="string"  />
+		<property name="Sort" column="Sort" type="int"  />
+		<property name="Status" column="Status" type="int"  />
+				
+	</class>
+</hibernate-mapping>

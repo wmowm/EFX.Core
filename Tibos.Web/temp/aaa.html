@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<!-- Mirrored from www.zi-han.net/theme/hplus/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:16:41 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title></title>
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <link href="/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/css/common.css" rel="stylesheet" />
+    <link href="/css/ui-dialog.css" rel="stylesheet" />
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle2" src="/img/profile_small.jpg" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs"><strong class="font-bold">admin</strong></span>
+                                    <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li>
+                                    <a class="J_menuItem" onclick="editManager()">修改密码</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="/Home/login">安全退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            tibos
+                        </div>
+                    </li>
+
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i><span class="nav-label">学生管理</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a class="J_menuItem" href="/Home/Test" data-index="1"><i class="fa fa-user"></i>学生列表</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-file-text"></i><span class="nav-label">运营管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/NewInfo/course" data-index="1"><i class="fa fa-book"></i>课程列表</a></li><li><a class="J_menuItem" href="/NewInfo/classes" data-index="2"><i class="fa fa-mortar-board"></i>班级列表</a></li><li><a class="J_menuItem" href="/NewInfo/classescourse" data-index="3"><i class="fa fa-calendar-check-o"></i>课程安排</a></li><li><a class="J_menuItem" href="1" data-index="3"><i class="fa fa-hand-pointer-o"></i>1</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-amazon"></i><span class="nav-label">企业管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/Enterprise/Enterprises" data-index="1"><i class="fa fa-file-text-o"></i>企业列表</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-institution"></i><span class="nav-label">高校管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/School/schools" data-index="1"><i class="fa fa-file-text-o"></i>高校列表</a></li><li><a class="J_menuItem" href="/School/record" data-index="2"><i class="fa fa-commenting"></i>访问记录</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-trophy"></i><span class="nav-label">考核管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/Exam/Exam_type" data-index="1"><i class="fa fa-code-fork"></i>考试栏目</a></li><li><a class="J_menuItem" href="/Exam/Exam_mark" data-index="2"><i class="fa fa-signal"></i>考试成绩</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-share-alt"></i><span class="nav-label">就业管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/Job/Entry" data-index="1"><i class="fa fa-paper-plane-o"></i>入职信息</a></li><li><a class="J_menuItem" href="/Job/Salary" data-index="2"><i class="fa fa-credit-card"></i>薪资信息</a></li><li><a class="J_menuItem" href="/Job/Special" data-index="3"><i class="fa fa-bug"></i>异常信息</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-line-chart"></i><span class="nav-label">统计管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"></ul></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i><span class="nav-label">短信管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/sms/smstemp" data-index="1"><i class="fa fa-clone"></i>短信模板</a></li><li><a class="J_menuItem" href="/sms/smssend" data-index="2"><i class="fa fa-edit"></i>发送短信</a></li><li><a class="J_menuItem" href="/sms/smsrecord" data-index="3"><i class="fa fa-envelope-o"></i>历史记录</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-desktop"></i><span class="nav-label">系统安全</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/SystemSafety/backups" data-index="98"><i class="fa fa-star-o"></i>数据备份</a></li><li><a class="J_menuItem" href="/SystemSafety/log" data-index="99"><i class="fa fa-book"></i>操作日志</a></li></ul></li>
+                    <li><a href="#"><i class="fa fa-cogs"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse"><li><a class="J_menuItem" href="/SystemManager/navigation" data-index="1"><i class="fa fa-cog"></i>菜单权限</a></li><li><a class="J_menuItem" href="/SystemManager/manager_role" data-index="2"><i class="fa fa-group"></i>角色列表</a></li><li><a class="J_menuItem" href="/SystemManager/city" data-index="2"><i class="fa fa-map-o"></i>区域列表</a></li><li><a class="J_menuItem" href="/SystemManager/manager" data-index="3"><i class="fa fa-user-secret"></i>用户列表</a></li><li><a class="J_menuItem" href="/SystemManager/organization" data-index="3"><i class="fa fa-sitemap"></i>机构管理</a></li></ul></li>
+
+
+
+
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+
+
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+
+                </nav>
+            </div>
+            <div class="row content-tabs">
+                <button class="roll-nav roll-left J_tabLeft">
+                    <i class="fa fa-backward"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="s1">首页</a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight">
+                    <i class="fa fa-forward"></i>
+                </button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">
+                        关闭操作<span class="caret"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive">
+                            <a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll">
+                            <a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther">
+                            <a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="/Home/login" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="" frameborder="0" data-id="s1"></iframe>
+            </div>
+            <div class="footer">
+                <div class="pull-right">
+
+                </div>
+            </div>
+        </div>
+        <!--右侧部分结束-->
+        <!--右侧边栏开始-->
+        <!--右侧边栏结束-->
+    </div>
+    <div id="loadingPage" style="display: none;">
+        <div class="loading-shade"></div>
+        <div class="loading-content" onclick="$.loading(false)">数据加载中，请稍后…</div>
+    </div>
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/js/bootstrap-table.js"></script>
+    <script src="/js/jquery.metisMenu.js"></script>
+    <script src="/js/jquery.slimscroll.min.js"></script>
+    <script src="/js/layer/layer.min.js"></script>
+    <script type="text/javascript" src="/js/contabs.min.js"></script>
+    <script src="/js/pace.min.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/dialog-plus-min.js"></script>
+    <script src="/js/hplus.min.js?v=4.1.0"></script>
+    <script>
+        function editManager() {
+            $("#myModalLabel").text("修改密码");
+            $("#form0").attr("action", "/Home/EditManagerPwd");
+            $("#id").val(1);
+            $('#myModal').modal();
+        }
+
+        //登录前js验证
+        function ValidateLog() {
+            if ($("#txt_password").val() != $("#txt_passwords").val()) {
+                alert("两次输入密码不一致!");
+                return false;
+            }
+            $.loading(true);
+        }
+        //登录回调函数
+        function tips(data) {
+            $.loading(false);
+            if (data.status == 0) {
+                //添加成功
+                $('#myModal').modal('hide')
+
+
+
+                var content = '<button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-check"></i></button><span class="dialog-content">' + data.msg + '</span>'
+                var d = dialog({
+                    fixed: true,
+                    content: content,
+                    padding: 20
+
+                });
+                d.show();
+                //关闭提示模态框
+                setTimeout(function () {
+                    d.close().remove();
+                    //刷新数据
+                    window.location.href = "/home/login";
+                }, 2000);
+            } else if (data.pitchId != "") {
+                alert(data.msg);
+            } else {
+                //添加失败
+                alert(data.msg);
+            }
+        }
+
+        //输出提示信息
+        function point(id, content) {
+            var follow = document.getElementById(id);
+            var d = dialog({
+                align: 'bottom',
+                content: '<span class="label label-warning">!</span> ' + content
+            });
+            d.show(follow);
+            setTimeout(function () {
+                d.close().remove();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

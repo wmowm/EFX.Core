@@ -1,0 +1,311 @@
+﻿//请求地址(列表)
+var RequestListUrl = "/Faculty/GetFacultyList";
+//请求地址(单条记录)
+var RequestUrl = "/Faculty/GetFaculty";
+//请求地址(删除记录)
+var RequestDelUrl = "/Faculty/DelFaculty";
+//请求地址(修改)
+var RequestEditUrl = "Faculty/EditFaculty";
+//请求控制器(添加)
+var RequestAddUrl = "Faculty/AddFaculty"
+$(function () {
+
+    //1.初始化Table
+    var oTable = new TableInit();
+    oTable.Init();
+
+    //2.初始化Button的点击事件
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
+
+});
+var TableInit = function () {
+    var oTableInit = new Object();
+    //初始化Table
+    oTableInit.Init = function () {
+        $('#tb_departments').bootstrapTable({
+            url: RequestListUrl,                 //请求后台的URL（*）
+            method: 'post',                      //请求方式（*）
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: false,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+
+            queryParams: oTableInit.queryParams,//传递参数（*）
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            silent: true,  //刷新事件必须设置
+            formatLoadingMessage: function () {
+                return "<div class='sk-spinner sk-spinner-wave'>" +
+                    "<div class='sk-rect1'></div>" +
+                    "<div class='sk-rect2'></div>" +
+                    "<div class='sk-rect3'></div>" +
+                    "<div class='sk-rect4'></div>" +
+                    "<div class='sk-rect5'></div>" +
+                    "</div>";
+            },
+            strictSearch: true,
+            showColumns: false,                  //是否显示所有的列
+            showRefresh: true,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+            height: 600,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+            showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [{
+                checkbox: true
+            }, {
+                title: '高校名称', //标题
+                //width: 500,//宽度 
+                //align: 'center',//垂直居中
+                valign: 'middle',//水平居中
+                //sortable: true,//是否可排序                
+                formatter: schoolFormatter //初始化,自定义内容(厉害了,word哥,有了这个,想怎么搞就怎么搞了)
+
+            },
+             {
+                 field: 'name',
+                 title: '院系名称',
+             }, {
+                 title: '联系人(一)', //标题
+                 //width: 500,//宽度 
+                 //align: 'center',//垂直居中
+                 valign: 'middle',//水平居中
+                 //sortable: true,//是否可排序                
+                 formatter: user1Formatter //初始化,自定义内容(厉害了,word哥,有了这个,想怎么搞就怎么搞了)
+
+             }, {
+                 title: '联系人(二)', //标题
+                 //width: 500,//宽度 
+                 //align: 'center',//垂直居中
+                 valign: 'middle',//水平居中
+                 //sortable: true,//是否可排序                
+                 formatter: user2Formatter //初始化,自定义内容(厉害了,word哥,有了这个,想怎么搞就怎么搞了)
+
+             }, {
+                 title: '联系人(三)', //标题
+                 //width: 500,//宽度 
+                 //align: 'center',//垂直居中
+                 valign: 'middle',//水平居中
+                 //sortable: true,//是否可排序                
+                 formatter: user3Formatter //初始化,自定义内容(厉害了,word哥,有了这个,想怎么搞就怎么搞了)
+
+             }, {
+                 title: '联系人(四)', //标题
+                 //width: 500,//宽度 
+                 //align: 'center',//垂直居中
+                 valign: 'middle',//水平居中
+                 //sortable: true,//是否可排序                
+                 formatter: user4Formatter //初始化,自定义内容(厉害了,word哥,有了这个,想怎么搞就怎么搞了)
+
+             }, {
+                 title: '联系人(五)', //标题
+                 //width: 500,//宽度 
+                 //align: 'center',//垂直居中
+                 valign: 'middle',//水平居中
+                 //sortable: true,//是否可排序                
+                 formatter: user5Formatter //初始化,自定义内容(厉害了,word哥,有了这个,想怎么搞就怎么搞了)
+
+             }
+            ]
+
+        });
+    };
+
+
+
+    function schoolFormatter(value, row, index) {
+        if (row.school_info != null) {
+            return row.school_info.name;
+        } else {
+            return "";
+        }
+    }
+
+    function erpriseFormatter(value, row, index) {
+        if (row.manager != null) {
+            return row.manager.real_name;
+        } else {
+            return "";
+        }
+    }
+    function user1Formatter(value, row, index) {
+        return row.username1 +":"+ row.team1 +":"+ row.mobile1;
+    }
+    function user2Formatter(value, row, index) {
+        return row.username2 + ":" + row.team2 + ":" + row.mobile2;
+    }
+    function user3Formatter(value, row, index) {
+        return row.username3 + ":" + row.team3 + ":" + row.mobile3;
+    }
+    function user4Formatter(value, row, index) {
+        return row.username4 + ":" + row.team4 + ":" + row.mobile4;
+    }
+    function user5Formatter(value, row, index) {
+        return row.username5 + ":" + row.team5 + ":" + row.mobile5;
+    }
+    //得到查询的参数
+    oTableInit.queryParams = function (params) {
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            limit: params.limit,   //页面大小
+            offset: params.offset,  //页码
+            school: $("#school").val()
+        };
+        return temp;
+    };
+    return oTableInit;
+};
+
+
+var ButtonInit = function () {
+    var oInit = new Object();
+    var postdata = {};
+
+    oInit.Init = function () {
+        $("#btn_add").click(function () {
+
+            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            $(".selectpicker").selectpicker("refresh");
+            $('.selectpicker').selectpicker('val', 0);
+            $("#myModalLabel").text("新增");
+            $("#myModal").find(".form-control").val("");
+            $("#form0").attr("action", RequestAddUrl);
+            $('#myModal').modal();
+        });
+
+        $("#btn_edit").click(function () {
+            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            if (arrselections.length > 1) {
+                var d = dialog({
+                    fixed: true,
+                    content: "只能选择一行进行编辑",
+                    padding: 30
+
+                });
+                d.show();
+                //关闭提示模态框
+                setTimeout(function () {
+                    d.close().remove();
+                }, 2000);
+                return;
+            }
+            if (arrselections.length <= 0) {
+                var d = dialog({
+                    fixed: true,
+                    content: "请选择有效数据",
+                    padding: 30
+
+                });
+                d.show();
+                //关闭提示模态框
+                setTimeout(function () {
+                    d.close().remove();
+                }, 2000);
+                return;
+            }
+            $("#myModalLabel").text("编辑");
+            $("#myModal").find(".form-control").val("");
+            $.post(RequestUrl, { id: arrselections[0].id }, function (data) {
+                $("#id").val(data.id);
+                if (data.school_info != null) {
+                    $('#txt_school_id').selectpicker('val', data.school_info.id);
+                    $("#txt_school_id").val(data.school_info.id);
+                }
+                $("#txt_name").val(data.name);
+
+
+                $("#txt_username1").val(data.username1);
+                $("#txt_username2").val(data.username2);
+                $("#txt_username3").val(data.username3);
+                $("#txt_username4").val(data.username4);
+                $("#txt_username5").val(data.username5);
+                
+
+                $("#txt_team1").val(data.team1);
+                $("#txt_team2").val(data.team2);
+                $("#txt_team3").val(data.team3);
+                $("#txt_team4").val(data.team4);
+                $("#txt_team5").val(data.team5);
+
+                $("#txt_mobile1").val(data.mobile1);
+                $("#txt_mobile2").val(data.mobile2);
+                $("#txt_mobile3").val(data.mobile3);
+                $("#txt_mobile4").val(data.mobile4);
+                $("#txt_mobile5").val(data.mobile5);
+
+                $("#form0").attr("action", RequestEditUrl);
+            }, "json");
+            $('#myModal').modal();
+        });
+
+        $("#btn_delete").click(function () {
+            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            if (arrselections.length <= 0) {
+                var d = dialog({
+                    fixed: true,
+                    content: "请选择有效数据",
+                    padding: 30
+
+                });
+                d.show();
+                //关闭提示模态框
+                setTimeout(function () {
+                    d.close().remove();
+                }, 2000);
+                return;
+            }
+
+
+            var d = dialog({
+                title: '系统提示',
+                padding: 30,
+                content: '确定要删除这些数据?',
+                okValue: '确定',
+                ok: function () {
+                    this.title('提交中…');
+                    var ids = "";
+                    $(arrselections).each(function () {
+                        ids += this.id + ",";
+                    })
+                    if (ids.length > 1)//去掉最后一个,
+                    {
+                        ids = ids.substring(0, ids.length - 1);
+                    }
+
+                    $.post(RequestDelUrl, { ids: ids }, function (data) {
+                        var e = dialog({
+                            padding: 30,
+                            content: data.msg
+                        });
+                        //显示模态框
+                        e.show();
+                        //先关闭主窗体
+                        $('#myModal').modal('hide')
+                        //刷新数据
+                        $('#tb_departments').bootstrapTable('refresh', { url: RequestListUrl });
+                        //关闭提示模态框
+                        setTimeout(function () {
+                            e.close().remove();
+                        }, 2000);
+                    });
+                },
+                cancelValue: '取消',
+                cancel: function () { }
+            });
+            d.show();
+        });
+        $("#btn_query").click(function () {
+            $("#tb_departments").bootstrapTable('refresh');
+        });
+    };
+
+    return oInit;
+};

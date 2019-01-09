@@ -1,0 +1,39 @@
+web api 验证授权
+---------------------------
+1.提交登录信息,获取token
+
+2.token(key/value) key:token  value:用户唯一标识
+
+3.缓存机制, 过期时间设置15分钟,每次操作刷新缓存,15分钟内无任何操作,该缓存过期
+
+4.在过滤器里,实现验证授权,根据token获取用户标准->角色,并刷新token过期时间
+
+---------------------------
+
+web api 深坑系列
+---------------------------
+1.RestFul Action共存
+在get情况下,相同路由的Action无法共存,运行报错会匹配到多个Action
+在post情况下,相同路由的Action可以共存,会存在优先级,但是只会执行一个正则匹配到的Action
+
+2.RestFul 相同路由的Action如何并存,并访问指定的Action
+[Route("list"),HttpPost]
+路由如下  api/{controller}/list
+
+3.RestFul 如何设置多参数,
+[Route("list"),HttpPost("{a}/{b}/{c}")]
+路由如下  api/{controller}/list/1/2/3
+
+4.Post提交多参数,[FromBody] 跨域问题
+去注册中间件,让webapi支持跨域
+
+5.Post提交多参数,[FromBody] ajax提交类型错误
+必须设置:contentType: 'application/json; charset=urf-8'
+参数必须格式化成json字符串: data: JSON.stringify(data)
+
+6.关于[FromBody]标识的参数不能设置基础类型,如string...
+错误说话,可以设置成string类型
+
+7.为什么Post提交参数必须要标识[FromBody]
+[FromBody]表示该参数值应该从请求的Body中获取，而不是从URL中获取,URL有长度限制
+在不超过长度限制的情况下,可以随意
