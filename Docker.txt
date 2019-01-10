@@ -1,4 +1,3 @@
--------------------------------------------------
 [yum/apt-get] install docker-ce
 
 docker images
