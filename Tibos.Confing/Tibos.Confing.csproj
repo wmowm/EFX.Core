@@ -17,7 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tibos.Domain\Tibos.Domain.csproj" />
-    <ProjectReference Include="..\Tibos.Service.Contract\Tibos.Service.Contract.csproj" />
+    <ProjectReference Include="..\Tibos.IRepository\Tibos.IRepository.csproj" />
+    <ProjectReference Include="..\Tibos.IService\Tibos.IService.csproj" />
+    <ProjectReference Include="..\Tibos.Repository\Tibos.Repository.csproj" />
     <ProjectReference Include="..\Tibos.Service\Tibos.Service.csproj" />
   </ItemGroup>
 

@@ -8,6 +8,13 @@ namespace Tibos.IRepository
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
+
+        /// <summary>
+        /// 提交
+        /// </summary>
+        /// <param name="isBulkSave"></param>
+        void SaveChanges(bool isBulkSave = true);
+
         /// <summary>
         /// 获取所有列表信息
         /// </summary>

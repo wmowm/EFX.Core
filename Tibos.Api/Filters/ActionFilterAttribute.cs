@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tibos.Api.Annotation;
 using Tibos.Common;
-using Tibos.Service.Contract;
+using Tibos.Service;
 
 namespace Tibos.Api.Filters
 {
@@ -21,13 +21,11 @@ namespace Tibos.Api.Filters
         
         private readonly ILogger<ActionFilterAttribute> logger;
         private readonly IMemoryCache _Cache;
-        private readonly ManagerIService _ManagerService;
         private readonly Token _Token;
-        public ActionFilterAttribute(ILoggerFactory loggerFactory, IMemoryCache memoryCache, ManagerIService Managerervice)
+        public ActionFilterAttribute(ILoggerFactory loggerFactory, IMemoryCache memoryCache)
         {
             logger = loggerFactory.CreateLogger<ActionFilterAttribute>();
             _Cache = memoryCache;
-            _ManagerService = Managerervice;
             _Token = new Token(_Cache);
         }
 
@@ -55,8 +53,15 @@ namespace Tibos.Api.Filters
 
             #region 根据注解允许匿名访问
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-            var controllerAttributes = actionDescriptor.MethodInfo.GetCustomAttributes(typeof(AlwaysAccessibleAttribute),true);
+            //controller
+            var controllerAttributes = actionDescriptor.MethodInfo.DeclaringType.GetCustomAttributes(typeof(AlwaysAccessibleAttribute), true);
             if (controllerAttributes != null && controllerAttributes.Length > 0)
+            {
+                return;
+            }
+            //action
+            var actionAttributes = actionDescriptor.MethodInfo.GetCustomAttributes(typeof(AlwaysAccessibleAttribute), true);
+            if (actionAttributes != null && actionAttributes.Length > 0)
             {
                 return;
             }

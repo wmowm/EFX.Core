@@ -61,7 +61,9 @@ namespace Tibos.Api
             //添加AutoMapper
             services.AddAutoMapper();
 
-            services.AddMvc(options=>
+        
+
+        services.AddMvc(options=>
             {
                 options.Filters.Add(typeof(ResourceFilterAttribute));
                 options.Filters.Add(typeof(ActionFilterAttribute));

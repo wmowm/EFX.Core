@@ -12,23 +12,20 @@ using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
 using Tibos.Domain;
 using Tibos.Service;
-using Tibos.Service.Contract;
 namespace Tibos.Api.Controllers
 {
     [Route("api/[controller]")]
+
     public class HomeController : Controller
     {
         public HomeController(IMapper mapper)
         {
         }
-        public ManagerIService _ManagerIService { get; set; }
-        public NavigationIService _NavigationIService { get; set; }
         public IMapper _IMapper { get; set; }
 
 
         // GET api/values
         [HttpGet]
-        [AlwaysAccessibleAttribute]
         public IEnumerable<string> Get()
         {
             var config = JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");

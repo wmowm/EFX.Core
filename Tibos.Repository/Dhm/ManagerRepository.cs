@@ -8,7 +8,7 @@ namespace Tibos.Repository.Dhm
 {
     public partial class ManagerRepository:DhmRepository<Manager>
     {
-        public ManagerRepository(BaseDbContext dbContext)
+        public ManagerRepository()
         {
 
         }

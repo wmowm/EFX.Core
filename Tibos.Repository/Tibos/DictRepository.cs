@@ -7,7 +7,7 @@ namespace Tibos.Repository.Tibos
 {
     public partial class DictRepository:TibosRepository<Dict>
     {
-        public DictRepository(BaseDbContext dbContext)
+        public DictRepository()
         {
 
         }

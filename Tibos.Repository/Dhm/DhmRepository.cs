@@ -13,9 +13,6 @@ namespace Tibos.Repository.Tibos
 {
     public class DhmRepository<T>: BaseRepository<T>,IBaseRepository<T> where T : BaseEntity
     {
-        /// <summary>
-        /// 通过配置,构建上下文
-        /// </summary>
         public DhmRepository()
         {
             BaseDbContext dbContext = new DhmDbContext("mysql", "server=193.112.104.103;database=dhm;uid=root;pwd=123456;port=3308;Charset=utf8;");

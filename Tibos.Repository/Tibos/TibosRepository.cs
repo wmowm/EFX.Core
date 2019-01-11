@@ -15,7 +15,7 @@ namespace Tibos.Repository.Tibos
         /// <summary>
         /// 通过配置,构建上下文
         /// </summary>
-        public TibosRepository()
+        public TibosRepository():base()
         {
             BaseDbContext dbContext = new TibosDbContext("mysql", "server=193.112.104.103;database=tibos;uid=root;pwd=123456;port=3308;Charset=utf8;");
             base.DbContent = dbContext;

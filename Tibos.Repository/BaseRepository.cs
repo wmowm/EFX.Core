@@ -12,20 +12,37 @@ namespace Tibos.Repository.Tibos
 {
     public class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity
     {
-        private DbContext dbContext;
+        public virtual DbSet<T> Table { get; set; }
+        public virtual BaseDbContext DbContent { get; set; }
 
-        public DbSet<T> Table { get; set; }
-        public BaseDbContext DbContent { get; set; }
 
         public BaseRepository()
         {
 
         }
 
-        //public BaseRepository(DbContext dbContext)
-        //{
-        //    this.dbContext = dbContext;
-        //}
+        public BaseRepository(BaseDbContext dbContext)
+        {
+            this.DbContent = dbContext;
+            this.Table = this.DbContent.Set<T>();
+        }
+
+        /// <summary>
+        /// 提交
+        /// </summary>
+        public void SaveChanges(bool isBulkSave = true)
+        {
+            
+            if (isBulkSave)
+            {
+                this.DbContent.BulkSaveChanges();
+            }
+            else
+            {
+                this.DbContent.SaveChanges();
+            }
+
+        }
 
         /// <summary>
         /// 获取所有列表信息
@@ -33,11 +50,9 @@ namespace Tibos.Repository.Tibos
         /// <returns></returns>
         public virtual List<T> GetList()
         {
-            using (BaseDbContext db = new BaseDbContext())
-            {
-                var list = Table.AsQueryable().ToList();
-                return list;
-            }
+            Table = DbContent.Set<T>();
+            var list = Table.AsQueryable().ToList();
+            return list;
         }
 
         /// <summary>

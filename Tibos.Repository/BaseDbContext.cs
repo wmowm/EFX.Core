@@ -13,19 +13,18 @@ namespace Tibos.Repository
         private string ConnType { get; set; }
         private string ConnName { get; set; }
 
+
+        public BaseDbContext DbContext { get; set; }
         public BaseDbContext()
         {
-
+            
         }
-
         public BaseDbContext(string connType, string connName)
         {
             this.ConnName = connName;
             this.ConnType = connType;
             this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
