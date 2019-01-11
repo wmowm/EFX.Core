@@ -6,11 +6,7 @@ using Tibos.Repository.Tibos;
 
 namespace Tibos.Repository.Dhm
 {
-    public partial class ManagerRepository:DhmRepository<Manager>
+    public partial class ManagerRepository : DhmRepository<Manager>
     {
-        public ManagerRepository()
-        {
-
-        }
     }
 }

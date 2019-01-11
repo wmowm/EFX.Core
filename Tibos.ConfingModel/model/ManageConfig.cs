@@ -14,7 +14,9 @@ namespace Tibos.ConfingModel.model
 
         public int AttachImagesize { get; set; }
 
+        public DBConfig TibosDB { get; set; }
 
+        public DBConfig DhmDB { get; set; }
     }
 
 }

@@ -15,10 +15,5 @@ namespace Tibos.ConfingModel.model
         /// 数据库连接字符串
         /// </summary>
         public string ConnName { get; set; }
-
-        /// <summary>
-        /// 上下文名称
-        /// </summary>
-        public string DbContext{ get; set; }
     }
 }

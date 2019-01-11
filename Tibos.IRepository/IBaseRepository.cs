@@ -12,8 +12,7 @@ namespace Tibos.IRepository
         /// <summary>
         /// 提交
         /// </summary>
-        /// <param name="isBulkSave"></param>
-        void SaveChanges(bool isBulkSave = true);
+        void SaveChanges();
 
         /// <summary>
         /// 获取所有列表信息

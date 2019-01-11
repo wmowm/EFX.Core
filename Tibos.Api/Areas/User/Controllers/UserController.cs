@@ -79,7 +79,7 @@ namespace Tibos.Api.Areas.User.Controllers
         [HttpPost]
         public JsonResult Test()
         {
-            _DictService.SaveChanges(false);
+            _DictService.SaveChanges();
             return Json("");
         }
     }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tibos.ConfingModel;
+using Tibos.ConfingModel.model;
 using Tibos.Domain;
 using Tibos.IRepository;
 
@@ -15,9 +17,11 @@ namespace Tibos.Repository.Tibos
         public virtual DbSet<T> Table { get; set; }
         public virtual BaseDbContext DbContent { get; set; }
 
+        public virtual ManageConfig config { get; set; }
 
         public BaseRepository()
         {
+            config = JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
 
         }
 
@@ -30,18 +34,9 @@ namespace Tibos.Repository.Tibos
         /// <summary>
         /// 提交
         /// </summary>
-        public void SaveChanges(bool isBulkSave = true)
+        public void SaveChanges()
         {
-            
-            if (isBulkSave)
-            {
-                this.DbContent.BulkSaveChanges();
-            }
-            else
-            {
-                this.DbContent.SaveChanges();
-            }
-
+            this.DbContent.SaveChanges();
         }
 
         /// <summary>
