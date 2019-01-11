@@ -1,6 +1,6 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template

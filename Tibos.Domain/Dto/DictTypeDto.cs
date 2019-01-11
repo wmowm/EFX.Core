@@ -1,6 +1,6 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
@@ -11,7 +11,7 @@ namespace Tibos.Domain
 	{
 	
       	/// <summary>
-		/// 编号
+		/// Id
         /// </summary>
         public virtual string Id
         {
@@ -19,7 +19,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 名称
+		/// Name
         /// </summary>
         public virtual string Name
         {
@@ -27,15 +27,15 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 排序
+		/// Sort
         /// </summary>
-        public virtual int Sort
+        public virtual int? Sort
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 标记
+		/// Mark
         /// </summary>
         public virtual string Mark
         {

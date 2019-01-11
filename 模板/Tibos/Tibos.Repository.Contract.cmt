@@ -1,0 +1,78 @@
+﻿<#@ template language="c#" HostSpecific="True" #>
+<#@ output extension= ".cs" #>
+<#
+	TableHost host = (TableHost)(Host);
+	host.Fieldlist.Sort(CodeCommon.CompareByintOrder);
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Tibos.Domain;
+using System.Linq.Expressions;
+using Tibos.Common;
+
+//Nhibernate Code Generation Template 1.0
+//author:Tibos
+//blog:www.cnblogs.com/Tibos
+//Entity Code Generation Template
+namespace Tibos.Repository.Contract
+{
+	<# if( host.TableDescription.Length > 0) {#>
+ 	//<#= host.TableDescription #>
+	<# } #>
+public interface I<#= host.GetModelClass(host.TableName) #>
+	{
+		#region  成员方法
+		/// <summary>
+		/// 是否存在该记录
+		/// </summary>
+		bool Exists(object id);
+
+		/// <summary>
+		/// 增加一条数据
+		/// </summary>
+		object  Save(<#= host.GetModelClass(host.TableName) #> model);
+		/// <summary>
+		/// 更新一条数据
+		/// </summary>
+		void Update(<#= host.GetModelClass(host.TableName) #> model);
+		/// <summary>
+		/// 删除数据
+		/// </summary>
+		void Delete(object id);
+		/// <summary>
+		/// 删除数据
+		/// </summary>
+		void Delete(<#= host.GetModelClass(host.TableName) #> model);
+		/// <summary>
+		/// 得到一个对象实体
+		/// </summary>
+		<#= host.GetModelClass(host.TableName) #> Get(object id);
+		/// <summary>
+		/// 获得数据列表
+		/// </summary>
+		IList<<#= host.GetModelClass(host.TableName) #>> LoadAll();
+
+        /// <summary>
+        /// 条件查询
+        /// </summary>
+        IList<<#= host.GetModelClass(host.TableName) #>> GetList(RequestParams request);
+
+        /// <summary>
+        /// 查询条件
+        /// </summary>
+        IList<<#= host.GetModelClass(host.TableName) #>> GetList(Expression<Func<<#= host.GetModelClass(host.TableName) #>, bool>> expression, List<SortOrder<<#= host.GetModelClass(host.TableName) #>>> expressionOrder, Pagination pagination);
+        
+
+        /// <summary>
+        /// 获取总条数
+        /// </summary>
+        int GetCount(RequestParams request);
+        
+
+		#endregion  成员方法
+      	
+   
+	}
+}

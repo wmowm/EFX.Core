@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Tibos.Common;
 using Tibos.Domain;
-using Tibos.Service.Contract;
+using Tibos.IService.Tibos;
+using Tibos.Service.Tibos;
 
 namespace Tibos.Admin.Areas.SYS.Controllers
 {
@@ -13,9 +14,10 @@ namespace Tibos.Admin.Areas.SYS.Controllers
     public class DictController : Controller
     {
 
-        public DictIService _DictIService { get; set; }
 
-        public DictTypeIService _DictTypeIService { get; set; }
+        public IDictService _DictIService { get; set; }
+
+        public IDictTypeService _DictTypeIService { get; set; }
 
         #region Dict
         public IActionResult Index()

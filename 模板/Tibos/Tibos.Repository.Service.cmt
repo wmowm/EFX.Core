@@ -1,0 +1,166 @@
+﻿<#@ template language="c#" HostSpecific="True" #>
+<#@ output extension= ".cs" #>
+<#
+	TableHost host = (TableHost)(Host);
+	host.Fieldlist.Sort(CodeCommon.CompareByintOrder);
+#>
+using NHibernate;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Tibos.Domain;
+using System.Linq.Expressions;
+using NHibernate.Criterion;
+using Tibos.Repository.Contract;
+using Tibos.Common;
+using NHibernate.Criterion.Lambda;
+
+//Nhibernate Code Generation Template 1.0
+//author:Tibos
+//blog:www.cnblogs.com/Tibos
+//Entity Code Generation Template
+namespace Tibos.Repository.Service
+{
+	public class <#= host.GetModelClass(host.TableName) #>Dao:I<#= host.GetModelClass(host.TableName) #>
+	{
+        private ISessionFactory sessionFactory = ManagerPage.SessionFactory;
+        #region  成员方法
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public virtual bool Exists(object id)
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                return Get(id) != null;
+            }
+        }
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public virtual object Save(<#= host.GetModelClass(host.TableName) #> model)
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                var id = session.Save(model);
+                session.Flush();
+                return id;
+            }
+        }
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public virtual void Update(<#= host.GetModelClass(host.TableName) #> model)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                session.SaveOrUpdate(model);
+                session.Flush();
+            }
+        }
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        public virtual void Delete(object id)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var model = session.Load<<#= host.GetModelClass(host.TableName) #>>(id);
+                session.Delete(model);
+                session.Flush();
+            }
+        }
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        public virtual void Delete(<#= host.GetModelClass(host.TableName) #> model)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                session.Delete(model);
+
+                session.Flush();
+            }
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public virtual <#= host.GetModelClass(host.TableName) #> Get(object id)
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                return session.Get<<#= host.GetModelClass(host.TableName) #>>(id);
+            }
+        }
+
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public virtual IList<<#= host.GetModelClass(host.TableName) #>> LoadAll()
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                return session.QueryOver<<#= host.GetModelClass(host.TableName) #>>().List();
+            }
+        }
+
+        /// <summary>
+        /// 条件查询
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="user_name"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        public virtual IList<<#= host.GetModelClass(host.TableName) #>> GetList(RequestParams request)
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                ICriteria crit = session.CreateCriteria(typeof(<#= host.GetModelClass(host.TableName) #>));
+                IList<<#= host.GetModelClass(host.TableName) #>> list = ManagerPage.GetCrit<<#= host.GetModelClass(host.TableName) #>>(request,crit);
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 条件查询
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="expressionOrder"></param>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
+        public virtual IList<<#= host.GetModelClass(host.TableName) #>> GetList(Expression<Func<<#= host.GetModelClass(host.TableName) #>, bool>> expression, List<SortOrder<<#= host.GetModelClass(host.TableName) #>>> expressionOrder, Pagination pagination)
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                var query = session.QueryOver<<#= host.GetModelClass(host.TableName) #>>().Where(expression);
+                IList<<#= host.GetModelClass(host.TableName) #>> list = ManagerPage.GetQueryOver<<#= host.GetModelClass(host.TableName) #>>(query, expressionOrder, pagination);
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 获取总条数
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="user_name"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        public virtual int GetCount(RequestParams request)
+        {
+            using (ISession session = sessionFactory.OpenSession())
+            {
+                ICriteria crit = session.CreateCriteria(typeof(<#= host.GetModelClass(host.TableName) #>));
+                int count = ManagerPage.GetCritCount<<#= host.GetModelClass(host.TableName) #>>(request, crit);
+                return count;
+            }
+        }
+
+		#endregion  成员方法
+	}
+}

@@ -36,7 +36,9 @@ namespace Tibos.Api.Areas.User.Controllers
 
         //属性注入
         public IDictService _DictService { get; set; }
-        public IManagerService _ManagerService { get; set; }
+        public IService.Dhm.IManagerService _ManagerService { get; set; }
+
+        public IDictTypeService _DictTypeService { get; set; }
 
         //构造函数注入
         public UserController(IMemoryCache memoryCache)
@@ -55,6 +57,7 @@ namespace Tibos.Api.Areas.User.Controllers
                 //获取tibos库数据
                 var list_dict = _DictService.GetList();
 
+                var list_dy = _DictTypeService.GetList();
 
                 Dict dict = new Dict()
                 {

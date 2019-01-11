@@ -1,0 +1,25 @@
+﻿<#@ template language="c#" HostSpecific="True" #>
+<#@ output extension= ".cs" #>
+<#
+	TableHost host = (TableHost)(Host);
+	host.Fieldlist.Sort(CodeCommon.CompareByintOrder);
+#>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Tibos.Domain;
+
+//EFX Code Generation Template 1.0
+//author:Tibos
+//blog:www.cnblogs.com/Tibos
+//Entity Code Generation Template
+namespace Tibos.Repository.Tibos
+{
+	public partial class <#= host.GetModelClass(host.TableName) #>Repository:TibosRepository<<#= host.GetModelClass(host.TableName) #>>
+	{
+        public <#= host.GetModelClass(host.TableName) #>Repository()
+        {
+
+        }
+	}
+}

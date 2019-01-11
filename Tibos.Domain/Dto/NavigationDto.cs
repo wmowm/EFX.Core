@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
@@ -12,7 +11,7 @@ namespace Tibos.Domain
 	{
 	
       	/// <summary>
-		/// 主键编号
+		/// Id
         /// </summary>
         public virtual string Id
         {
@@ -20,7 +19,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 上级编号
+		/// ParentId
         /// </summary>
         public virtual string ParentId
         {
@@ -28,15 +27,15 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单等级
+		/// Level
         /// </summary>
-        public virtual int Level
+        public virtual int? Level
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 菜单名称
+		/// Name
         /// </summary>
         public virtual string Name
         {
@@ -44,7 +43,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单图标
+		/// Icon
         /// </summary>
         public virtual string Icon
         {
@@ -52,7 +51,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单路径
+		/// Link
         /// </summary>
         public virtual string Link
         {
@@ -60,23 +59,23 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 排序
+		/// Sort
         /// </summary>
-        public virtual int Sort
+        public virtual int? Sort
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 是否为系统菜单
+		/// IsSys
         /// </summary>
-        public virtual int IsSys
+        public virtual int? IsSys
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 控制器名称
+		/// ControllerName
         /// </summary>
         public virtual string ControllerName
         {
@@ -84,20 +83,15 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 区域
+		/// Areas
         /// </summary>
         public virtual string Areas
         {
             get; 
             set; 
-        }
-
-        public virtual List<DictDto> DictList
-        {
-            get;
-            set;
-        }
-    }
+        }        
+		   
+	}
 	public class NavigationRequest : Navigation
     {
         /// <summary>
@@ -119,20 +113,5 @@ namespace Tibos.Domain
         /// 排序方式 0:正序,1倒序
         /// </summary>
         public int sortType { get; set; }
-    }
-
-    public class zTree
-    {
-        public string id { get; set; }
-
-        public string pId { get; set; }
-
-        public string name { get; set; }
-
-        public bool open { get; set; }
-
-        public bool noRemoveBtn { get; set; }
-
-        public bool noEditBtn { get; set; }
     }
 }

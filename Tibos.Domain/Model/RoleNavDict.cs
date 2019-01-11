@@ -1,13 +1,13 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
 namespace Tibos.Domain
 {
 	 //RoleNavDict
-	public class RoleNavDict
+	public class RoleNavDict:BaseEntity
 	{
       	/// <summary>
 		/// 编号

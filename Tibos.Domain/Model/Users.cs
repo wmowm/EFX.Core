@@ -1,13 +1,13 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
 namespace Tibos.Domain
 {
 	 //Users
-	public class Users
+	public class Users:BaseEntity
 	{
       	/// <summary>
 		/// Id
@@ -56,10 +56,17 @@ namespace Tibos.Domain
         {
             get; 
             set; 
-        }
-        public virtual int? Sex { get; set; }
-        /// <summary>
-        /// LoginTime
+        }        
+		/// <summary>
+		/// Sex
+        /// </summary>
+        public virtual int? Sex
+        {
+            get; 
+            set; 
+        }        
+		/// <summary>
+		/// LoginTime
         /// </summary>
         public virtual DateTime? LoginTime
         {

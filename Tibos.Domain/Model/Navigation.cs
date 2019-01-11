@@ -1,16 +1,16 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
 namespace Tibos.Domain
 {
-	 	//Navigation
-		public class Navigation
+	 //Navigation
+	public class Navigation:BaseEntity
 	{
       	/// <summary>
-		/// 主键编号
+		/// Id
         /// </summary>
         public virtual string Id
         {
@@ -18,7 +18,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 上级编号
+		/// ParentId
         /// </summary>
         public virtual string ParentId
         {
@@ -26,7 +26,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单等级
+		/// Level
         /// </summary>
         public virtual int? Level
         {
@@ -34,7 +34,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单名称
+		/// Name
         /// </summary>
         public virtual string Name
         {
@@ -42,7 +42,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单图标
+		/// Icon
         /// </summary>
         public virtual string Icon
         {
@@ -50,7 +50,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 菜单路径
+		/// Link
         /// </summary>
         public virtual string Link
         {
@@ -58,23 +58,23 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 排序
+		/// Sort
         /// </summary>
-        public virtual int Sort
+        public virtual int? Sort
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 是否为系统菜单
+		/// IsSys
         /// </summary>
-        public virtual int IsSys
+        public virtual int? IsSys
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 控制器名称
+		/// ControllerName
         /// </summary>
         public virtual string ControllerName
         {
@@ -82,7 +82,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 区域
+		/// Areas
         /// </summary>
         public virtual string Areas
         {

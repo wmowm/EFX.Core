@@ -1,16 +1,16 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
 namespace Tibos.Domain
 {
-	 	//Organization
-		public class Organization
+	 //Organization
+	public class Organization:BaseEntity
 	{
       	/// <summary>
-		/// 主键编号
+		/// Id
         /// </summary>
         public virtual string Id
         {
@@ -18,7 +18,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 名称
+		/// Name
         /// </summary>
         public virtual string Name
         {
@@ -26,15 +26,15 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 类型(1.区域,2.公司,3.组)
+		/// OrgType
         /// </summary>
-        public virtual int OrgType
+        public virtual int? OrgType
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 上级编号
+		/// ParentId
         /// </summary>
         public virtual string ParentId
         {

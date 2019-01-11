@@ -1,6 +1,6 @@
 ﻿using System;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
@@ -33,10 +33,17 @@ namespace Tibos.Domain
         {
             get; 
             set; 
-        }
-        public virtual int Status { get; set; }
-
-    }
+        }        
+		/// <summary>
+		/// Status
+        /// </summary>
+        public virtual int? Status
+        {
+            get; 
+            set; 
+        }        
+		   
+	}
 	public class NavigationRoleRequest : NavigationRole
     {
         /// <summary>

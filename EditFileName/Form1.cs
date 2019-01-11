@@ -1,6 +1,4 @@
-﻿using System;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -10,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Web;
 using System.IO;
+using System;
 
 namespace EditFileName
 {

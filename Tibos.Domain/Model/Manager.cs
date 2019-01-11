@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
 namespace Tibos.Domain
 {
-	 	//Manager
-		public class Manager: BaseEntity
-    {
+	 //Manager
+	public class Manager:BaseEntity
+	{
       	/// <summary>
-		/// 主键编号
+		/// Id
         /// </summary>
         public virtual string Id
         {
@@ -19,7 +18,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 用户名
+		/// UserName
         /// </summary>
         public virtual string UserName
         {
@@ -27,7 +26,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 密码
+		/// Password
         /// </summary>
         public virtual string Password
         {
@@ -35,7 +34,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 手机号
+		/// Mobile
         /// </summary>
         public virtual string Mobile
         {
@@ -43,7 +42,7 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 邮箱
+		/// Email
         /// </summary>
         public virtual string Email
         {
@@ -51,31 +50,37 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 状态(0:正常,-1禁用)
+		/// Status
         /// </summary>
-        public virtual int Status
+        public virtual int? Status
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 最后登录时间
+		/// LoginTime
         /// </summary>
-        public virtual DateTime LoginTime
+        public virtual DateTime? LoginTime
         {
             get; 
             set; 
         }        
 		/// <summary>
-		/// 登录IP
+		/// LoginIp
         /// </summary>
         public virtual string LoginIp
         {
             get; 
             set; 
-        }
-
-        public virtual string RoleId { get; set; }
-
-    }
+        }        
+		/// <summary>
+		/// RoleId
+        /// </summary>
+        public virtual string RoleId
+        {
+            get; 
+            set; 
+        }        
+		   
+	}
 }

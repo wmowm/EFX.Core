@@ -165,7 +165,7 @@
             this.txtService1.ReadOnly = true;
             this.txtService1.Size = new System.Drawing.Size(190, 21);
             this.txtService1.TabIndex = 11;
-            this.txtService1.Text = "/Tibos.Service";
+            this.txtService1.Text = "/Tibos.Service/Tibos";
             // 
             // label10
             // 
@@ -182,7 +182,7 @@
             this.txtIService.Name = "txtIService";
             this.txtIService.Size = new System.Drawing.Size(188, 21);
             this.txtIService.TabIndex = 15;
-            this.txtIService.Text = "@IService";
+            this.txtIService.Text = "I@Service";
             // 
             // txtIService1
             // 
@@ -191,7 +191,7 @@
             this.txtIService1.ReadOnly = true;
             this.txtIService1.Size = new System.Drawing.Size(190, 21);
             this.txtIService1.TabIndex = 14;
-            this.txtIService1.Text = "/Tibos.Service.Contract";
+            this.txtIService1.Text = "/Tibos.IService/Tibos";
             // 
             // label11
             // 
@@ -208,7 +208,7 @@
             this.txtDao.Name = "txtDao";
             this.txtDao.Size = new System.Drawing.Size(188, 21);
             this.txtDao.TabIndex = 18;
-            this.txtDao.Text = "@Dao";
+            this.txtDao.Text = "@Repository";
             // 
             // txtDao1
             // 
@@ -217,7 +217,7 @@
             this.txtDao1.ReadOnly = true;
             this.txtDao1.Size = new System.Drawing.Size(190, 21);
             this.txtDao1.TabIndex = 17;
-            this.txtDao1.Text = "/Tibos.Repository.Service";
+            this.txtDao1.Text = "/Tibos.Repository/Tibos";
             // 
             // label12
             // 
@@ -234,7 +234,7 @@
             this.txtIDao.Name = "txtIDao";
             this.txtIDao.Size = new System.Drawing.Size(188, 21);
             this.txtIDao.TabIndex = 21;
-            this.txtIDao.Text = "I@";
+            this.txtIDao.Text = "I@Repository";
             // 
             // txtIDao1
             // 
@@ -243,7 +243,7 @@
             this.txtIDao1.ReadOnly = true;
             this.txtIDao1.Size = new System.Drawing.Size(190, 21);
             this.txtIDao1.TabIndex = 20;
-            this.txtIDao1.Text = "/Tibos.Repository.Contract";
+            this.txtIDao1.Text = "/Tibos.IRepository/Tibos";
             // 
             // label1
             // 

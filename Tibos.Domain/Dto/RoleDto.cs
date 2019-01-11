@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-//Nhibernate Code Generation Template 1.0
+//EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
@@ -12,7 +11,7 @@ namespace Tibos.Domain
 	{
 	
       	/// <summary>
-		/// 主键编号
+		/// Id
         /// </summary>
         public virtual string Id
         {
@@ -20,28 +19,23 @@ namespace Tibos.Domain
             set; 
         }        
 		/// <summary>
-		/// 名称
+		/// Name
         /// </summary>
         public virtual string Name
         {
             get; 
             set; 
-        }
-        /// <summary>
-        /// 描述
+        }        
+		/// <summary>
+		/// Description
         /// </summary>
         public virtual string Description
         {
-            get;
-            set;
-        }
-
-        public virtual List<RoleNavDict> RoleNavDict
-        {
-            get;
-            set;
-        }
-    }
+            get; 
+            set; 
+        }        
+		   
+	}
 	public class RoleRequest : Role
     {
         /// <summary>

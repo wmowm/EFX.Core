@@ -1,0 +1,45 @@
+﻿<#@ template language="c#" HostSpecific="True" #>
+<#@ output extension= ".cs" #>
+<#
+	TableHost host = (TableHost)(Host);
+	host.Fieldlist.Sort(CodeCommon.CompareByintOrder);
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using Tibos.Common;
+using Tibos.Domain;
+
+//Nhibernate Code Generation Template 1.0
+//author:Tibos
+//blog:www.cnblogs.com/Tibos
+//Entity Code Generation Template
+namespace Tibos.Service.Contract
+{
+	public interface <#= host.GetModelClass(host.TableName) #>IService
+	{
+		#region 自定义
+		 
+        <#= host.GetModelClass(host.TableName) #> Get(string id);
+
+        IList<<#= host.GetModelClass(host.TableName) #>> GetList();
+		
+        IList<<#= host.GetModelClass(host.TableName) #>> GetList(<#= host.GetModelClass(host.TableName) #>Request request);
+
+        IList<<#= host.GetModelClass(host.TableName) #>> GetList(Expression<Func<<#= host.GetModelClass(host.TableName) #>, bool>> expression, List<SortOrder<<#= host.GetModelClass(host.TableName) #>>> expressionOrder, Pagination pagination);
+
+        int GetCount(<#= host.GetModelClass(host.TableName) #>Request request);
+
+        string Save(<#= host.GetModelClass(host.TableName) #> model);
+
+        void Update(<#= host.GetModelClass(host.TableName) #> model);
+
+
+        void Delete(string id);
+
+        bool Exists(string id);
+        #endregion
+     
+   
+	}
+}
