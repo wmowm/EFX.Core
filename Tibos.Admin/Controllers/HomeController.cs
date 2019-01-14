@@ -10,14 +10,14 @@ using Microsoft.AspNetCore.Mvc;
 using Tibos.Admin.Annotation;
 using Tibos.Admin.Models;
 using Tibos.Common;
-using Tibos.Service.Contract;
+using Tibos.Service.Tibos;
 
 namespace Tibos.Admin.Controllers
 {
     [AlwaysAccessible]
     public class HomeController : Controller
     {
-        public NavigationIService _NavigationIService { get; set; }
+        public INavigationService _NavigationService { get; set; }
 
         public IActionResult Index()
         {
@@ -35,7 +35,7 @@ namespace Tibos.Admin.Controllers
         }
         public IActionResult Menu()
         {
-            var list = _NavigationIService.GetList();
+            var list = _NavigationService.GetList();
             return PartialView("_Menu", list.ToList());
         }
 
@@ -51,7 +51,7 @@ namespace Tibos.Admin.Controllers
         [HttpPost]
         public JsonResult Login(string user_name, string password, string code, string returnUrl)
         {
-            Json json = new Tibos.Common.Json();
+            PageResponse json = new Tibos.Common.PageResponse();
             string pic_code = HttpContext.Session.GetString("pic_code");
             using (var md5 = MD5.Create())
             {

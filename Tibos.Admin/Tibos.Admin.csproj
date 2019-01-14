@@ -5,6 +5,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\SYS\Views\DictType\**" />
+    <Compile Remove="Areas\SYS\Views\Manager\**" />
+    <Compile Remove="Areas\SYS\Views\Navigation\**" />
+    <Compile Remove="Areas\SYS\Views\Role\**" />
+    <Content Remove="Areas\SYS\Views\DictType\**" />
+    <Content Remove="Areas\SYS\Views\Manager\**" />
+    <Content Remove="Areas\SYS\Views\Navigation\**" />
+    <Content Remove="Areas\SYS\Views\Role\**" />
+    <EmbeddedResource Remove="Areas\SYS\Views\DictType\**" />
+    <EmbeddedResource Remove="Areas\SYS\Views\Manager\**" />
+    <EmbeddedResource Remove="Areas\SYS\Views\Navigation\**" />
+    <EmbeddedResource Remove="Areas\SYS\Views\Role\**" />
+    <None Remove="Areas\SYS\Views\DictType\**" />
+    <None Remove="Areas\SYS\Views\Manager\**" />
+    <None Remove="Areas\SYS\Views\Navigation\**" />
+    <None Remove="Areas\SYS\Views\Role\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\CMS\Controllers\NewsController.cs" />
+    <Compile Remove="Areas\SYS\Controllers\DictTypeController.cs" />
+    <Compile Remove="Areas\SYS\Controllers\ManagerController.cs" />
+    <Compile Remove="Areas\SYS\Controllers\NavigationController.cs" />
+    <Compile Remove="Areas\SYS\Controllers\RoleController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\images\banner1.svg" />
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />
@@ -37,45 +64,6 @@
     <Content Update="Areas\CMS\Views\News\_CreateOrEdit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\SYS\Views\Manager\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Manager\Detail.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Manager\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Manager\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Manager\_CreateOrEdit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\DictType\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\DictType\Detail.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\DictType\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\DictType\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\DictType\_CreateOrEdit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\DictType\_Font.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Areas\SYS\Views\Dict\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -91,40 +79,6 @@
     <Content Update="Areas\SYS\Views\Dict\_CreateOrEdit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\SYS\Views\Role\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\Role\Detail.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\Role\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\Role\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Role\_CreateOrEdit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\SYS\Views\Navigation\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Navigation\Detail.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Navigation\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Navigation\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\SYS\Views\Navigation\_CreateOrEdit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Home\Home.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -134,6 +88,10 @@
     <Content Update="Views\Shared\_IFrame.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\CMS\Controllers\" />
   </ItemGroup>
 
 </Project>

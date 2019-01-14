@@ -15,10 +15,6 @@
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tibos.Domain\Tibos.Domain.csproj" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.3" />

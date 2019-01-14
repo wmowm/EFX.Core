@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tibos.Common;
 using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
 using Tibos.Domain;
@@ -45,7 +46,6 @@ namespace Tibos.Repository.Tibos
         /// <returns></returns>
         public virtual List<T> GetList()
         {
-            Table = DbContent.Set<T>();
             var list = Table.AsQueryable().ToList();
             return list;
         }
@@ -70,6 +70,21 @@ namespace Tibos.Repository.Tibos
             return this.Table.Where(expression).ToList();
         }
 
+        /// <summary>
+        /// 必须重写的方法,动态查询
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public virtual PageResponse GetList(BaseDto dto)
+        {
+            var data = this.Table.AsQueryable().ToList();
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            response.data = data;
+            response.total = data.Count();
+            return response;
+        }
 
         /// <summary>
         /// 添加实体信息

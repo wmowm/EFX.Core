@@ -49,9 +49,9 @@ namespace Tibos.Common
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public Json CheckToken(string token)
+        public PageResponse CheckToken(string token)
         {
-            Json json = new Json();
+            PageResponse json = new PageResponse();
             if (string.IsNullOrEmpty(token))
             {
                 json.msg = "token不能为空!";

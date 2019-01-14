@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tibos.Admin.Annotation;
 using Tibos.Common;
-using Tibos.Service.Contract;
+using Tibos.Service.Tibos;
 
 namespace Tibos.Admin.Filters
 {
@@ -21,9 +21,9 @@ namespace Tibos.Admin.Filters
         
         private readonly ILogger<ActionFilterAttribute> logger;
         private readonly IMemoryCache _Cache;
-        private readonly ManagerIService _ManagerService;
+        private readonly IManagerService _ManagerService;
         private readonly Token _Token;
-        public ActionFilterAttribute(ILoggerFactory loggerFactory, IMemoryCache memoryCache, ManagerIService Managerervice)
+        public ActionFilterAttribute(ILoggerFactory loggerFactory, IMemoryCache memoryCache, IManagerService Managerervice)
         {
             logger = loggerFactory.CreateLogger<ActionFilterAttribute>();
             _Cache = memoryCache;
@@ -77,7 +77,7 @@ namespace Tibos.Admin.Filters
             //3.用户->职位->角色->是否具备操作权限
 
             var token = context.HttpContext.Request.Headers["token"].ToString();
-            Json json = _Token.CheckToken(token);
+            PageResponse json = _Token.CheckToken(token);
             if (json.status != 0)
             {
                 context.Result = new JsonResult(json);

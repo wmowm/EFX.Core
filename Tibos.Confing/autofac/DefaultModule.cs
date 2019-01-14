@@ -33,7 +33,7 @@ namespace Tibos.Confing.autofac
 
 
             //根据名称约定（仓储层的接口和实现均以Repository结尾），实现服务接口和服务实现的依赖
-            builder.RegisterAssemblyTypes(IServices, Services)
+            builder.RegisterAssemblyTypes(IRepository, Repository)
               .Where(t => t.Name.EndsWith("Repository"))
               .AsImplementedInterfaces();
 
@@ -42,7 +42,7 @@ namespace Tibos.Confing.autofac
               .Where(t => t.Name.EndsWith("Service"))
               .AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(IRepository, Repository).AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(IRepository, Repository).AsImplementedInterfaces();
         }
     }
 }

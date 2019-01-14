@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tibos.Common;
 using Tibos.Domain;
 using Tibos.IRepository;
 using Tibos.IService;
@@ -127,6 +128,11 @@ namespace Tibos.Service
         public Task UpdateAsync(T entity, bool autoSave = true)
         {
             return dao.UpdateAsync(entity, autoSave);
+        }
+
+        public PageResponse GetList(BaseDto dto)
+        {
+            return dao.GetList(dto);
         }
     }
 }

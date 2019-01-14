@@ -15,9 +15,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
     {
 
 
-        public IDictService _DictIService { get; set; }
+        public IDictService _DictService { get; set; }
 
-        public IDictTypeService _DictTypeIService { get; set; }
+        public IDictTypeService _DictTypeService { get; set; }
 
         #region Dict
         public IActionResult Index()
@@ -36,7 +36,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             var model = new Dict();
             if (!string.IsNullOrEmpty(Id))
             {
-                model = _DictIService.Get(Id);
+                model = _DictService.Get(Id);
             }
             return View(model);
         }
@@ -47,21 +47,14 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         }
 
         [HttpPost]
-        public JsonResult List(DictRequest request)
+        public JsonResult List(DictDto dto)
         {
-            request.sortKey = "Sort";
-            request.sortType = 0;
             IList<Dict> list = new List<Dict>();
-            var count = 0;
-            if (!string.IsNullOrEmpty(request.Tid))
+            PageResponse reponse = new PageResponse();
+            if (!string.IsNullOrEmpty(dto.Tid))
             {
-                 list = _DictIService.GetList(request);
-                 count = _DictIService.GetCount(request);
+                reponse = _DictService.GetList(dto);
             }
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = count;
-            reponse.data = list;
             return Json(reponse);
         }
 
@@ -70,9 +63,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         public JsonResult Create(Dict request)
         {
             request.Id = Guid.NewGuid().GuidTo16String();
-            var id = _DictIService.Save(request);
-            Json reponse = new Json();
-            reponse.code = 200;
+            var id = _DictService.Add(request);
+            PageResponse reponse = new PageResponse();
+            reponse.code = StatusCodeDefine.Success;
             reponse.status = 0;
             return Json(reponse);
         }
@@ -80,9 +73,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         [HttpPost]
         public JsonResult Edit(Dict request)
         {
-            Json reponse = new Json();
-            _DictIService.Update(request);
-            reponse.code = 200;
+            PageResponse reponse = new PageResponse();
+            _DictService.Update(request);
+            reponse.code = StatusCodeDefine.Success;
             reponse.status = 0;
             return Json(reponse);
         }
@@ -90,14 +83,14 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         [HttpPost]
         public JsonResult EditStatus(string Id,int Status)
         {
-            Json reponse = new Json();
-            var model = _DictIService.Get(Id);
+            PageResponse reponse = new PageResponse();
+            var model = _DictService.Get(Id);
             if(model.Status != Status)
             {
                 model.Status = Status;
-                _DictIService.Update(model);
+                _DictService.Update(model);
             }
-            reponse.code = 200;
+            reponse.code = StatusCodeDefine.Success;
             reponse.status = 0;
             return Json(reponse);
         }
@@ -105,9 +98,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         [HttpPost]
         public JsonResult Del(string Id)
         {
-            _DictIService.Delete(Id);
-            Json reponse = new Json();
-            reponse.code = 200;
+            _DictService.Delete(Id);
+            PageResponse reponse = new PageResponse();
+            reponse.code = StatusCodeDefine.Success;
             return Json(reponse);
         }
 

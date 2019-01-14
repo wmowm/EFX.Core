@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Tibos.Common;
 using Tibos.Domain;
 
 namespace Tibos.IRepository
@@ -34,6 +35,12 @@ namespace Tibos.IRepository
         /// <returns></returns>
         List<T> GetList(Expression<Func<T, bool>> expression, int pageIndex, int pageSize);
 
+        /// <summary>
+        /// 动态查询
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        PageResponse GetList(BaseDto dto);
 
         /// <summary>
         /// 添加实体信息

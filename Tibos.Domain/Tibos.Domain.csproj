@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Tibos.Common\Tibos.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dto\" />
-  </ItemGroup>
-
 </Project>

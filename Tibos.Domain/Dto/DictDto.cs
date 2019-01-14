@@ -7,7 +7,7 @@
 namespace Tibos.Domain
 {
 	 	//Dict
-	public class DictDto
+	public class DictDto:BaseDto
 	{
 	
       	/// <summary>
