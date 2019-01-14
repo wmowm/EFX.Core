@@ -7,7 +7,7 @@
 namespace Tibos.Domain
 {
 	 	//NavigationRole
-	public class NavigationRoleDto
+	public class NavigationRoleDto:BaseDto
 	{
 	
       	/// <summary>

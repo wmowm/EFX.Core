@@ -7,7 +7,7 @@
 namespace Tibos.Domain
 {
 	 	//Manager
-	public class ManagerDto
+	public class ManagerDto:BaseDto
 	{
 	
       	/// <summary>
@@ -84,26 +84,4 @@ namespace Tibos.Domain
         }        
 		   
 	}
-	public class ManagerRequest : Manager
-    {
-        /// <summary>
-        /// 页码
-        /// </summary>
-        public int pageIndex { get; set; }
-
-        /// <summary>
-        /// 每页显示条数
-        /// </summary>
-        public int pageSize { get; set; }
-
-        /// <summary>
-        /// 需要排序的值
-        /// </summary>
-        public string sortKey { get; set; }
-
-        /// <summary>
-        /// 排序方式 0:正序,1倒序
-        /// </summary>
-        public int sortType { get; set; }
-    }
 }

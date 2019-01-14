@@ -6,23 +6,23 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Tibos.Common;
 using Tibos.Domain;
-using Tibos.Service.Contract;
+using Tibos.IService.Tibos;
 
 namespace Tibos.Admin.Areas.SYS.Controllers
 {
     [Area("SYS")]
     public class RoleController : Controller
     {
-        public RoleIService _RoleIService { get; set; }
+        public IRoleService _RoleService { get; set; }
 
-        public RoleNavDictIService _RoleNavDictIService { get; set; }
-        public NavigationIService _NavigationIService { get; set; }
+        public IRoleNavDictService _RoleNavDictService { get; set; }
+        public INavigationService _NavigationService { get; set; }
 
-        public NavigationRoleIService _NavigationRoleIService { get; set; }
+        public INavigationRoleService _NavigationRoleService { get; set; }
 
-        public DictTypeIService _DictTypeIService { get; set; }
+        public IDictTypeService _DictTypeService { get; set; }
 
-        public DictIService _DictIService { get; set; }
+        public IDictService _DictService { get; set; }
 
         public IMapper _IMapper { get; set; }
 
@@ -36,20 +36,18 @@ namespace Tibos.Admin.Areas.SYS.Controllers
 
         public IActionResult Create()
         {
-            NavigationRequest request = new NavigationRequest();
-            request.sortKey = "Sort";
-            request.sortType = 0;
-            var list_nav = _NavigationIService.GetList(request);
+            NavigationDto dto = new NavigationDto();
+            var res_nav = _NavigationService.GetList(dto);
             var list_navdto = new List<NavigationDto>();
-            foreach (var model in list_nav)
+            foreach (var model in (List<Navigation>)res_nav.data)
             {
-                var dto = _IMapper.Map<NavigationDto>(model);
-                dto.DictList = GetDictRole(model.Id);
-                foreach (var item in dto.DictList)
+                var dto_nav = _IMapper.Map<NavigationDto>(model);
+                dto_nav.DictList = GetDictRole(model.Id);
+                foreach (var item in dto_nav.DictList)
                 {
                     item.Status = 0;
                 }
-                list_navdto.Add(dto);
+                list_navdto.Add(dto_nav);
             }
             ViewData["list_navdto"] = list_navdto;
             return View();
@@ -59,19 +57,17 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             var m_role = new Role();
             if (!string.IsNullOrEmpty(Id))
             {
-                m_role = _RoleIService.Get(Id);
+                m_role = _RoleService.Get(Id);
             }
-            NavigationRequest request = new NavigationRequest();
-            request.sortKey = "Sort";
-            request.sortType = 0;
-            var list_nav = _NavigationIService.GetList(request);
+            NavigationDto request = new NavigationDto();
+            var list_nav = _NavigationService.GetList(request);
             var list_navdto = new List<NavigationDto>();
-            foreach (var model in list_nav)
+            foreach (var model in (List<Navigation>)list_nav.data)
             {
                 var dto = _IMapper.Map<NavigationDto>(model);
                 dto.DictList = GetDictRole(model.Id);
                 //判断该权限是否被选中
-                var rnd_list = _RoleNavDictIService.GetList(m => m.RId == Id, null, null).ToList();
+                var rnd_list = _RoleNavDictService.GetList(m => m.RId == Id).ToList();
                 foreach (var item in dto.DictList)
                 {
                     var m_dict = rnd_list.Find(m => m.DId == item.Id && m.NId == model.Id);
@@ -100,16 +96,11 @@ namespace Tibos.Admin.Areas.SYS.Controllers
 
 
         [HttpPost]
-        public JsonResult List(RoleRequest request)
+        public JsonResult List(RoleDto dto)
         {
 
-            var list = _RoleIService.GetList(request);
-            var count = _RoleIService.GetCount(request);
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = count;
-            reponse.data = list;
-            return Json(reponse);
+            var response = _RoleService.GetList(dto);
+            return Json(response);
         }
 
 
@@ -118,52 +109,59 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         {
             Role model = _IMapper.Map<Role>(request);
             model.Id = Guid.NewGuid().GuidTo16String();
-            var id = _RoleIService.Save(model);
+            var id = _RoleService.Add(model,false);
             //添加角色权限
+            List<RoleNavDict> rnd_list = new List<RoleNavDict>();
             foreach (var item in request.RoleNavDict)
             {
                 item.Id = Guid.NewGuid().GuidTo16String();
                 item.RId = model.Id;
-                _RoleNavDictIService.Save(item);
+                rnd_list.Add(item);
             }
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.status = 0;
-            return Json(reponse);
+            _RoleNavDictService.Add(rnd_list);
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult Edit(RoleDto request)
         {
-            Json reponse = new Json();
+            PageResponse response = new PageResponse();
             Role model = _IMapper.Map<Role>(request);
-            _RoleIService.Update(model);
+            _RoleService.Update(model, false);
             //添加角色权限
+            List<RoleNavDict> rnd_list = new List<RoleNavDict>();
             foreach (var item in request.RoleNavDict)
             {
-                _RoleNavDictIService.Delete(item.Id);
+                _RoleNavDictService.Delete(item.Id);
                 item.Id = Guid.NewGuid().GuidTo16String();
                 item.RId = model.Id;
-                _RoleNavDictIService.Save(item);
+                rnd_list.Add(item);
             }
-            reponse.code = 200;
-            reponse.status = 0;
-            return Json(reponse);
+            _RoleNavDictService.Add(rnd_list);
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult Del(string Id)
         {
+            PageResponse response = new PageResponse();
             //删除该角色所有的权限
-            var list_rnd = _RoleNavDictIService.GetList(m => m.RId == Id, null, null);
+            var list_rnd = _RoleNavDictService.GetList(m => m.RId == Id);
+            List<RoleNavDict> rnd_list = new List<RoleNavDict>();
             foreach (var item in list_rnd)
             {
-                _RoleNavDictIService.Delete(item.Id);
+                rnd_list.Add(item);
             }
-            _RoleIService.Delete(Id);
-            Json reponse = new Json();
-            reponse.code = 200;
-            return Json(reponse);
+            _RoleNavDictService.Delete(rnd_list);
+            _RoleService.Delete(Id);
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            return Json(response);
         }
 
 
@@ -174,13 +172,14 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 new SortOrder<Dict>() { value = m => m.Sort, searchType = EnumBase.OrderType.Asc }
             };
 
-            var list = _NavigationRoleIService.GetList(m => m.NId == NId && m.Status == 1, null, null);
-            var dictType = _DictTypeIService.GetList(m => m.Mark == "Role", null, null).FirstOrDefault();
-            var dict = _DictIService.GetList(m => m.Tid == dictType.Id && m.Status == 1, expressionOrder, null).ToList();
+            var list = _NavigationRoleService.GetList(m => m.NId == NId && m.Status == 1);
+            var dictType = _DictTypeService.GetList(m => m.Mark == "Role").FirstOrDefault();
+            var dict_list = _DictService.GetList(new DictDto() { Tid = dictType.Id, Status = 1 });
             List<DictDto> res = new List<DictDto>();
             foreach (var item in list)
             {
-                var model = dict.Find(m => m.Id == item.DId);
+                var temp = (List<Dict>)dict_list.data;
+                var model = temp.Find(m => m.Id == item.DId);
                 if (model != null)
                 {
                    var dto =  _IMapper.Map<DictDto>(model);

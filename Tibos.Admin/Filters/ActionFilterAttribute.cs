@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tibos.Admin.Annotation;
 using Tibos.Common;
-using Tibos.Service.Tibos;
+using Tibos.IService.Tibos;
 
 namespace Tibos.Admin.Filters
 {

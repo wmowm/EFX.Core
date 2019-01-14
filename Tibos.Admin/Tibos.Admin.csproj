@@ -5,33 +5,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\SYS\Views\DictType\**" />
-    <Compile Remove="Areas\SYS\Views\Manager\**" />
     <Compile Remove="Areas\SYS\Views\Navigation\**" />
     <Compile Remove="Areas\SYS\Views\Role\**" />
-    <Content Remove="Areas\SYS\Views\DictType\**" />
-    <Content Remove="Areas\SYS\Views\Manager\**" />
     <Content Remove="Areas\SYS\Views\Navigation\**" />
     <Content Remove="Areas\SYS\Views\Role\**" />
-    <EmbeddedResource Remove="Areas\SYS\Views\DictType\**" />
-    <EmbeddedResource Remove="Areas\SYS\Views\Manager\**" />
     <EmbeddedResource Remove="Areas\SYS\Views\Navigation\**" />
     <EmbeddedResource Remove="Areas\SYS\Views\Role\**" />
-    <None Remove="Areas\SYS\Views\DictType\**" />
-    <None Remove="Areas\SYS\Views\Manager\**" />
     <None Remove="Areas\SYS\Views\Navigation\**" />
     <None Remove="Areas\SYS\Views\Role\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Areas\CMS\Controllers\NewsController.cs" />
-    <Compile Remove="Areas\SYS\Controllers\DictTypeController.cs" />
-    <Compile Remove="Areas\SYS\Controllers\ManagerController.cs" />
-    <Compile Remove="Areas\SYS\Controllers\NavigationController.cs" />
-    <Compile Remove="Areas\SYS\Controllers\RoleController.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\SYS\Views\DictType\Create.cshtml" />
+    <None Include="Areas\SYS\Views\DictType\Detail.cshtml" />
+    <None Include="Areas\SYS\Views\DictType\Edit.cshtml" />
+    <None Include="Areas\SYS\Views\DictType\Index.cshtml" />
+    <None Include="Areas\SYS\Views\DictType\_CreateOrEdit.cshtml" />
+    <None Include="Areas\SYS\Views\DictType\_Font.cshtml" />
+    <None Include="Areas\SYS\Views\Manager\Create.cshtml" />
+    <None Include="Areas\SYS\Views\Manager\Detail.cshtml" />
+    <None Include="Areas\SYS\Views\Manager\Edit.cshtml" />
+    <None Include="Areas\SYS\Views\Manager\Index.cshtml" />
+    <None Include="Areas\SYS\Views\Manager\_CreateOrEdit.cshtml" />
     <None Include="wwwroot\images\banner1.svg" />
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />

@@ -7,7 +7,7 @@
 namespace Tibos.Domain
 {
 	 	//DictType
-	public class DictTypeDto
+	public class DictTypeDto:BaseDto
 	{
 	
       	/// <summary>
@@ -44,26 +44,18 @@ namespace Tibos.Domain
         }        
 		   
 	}
-	public class DictTypeRequest : DictType
+    public class zTree
     {
-        /// <summary>
-        /// 页码
-        /// </summary>
-        public int pageIndex { get; set; }
+        public string id { get; set; }
 
-        /// <summary>
-        /// 每页显示条数
-        /// </summary>
-        public int pageSize { get; set; }
+        public string pId { get; set; }
 
-        /// <summary>
-        /// 需要排序的值
-        /// </summary>
-        public string sortKey { get; set; }
+        public string name { get; set; }
 
-        /// <summary>
-        /// 排序方式 0:正序,1倒序
-        /// </summary>
-        public int sortType { get; set; }
+        public bool open { get; set; }
+
+        public bool noRemoveBtn { get; set; }
+
+        public bool noEditBtn { get; set; }
     }
 }

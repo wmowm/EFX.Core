@@ -96,7 +96,7 @@ namespace Tibos.Repository.Tibos
             var result = this.Table.Add(entity).Entity;
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
             return result;
         }
@@ -110,7 +110,7 @@ namespace Tibos.Repository.Tibos
             var result = (await this.Table.AddAsync(entity)).Entity;
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
             return result;
         }
@@ -125,7 +125,7 @@ namespace Tibos.Repository.Tibos
             this.Table.AddRange(entities);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
 
@@ -139,7 +139,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.Update(entity);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
 
@@ -167,7 +167,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.UpdateRange(entities);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
 
@@ -182,7 +182,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.Remove(entity);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
 
@@ -197,7 +197,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.RemoveRange(entities);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
 
@@ -211,7 +211,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.Remove(entity);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
 
@@ -225,7 +225,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.RemoveRange(entities);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
         /// <summary>
@@ -239,7 +239,7 @@ namespace Tibos.Repository.Tibos
             this.DbContent.Remove(entity);
             if (autoSave)
             {
-                this.DbContent.BulkSaveChanges();
+                this.DbContent.SaveChanges();
             }
         }
         /// <summary>

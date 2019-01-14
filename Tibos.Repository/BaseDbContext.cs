@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Tibos.IRepository;
+using Z.EntityFramework.Extensions;
 
 namespace Tibos.Repository
 {
@@ -45,5 +47,6 @@ namespace Tibos.Repository
                     break;
             }
         }
+
     }
 }

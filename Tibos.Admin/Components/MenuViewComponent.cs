@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tibos.Domain;
-using Tibos.Service;
-using Tibos.Service.Tibos;
+using Tibos.IService.Tibos;
 
 namespace Tibos.Admin.Components
 {
@@ -20,7 +19,6 @@ namespace Tibos.Admin.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            NavigationRequest request = new NavigationRequest();
             var list = _navigationService.GetList();
             return View(list);
         }

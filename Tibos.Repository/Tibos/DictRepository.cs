@@ -18,12 +18,20 @@ namespace Tibos.Repository.Tibos
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public override PageResponse GetList(BaseDto dto)
+        public override PageResponse GetList(BaseDto basedto)
         {
             PageResponse response = new PageResponse();
-            var dict_dto = (DictDto)dto;
+            var dto = (DictDto)basedto;
             var query = base.Table.AsQueryable();
             //条件查询
+            if (!string.IsNullOrEmpty(dto.Tid))
+            {
+                query = query.Where(p => p.Tid == dto.Tid);
+            }
+            if (dto.Status.HasValue)
+            {
+                query = query.Where(p => p.Status == dto.Status);
+            }
             response.total = query.Count();
             if(query.Count() > 0)
             {
@@ -36,7 +44,8 @@ namespace Tibos.Repository.Tibos
             }
             response.status = 0;
             response.code = StatusCodeDefine.Success;
-            return base.GetList(dto);
+            response.data = query.ToList();
+            return response;
         }
     }
 }

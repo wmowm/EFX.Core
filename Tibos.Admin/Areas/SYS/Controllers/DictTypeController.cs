@@ -6,7 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Tibos.Common;
 using Tibos.Domain;
-using Tibos.Service.Contract;
+using Tibos.IService.Tibos;
+using Tibos.Service;
+using Tibos.Service.Tibos;
 
 namespace Tibos.Admin.Areas.SYS.Controllers
 {
@@ -14,9 +16,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
     public class DictTypeController : Controller
     {
 
-        public DictIService _DictIService { get; set; }
+        public IDictService _DictService { get; set; }
 
-        public DictTypeIService _DictTypeIService { get; set; }
+        public IDictTypeService _DictTypeService { get; set; }
 
         public IMapper _IMapper { get; set; }
 
@@ -36,7 +38,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             var model = new DictType();
             if (!string.IsNullOrEmpty(Id))
             {
-                model = _DictTypeIService.Get(Id);
+                model = _DictTypeService.Get(Id);
             }
             return View(model);
         }
@@ -47,32 +49,22 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         }
 
         [HttpPost]
-        public JsonResult List(DictTypeRequest request)
+        public JsonResult List(DictTypeDto dto)
         {
 
-            var list = _DictTypeIService.GetList(request);
-
-            List<DictType> nav_list = new List<DictType>();
-
-        
-
-
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = nav_list.Count;
-            reponse.data = nav_list;
+            PageResponse reponse = new PageResponse();
+            reponse = _DictTypeService.GetList(dto);
             return Json(reponse);
         }
 
 
 
         [HttpPost]
-        public JsonResult ListTree(DictTypeRequest request)
+        public JsonResult ListTree(DictTypeDto dto)
         {
-            request.sortKey = "Sort";
-            request.sortType = 0;
-            var list = _DictTypeIService.GetList(request);
-            var count = _DictTypeIService.GetCount(request);
+
+            PageResponse reponse = new PageResponse();
+            reponse = _DictTypeService.GetList(dto);
             List<zTree> list_ztree = new List<zTree>();
             zTree ztree = new zTree()
             {
@@ -84,7 +76,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 open = true
             };
             list_ztree.Add(ztree);
-            foreach (var item in list)
+            foreach (var item in (List<DictType>)reponse.data)
             {
                 ztree = new zTree()
                 {
@@ -95,10 +87,6 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 };
                 list_ztree.Add(ztree);
             }
-
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = count;
             reponse.data = list_ztree;
             return Json(reponse);
         }
@@ -107,7 +95,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         public JsonResult Create(DictType request)
         {
             request.Id = Guid.NewGuid().GuidTo16String();
-            var id = _DictTypeIService.Save(request);
+            var id = _DictTypeService.Add(request);
             zTree ztree = new zTree()
             {
                 id = request.Id,
@@ -115,8 +103,8 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 name = request.Name,
                 open = true
             };
-            Json reponse = new Json();
-            reponse.code = 200;
+            PageResponse reponse = new PageResponse();
+            reponse.code = StatusCodeDefine.Success;
             reponse.status = 0;
             reponse.data = ztree;
             return Json(reponse);
@@ -125,8 +113,8 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         [HttpPost]
         public JsonResult Edit(DictType request)
         {
-            Json reponse = new Json();
-            _DictTypeIService.Update(request);
+            PageResponse reponse = new PageResponse();
+            _DictTypeService.Update(request);
             zTree ztree = new zTree()
             {
                 id = request.Id,
@@ -134,7 +122,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 name = request.Name,
                 open = true
             };
-            reponse.code = 200;
+            reponse.code = StatusCodeDefine.Success;
             reponse.status = 0;
             reponse.data = ztree;
             return Json(reponse);
@@ -143,9 +131,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         [HttpPost]
         public JsonResult Del(string Id)
         {
-            _DictTypeIService.Delete(Id);
-            Json reponse = new Json();
-            reponse.code = 200;
+            _DictTypeService.Delete(Id);
+            PageResponse reponse = new PageResponse();
+            reponse.code = StatusCodeDefine.Success;
             return Json(reponse);
         }
 

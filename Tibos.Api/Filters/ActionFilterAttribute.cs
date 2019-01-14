@@ -74,7 +74,7 @@ namespace Tibos.Api.Filters
             //3.用户->职位->角色->是否具备操作权限
 
             var token = context.HttpContext.Request.Headers["token"].ToString();
-            Json json = _Token.CheckToken(token);
+            PageResponse json = _Token.CheckToken(token);
             if (json.status != 0)
             {
                 context.Result = new JsonResult(json);

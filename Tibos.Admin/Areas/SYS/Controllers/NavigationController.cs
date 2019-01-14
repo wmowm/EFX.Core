@@ -6,19 +6,20 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Tibos.Common;
 using Tibos.Domain;
-using Tibos.Service.Contract;
+using Tibos.IService.Tibos;
+using Tibos.Service.Tibos;
 
 namespace Tibos.Admin.Areas.SYS.Controllers
 {
     [Area("SYS")]
     public class NavigationController : Controller
     {
-        public NavigationIService _NavigationIService { get; set; }
-        public DictTypeIService _DictTypeIService { get; set; }
+        public INavigationService _NavigationService { get; set; }
+        public IDictTypeService _DictTypeService { get; set; }
 
-        public DictIService _DictIService { get; set; }
+        public IDictService _DictService { get; set; }
 
-        public NavigationRoleIService _NavigationRoleIService { get; set; }
+        public INavigationRoleService _NavigationRoleService { get; set; }
 
         public IMapper _IMapper { get; set; }
         public IActionResult Index()
@@ -34,7 +35,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             var model = new Navigation();
             if (!string.IsNullOrEmpty(Id))
             {
-               model = _NavigationIService.Get(Id);
+               model = _NavigationService.Get(Id);
             }
             var dto = _IMapper.Map<NavigationDto>(model);
             dto.DictList = GetDictRole();
@@ -49,12 +50,12 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             var model = new Navigation();
             if (!string.IsNullOrEmpty(Id))
             {
-                model = _NavigationIService.Get(Id);
+                model = _NavigationService.Get(Id);
             }
             var dto = _IMapper.Map<NavigationDto>(model);
             dto.DictList = GetDictRole();
             //获取菜单下所有选中的权限按钮
-            var nr_list = _NavigationRoleIService.GetList(m => m.NId == dto.Id && m.Status == 1, null, null).ToList();
+            var nr_list = _NavigationRoleService.GetList(m => m.NId == dto.Id && m.Status == 1);
             foreach (var item in dto.DictList)
             {
                 if(nr_list.Find(m=>m.DId == item.Id) != null)
@@ -82,12 +83,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
 
 
         [HttpPost]
-        public JsonResult ListTree(NavigationRequest request)
+        public JsonResult ListTree(NavigationDto dto)
         {
-            request.sortKey = "Sort";
-            request.sortType = 0;
-            var list = _NavigationIService.GetList(request);
-            var count = _NavigationIService.GetCount(request);
+            var response = _NavigationService.GetList(dto);
             List<zTree> list_ztree = new List<zTree>();
             zTree ztree = new zTree()
             {
@@ -99,7 +97,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 open = true
             };
             list_ztree.Add(ztree);
-            foreach (var item in list)
+            foreach (var item in (List<Navigation>)response.data)
             {
                 ztree = new zTree()
                 {
@@ -116,32 +114,27 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 list_ztree.Add(ztree);
             }
 
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = count;
-            reponse.data = list_ztree;
-            return Json(reponse);
+            response.data = list_ztree;
+            return Json(response);
         }
 
 
 
         [HttpPost]
-        public JsonResult List(NavigationRequest request)
+        public JsonResult List(NavigationDto dto)
         {
-            request.sortKey = "Sort";
-            request.sortType = 0;
-            request.Level = 1;
-            var list = _NavigationIService.GetList(request);
+            dto.Level = 1;
+            var navData = _NavigationService.GetList(dto);
 
             List<Navigation> nav_list = new List<Navigation>();
 
-            foreach (var item in list)
+            foreach (var item in (List<Navigation>)navData.data)
             {
                 nav_list.Add(item);
-                request.Level = 2;
-                request.ParentId = item.Id;
-                var sub_list = _NavigationIService.GetList(request);
-                nav_list.AddRange(sub_list);
+                dto.Level = 2;
+                dto.ParentId = item.Id;
+                var sub_list = _NavigationService.GetList(dto);
+                nav_list.AddRange((List<Navigation>)sub_list.data);
             }
 
 
@@ -150,7 +143,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             foreach (var item in dto_list)
             {
                 item.DictList = GetDictRole();
-                var nr_list = _NavigationRoleIService.GetList(m => m.NId == item.Id && m.Status == 1, null, null).ToList();
+                var nr_list = _NavigationRoleService.GetList(m => m.NId == item.Id && m.Status == 1).ToList();
                 foreach (var it in item.DictList)
                 {
                     if (nr_list.Find(m => m.DId == it.Id) != null)
@@ -164,11 +157,11 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 }
             }
 
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = nav_list.Count;
-            reponse.data = dto_list;
-            return Json(reponse);
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            response.total = nav_list.Count;
+            response.data = dto_list;
+            return Json(response);
         }
 
 
@@ -188,7 +181,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 Sort = request.Sort,
                 Level = request.Level
             };
-            var id = _NavigationIService.Save(model);
+            var id = _NavigationService.Add(model);
             //新增菜单权限
             foreach (var item in request.DictList)
             {
@@ -199,7 +192,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                     NId = model.Id,
                     Status = item.Status
                 };
-                _NavigationRoleIService.Save(m_nr);
+                _NavigationRoleService.Add(m_nr);
             }
 
             zTree ztree = new zTree()
@@ -215,17 +208,17 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 ztree.noRemoveBtn = true;
             }
 
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.status = 0;
-            reponse.data = ztree;
-            return Json(reponse);
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            response.data = ztree;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult Edit(NavigationDto request)
         {
-            Json reponse = new Json();
+            PageResponse response = new PageResponse();
             Navigation model = new Navigation()
             {
                 Areas = request.Areas,
@@ -240,10 +233,10 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 Level = request.Level
             };
             //删除该菜单下,所有的权限按钮
-            var list_role = _NavigationRoleIService.GetList(m => m.NId == model.Id, null, null).ToList();
+            var list_role = _NavigationRoleService.GetList(m => m.NId == model.Id).ToList();
             foreach (var item in list_role)
             {
-                _NavigationRoleIService.Delete(item.Id);
+                _NavigationRoleService.Delete(item.Id);
             }
             //新增菜单权限
             foreach (var item in request.DictList)
@@ -255,9 +248,9 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                     NId = model.Id,
                     Status = item.Status
                 };
-                _NavigationRoleIService.Save(m_nr);
+                _NavigationRoleService.Add(m_nr);
             }
-            _NavigationIService.Update(model);
+            _NavigationService.Update(model);
 
             zTree ztree = new zTree()
             {
@@ -275,19 +268,19 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             //获取菜单权限字典
 
 
-            reponse.code = 200;
-            reponse.status = 0;
-            reponse.data = ztree;
-            return Json(reponse);
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            response.data = ztree;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult Del(string Id)
         {
-            _NavigationIService.Delete(Id);
-            Json reponse = new Json();
-            reponse.code = 200;
-            return Json(reponse);
+            _NavigationService.Delete(Id);
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            return Json(response);
         }
 
 
@@ -297,9 +290,10 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             {
                 new SortOrder<Dict>() { value = m => m.Sort, searchType = EnumBase.OrderType.Asc }
             };
-            var dictType = _DictTypeIService.GetList(m => m.Mark == "Role", null, null).FirstOrDefault();
-            var dict = _DictIService.GetList(m => m.Tid == dictType.Id && m.Status == 1, expressionOrder, null).ToList();
-            var res = _IMapper.Map<List<DictDto>>(dict);
+            var dictType = _DictTypeService.GetList(m => m.Mark == "Role").FirstOrDefault();
+
+            var response = _DictService.GetList(new DictDto() { Tid = dictType.Id, Status = 1 });
+            var res = _IMapper.Map<List<DictDto>>(response.data);
             return res;
         }
     }

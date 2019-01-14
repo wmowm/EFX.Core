@@ -8,7 +8,7 @@ using Tibos.IService;
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
-namespace Tibos.Service.Tibos
+namespace Tibos.IService.Tibos
 {
 	public interface IOrganizationService:IBaseService<Organization>
 	{

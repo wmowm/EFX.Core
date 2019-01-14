@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 //EFX Code Generation Template 1.0
 //author:Tibos
@@ -7,7 +8,7 @@
 namespace Tibos.Domain
 {
 	 	//Role
-	public class RoleDto
+	public class RoleDto:BaseDto
 	{
 	
       	/// <summary>
@@ -33,29 +34,13 @@ namespace Tibos.Domain
         {
             get; 
             set; 
-        }        
-		   
-	}
-	public class RoleRequest : Role
-    {
-        /// <summary>
-        /// 页码
-        /// </summary>
-        public int pageIndex { get; set; }
+        }
 
-        /// <summary>
-        /// 每页显示条数
-        /// </summary>
-        public int pageSize { get; set; }
-
-        /// <summary>
-        /// 需要排序的值
-        /// </summary>
-        public string sortKey { get; set; }
-
-        /// <summary>
-        /// 排序方式 0:正序,1倒序
-        /// </summary>
-        public int sortType { get; set; }
+        public virtual List<RoleNavDict> RoleNavDict
+        {
+            get;
+            set;
+        }
     }
+
 }

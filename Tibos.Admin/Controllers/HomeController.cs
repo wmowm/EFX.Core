@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tibos.Admin.Annotation;
 using Tibos.Admin.Models;
 using Tibos.Common;
-using Tibos.Service.Tibos;
+using Tibos.IService.Tibos;
 
 namespace Tibos.Admin.Controllers
 {

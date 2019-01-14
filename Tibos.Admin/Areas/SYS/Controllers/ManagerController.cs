@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Tibos.Common;
 using Tibos.Domain;
-using Tibos.Service.Contract;
+using Tibos.IService.Tibos;
 
 namespace Tibos.Admin.Areas.SYS.Controllers
 {
@@ -14,8 +14,8 @@ namespace Tibos.Admin.Areas.SYS.Controllers
     public class ManagerController : Controller
     {
 
-        public ManagerIService _ManagerIService { get; set; }
-        public RoleIService _RoleIService { get; set; }
+        public IManagerService _ManagerService { get; set; }
+        public IRoleService _RoleService { get; set; }
 
         public IMapper _IMapper { get; set; }
 
@@ -37,7 +37,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             var model = new Manager();
             if (!string.IsNullOrEmpty(Id))
             {
-                model = _ManagerIService.Get(Id);
+                model = _ManagerService.Get(Id);
 
             }
             return View(model);
@@ -49,17 +49,10 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         }
 
         [HttpPost]
-        public JsonResult List(ManagerRequest request)
+        public JsonResult List(ManagerDto dto)
         {
-            request.sortKey = "Sort";
-            request.sortType = 0;
-            IList<Manager> list = _ManagerIService.GetList(request);
-            var count = _ManagerIService.GetCount(request);
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.total = count;
-            reponse.data = list;
-            return Json(reponse);
+            var response = _ManagerService.GetList(dto);
+            return Json(response);
         }
 
 
@@ -67,45 +60,45 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         public JsonResult Create(Manager request)
         {
             request.Id = Guid.NewGuid().GuidTo16String();
-            var id = _ManagerIService.Save(request);
-            Json reponse = new Json();
-            reponse.code = 200;
-            reponse.status = 0;
-            return Json(reponse);
+            var id = _ManagerService.Add(request);
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult Edit(Manager request)
         {
-            Json reponse = new Json();
-            _ManagerIService.Update(request);
-            reponse.code = 200;
-            reponse.status = 0;
-            return Json(reponse);
+            PageResponse response = new PageResponse();
+            _ManagerService.Update(request);
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult EditStatus(string Id,int Status)
         {
-            Json reponse = new Json();
-            var model = _ManagerIService.Get(Id);
+            PageResponse response = new PageResponse();
+            var model = _ManagerService.Get(Id);
             if(model.Status != Status)
             {
                 model.Status = Status;
-                _ManagerIService.Update(model);
+                _ManagerService.Update(model);
             }
-            reponse.code = 200;
-            reponse.status = 0;
-            return Json(reponse);
+            response.code = StatusCodeDefine.Success;
+            response.status = 0;
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult Del(string Id)
         {
-            _ManagerIService.Delete(Id);
-            Json reponse = new Json();
-            reponse.code = 200;
-            return Json(reponse);
+            _ManagerService.Delete(Id);
+            PageResponse response = new PageResponse();
+            response.code = StatusCodeDefine.Success;
+            return Json(response);
         }
 
         #endregion
@@ -115,7 +108,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
 
         private List<Role> GetRoleList()
         {
-            var res = _RoleIService.GetList(null);
+            var res = _RoleService.GetList();
             return res.ToList();
         }
 
