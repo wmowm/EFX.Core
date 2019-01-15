@@ -11,31 +11,37 @@
 
 
 
-<body layadmin-themealias="default" style="height:100%">
-    <div class="layui-fluid layui-col-xs2">
-        <div class="layui-card">
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                <h2>字典分类</h2>
-            </div>
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto"  style="height:650px">
-                <ul id="tree" class="ztree"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="layui-fluid layui-col-xs10" style="padding-left:0px">
-        <div class="layui-card">
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                <h2>字典列表</h2>
-            </div>
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:650px">
-                <div class="layui-card-body">
-                    <div style="padding-bottom: 10px;">
-                        <button id="add" class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
-                    </div>
-                    <table class="layui-hide" id="tableList" lay-filter="tableList"></table>
+
+
+
+<body layadmin-themealias="default">
+    <div style="height:820px;">
+        <div class="layui-fluid layui-col-xs2" style="height:98%">
+            <div class="layui-card" style="height:100%">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <h2>字典分类</h2>
+                </div>
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <ul id="tree" class="ztree"></ul>
                 </div>
             </div>
         </div>
+        <div class="layui-fluid layui-col-xs10" style="padding-left:0px;height:98%">
+            <div class="layui-card" style="height:100%">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <h2>字典列表</h2>
+                </div>
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <div class="layui-card-body">
+                        <div style="padding-bottom: 10px;">
+                            <button id="add" class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
+                        </div>
+                        <table class="layui-hide" id="tableList" lay-filter="tableList"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

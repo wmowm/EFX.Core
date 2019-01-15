@@ -12,25 +12,27 @@
 
 
 
-<body layadmin-themealias="default" style="">
-    <div class="layui-fluid layui-col-xs2">
-        <div class="layui-card">
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                <h2>菜单设置</h2>
-            </div>
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:666px">
-                <ul id="tree" class="ztree"></ul>
+<body layadmin-themealias="default">
+    <div style="height:820px;">
+        <div class="layui-fluid layui-col-xs2" style="height:98%">
+            <div class="layui-card" style="height:100%">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <h2>菜单设置</h2>
+                </div>
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <ul id="tree" class="ztree"></ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="layui-fluid layui-col-xs10" style="padding-left:0px">
-        <div class="layui-card">
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                <h2>菜单列表</h2>
-            </div>
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:666px">
+        <div class="layui-fluid layui-col-xs10" style="padding-left:0px;height:98%">
+            <div class="layui-card" style="height:100%">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <h2>菜单列表</h2>
+                </div>
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
 
-                <table class="layui-hide" id="table"></table>
+                    <table class="layui-hide" id="table"></table>
+                </div>
             </div>
         </div>
     </div>
@@ -296,14 +298,14 @@ var setting = {
                 , url: '/sys/navigation/list'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
-                    { title: '菜单名称', width: 200, templet: '#Name' }
+                    { title: '菜单名称', width: 180, templet: '#Name' }
                     , { templet: '#Icon', width: 80, title: '图标' }
                     , { field: 'Level', width: 80, title: '层级' }
                     , { field: 'Link', width: 180, title: '链接' }
                     , { field: 'Sort', width: 80, title: '排序' }
                     , { field: 'Areas', minWidth: 80, title: '模块' }
-                    , { field: 'ControllerName', minWidth: 80, title: '控制器' }
-                    , { title: '系统菜单', width: 100, templet: '#IsSys' }
+                    , { field: 'ControllerName', minWidth: 100, title: '控制器' }
+                    , { title: '系统裁掉', width: 80, templet: '#IsSys' }
                     , { title: '菜单权限', width: 480, templet: '#Dict' }
                 ]]
             });

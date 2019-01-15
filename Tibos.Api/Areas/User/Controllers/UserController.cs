@@ -15,12 +15,8 @@ using Tibos.Common;
 using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
 using Tibos.Domain;
-using Tibos.IRepository;
 using Tibos.IService.Dhm;
 using Tibos.IService.Tibos;
-using Tibos.Repository.Tibos;
-using Tibos.Service;
-using Tibos.Service.Tibos;
 
 namespace Tibos.Api.Areas.User.Controllers
 {

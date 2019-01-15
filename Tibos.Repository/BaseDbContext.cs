@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,10 @@ namespace Tibos.Repository
 
         }
 
+        //打印sql
+        private static ILoggerFactory Mlogger => new LoggerFactory()
+               .AddConsole((categoryName, logLevel) => (logLevel == LogLevel.Information) && (categoryName == DbLoggerCategory.Database.Command.Name));
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -39,7 +44,7 @@ namespace Tibos.Repository
             switch (ConnType)
             {
                 case "mysql":
-                    optionsBuilder.UseMySql(ConnName);
+                    optionsBuilder.UseMySql(ConnName).UseLoggerFactory(Mlogger);
                     break;
                 case "sqlserver":
                     break;

@@ -5,17 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\SYS\Views\Navigation\**" />
-    <Compile Remove="Areas\SYS\Views\Role\**" />
-    <Content Remove="Areas\SYS\Views\Navigation\**" />
-    <Content Remove="Areas\SYS\Views\Role\**" />
-    <EmbeddedResource Remove="Areas\SYS\Views\Navigation\**" />
-    <EmbeddedResource Remove="Areas\SYS\Views\Role\**" />
-    <None Remove="Areas\SYS\Views\Navigation\**" />
-    <None Remove="Areas\SYS\Views\Role\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Areas\CMS\Controllers\NewsController.cs" />
   </ItemGroup>
 
@@ -31,6 +20,17 @@
     <None Include="Areas\SYS\Views\Manager\Edit.cshtml" />
     <None Include="Areas\SYS\Views\Manager\Index.cshtml" />
     <None Include="Areas\SYS\Views\Manager\_CreateOrEdit.cshtml" />
+    <None Include="Areas\SYS\Views\Navigation\Create.cshtml" />
+    <None Include="Areas\SYS\Views\Navigation\Detail.cshtml" />
+    <None Include="Areas\SYS\Views\Navigation\Edit.cshtml" />
+    <None Include="Areas\SYS\Views\Navigation\Index.cshtml" />
+    <None Include="Areas\SYS\Views\Navigation\_CreateOrEdit.cshtml" />
+    <None Include="Areas\SYS\Views\Navigation\_Font.cshtml" />
+    <None Include="Areas\SYS\Views\Role\Create.cshtml" />
+    <None Include="Areas\SYS\Views\Role\Detail.cshtml" />
+    <None Include="Areas\SYS\Views\Role\Edit.cshtml" />
+    <None Include="Areas\SYS\Views\Role\Index.cshtml" />
+    <None Include="Areas\SYS\Views\Role\_CreateOrEdit.cshtml" />
     <None Include="wwwroot\images\banner1.svg" />
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />

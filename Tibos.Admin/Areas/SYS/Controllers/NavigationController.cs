@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Tibos.Common;
 using Tibos.Domain;
 using Tibos.IService.Tibos;
-using Tibos.Service.Tibos;
 
 namespace Tibos.Admin.Areas.SYS.Controllers
 {

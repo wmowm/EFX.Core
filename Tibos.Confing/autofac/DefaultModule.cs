@@ -24,12 +24,15 @@ namespace Tibos.Confing.autofac
             //注入类
             //builder.RegisterType<UsersService>().As<UsersIService>().PropertiesAutowired().EnableInterfaceInterceptors();
 
+
             //程序集注入
             var IRepository = Assembly.Load("Tibos.IRepository");
             var Repository = Assembly.Load("Tibos.Repository");
 
             var IServices = Assembly.Load("Tibos.IService");
             var Services = Assembly.Load("Tibos.Service");
+
+            Assembly.GetExecutingAssembly();
 
 
             //根据名称约定（仓储层的接口和实现均以Repository结尾），实现服务接口和服务实现的依赖
