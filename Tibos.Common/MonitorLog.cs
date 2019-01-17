@@ -30,6 +30,11 @@ namespace Tibos.Common
             set;
         }
         /// <summary>
+        /// 耗时（s）
+        /// </summary>
+        public double TimeConsuming { get; set; }
+
+        /// <summary>
         /// Body
         /// </summary>
         public string BodyCollections
@@ -60,29 +65,16 @@ namespace Tibos.Common
         /// <returns></returns>
         public string GetLoginfo(MonitorType mtype = MonitorType.Action)
         {
-            string ActionView = "Action执行时间监控：";
+            string ActionView = "Tibos执行时间监控";
             string Name = "Action";
             if (mtype == MonitorType.View)
             {
-                ActionView = "View视图生成时间监控：";
+                ActionView = "View视图生成时间监控";
                 Name = "View";
             }
-            string Msg = @"
-			{0}
-			ControllerName：{1}Controller
-			{6}Name:{2}
-			开始时间：{3}
-			Form表单数据：{4}
-			URL参数：{5}
-					";
-            return string.Format(Msg,
-                ActionView,
-                ControllerName,
-                ActionName,
-                ExecuteStartTime,
-                BodyCollections,
-                QueryCollections.ToString(),
-                Name);
+            var res = $"\n---------------------------------->{ActionView}<----------------------------------\n----------------->ControllerName：{ControllerName}Controller\n----------------->ActionName：{ActionName}\n----------------->开始时间：{ExecuteStartTime}\n----------------->结束时间：{ExecuteEndTime}\n----------------->Form表单数据：{BodyCollections}\n----------------->URL参数：{QueryCollections.ToString()}\n----------------->耗时：{TimeConsuming}秒";
+            return res;
+          
         }
     }
 }

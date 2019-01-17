@@ -1,0 +1,149 @@
+﻿@model Tibos.Domain.Manager
+
+@{ 
+    var RoleList = ViewData["RoleList"] as List<Tibos.Domain.Role>;
+}
+<link href="~/css/font-awesome.min93e3.css" rel="stylesheet" />
+<form id="form" class="layui-form" action="">
+    <div class="layui-col-xs11" style="margin-top:5%">
+        <div class="layui-form-item">
+            @Html.HiddenFor(m => m.Id)
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="UserName" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" value="@Model?.UserName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="Password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" value="@Model?.Password">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-block">
+                <input type="text" name="Mobile" lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input" value="@Model?.Mobile">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="email" name="Email" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="@Model?.Email">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                @{
+                    var status = "";
+                    if (Model?.Status == 1)
+                    {
+                        status = "checked=''";
+                    }
+                }
+                <input type="checkbox" id="Status" name="Status" lay-skin="switch" lay-text="启用|禁用" title="是否启用" lay-filter="status" value="@Model?.Status" @status>
+            </div>
+        </div>
+
+        <div class="layui-form-item" pane="" style="margin:0px">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+                @{
+                    foreach (var item in RoleList)
+                    {
+                        var list = Model.RoleId?.Split(new char[] { ',' }).ToList();
+                        list = list ?? new List<string>();
+                        var check = "";
+                        var role_status = "";
+                        if (list.Contains(item.Id))
+                        {
+                            check = "checked";
+                            role_status = "1";
+                        }
+                        <input type="checkbox" lay-skin="primary" lay-filter="role" name="@item.Id" title="@item.Name" @check>
+                        <input type="hidden" id="@item.Id" name="role" value="@role_status" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+
+    </div>
+</form>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //自定义验证规则
+        form.verify({
+
+        });
+        //监听开关
+        form.on('switch(status)', function (data) {
+            if (data.elem.checked) {
+                $("#Status").val('1');
+            } else {
+                $("#Status").val('0');
+            }
+        });
+        //监听多选
+        form.on('checkbox(role)', function (data) {
+            var d = $(this).attr("name");
+            if (data.elem.checked) {
+                $("#" + d).val('1');
+            } else {
+                $("#" + d).val('0');
+            }
+        });
+        form.on('submit(layuiadmin-app-form-submit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/sys/manager/create", field, "add");
+        });
+        form.on('submit(layuiadmin-app-form-edit)', function (data) {
+            var field = data.field; //获取提交的字段
+            return postForm("/sys/manager/edit", field, "edit");
+        });
+        //提取公共提交表单方法
+        function postForm(url, field, type) {
+            var roleids = "";
+            $("input[name='role']").each(function () {
+                status = parseInt($(this).val());
+                if (status == 1) {
+                    var id = $(this).attr("id");
+                    roleids = roleids + id + ",";
+                }
+            })
+            if (roleids.length > 0)
+            {
+                roleids = roleids.substring(0, roleids.length - 1);
+            }
+            field.RoleId = roleids;
+            console.log(field);
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            //提交 Ajax 成功后，关闭当前弹层并重载表格
+            var load = layer.load(1, {
+                shade: [0.3, '#808080'] //0.1透明度的白色背景
+            });
+            $.post(url, field, function (data) {
+                layer.close(load);
+                if (data.code == 200) {
+                    parent.layui.table.reload('tableList'); //重载表格
+                    parent.layer.close(index); //再执行关闭
+                    parent.layer.msg("操作成功!", {
+                        time: 1000,
+                        icon: 1,
+                    });
+                } else {
+                    parent.layer.msg("操作失败!", {
+                        time: 1000,
+                        icon: 2,
+                    });
+
+                }
+            })
+        }
+    });
+</script>

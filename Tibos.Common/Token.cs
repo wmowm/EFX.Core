@@ -56,6 +56,7 @@ namespace Tibos.Common
             {
                 json.msg = "token不能为空!";
                 json.status = -1;
+                json.code = StatusCodeDefine.Unauthorized;
                 return json;
             }
             var id = _Cache.Get(token);
@@ -63,24 +64,11 @@ namespace Tibos.Common
             {
                 json.msg = "token已失效!";
                 json.status = -1;
+                json.code = StatusCodeDefine.Unauthorized;
                 return json;
             }
             return json;
         }
 
-        /// <summary>
-        /// 忽略Token验证
-        /// </summary>
-        /// <param name="ControllerName"></param>
-        /// <param name="ActionName"></param>
-        /// <returns></returns>
-        public bool PassToken(string ControllerName,string ActionName)
-        {
-            if (ControllerName.ToLower() == "user" && ActionName.ToLower() == "gettoken") return true;
-            if (ControllerName.ToLower() == "user" && ActionName.ToLower() == "checktoken") return true;
-
-            if (ControllerName.ToLower() == "home" && ActionName.ToLower() == "get") return true;
-            return false;
-        }
     }
 }

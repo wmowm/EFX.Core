@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -80,6 +81,15 @@ namespace Tibos.Admin
             //添加AutoMapper
             services.AddAutoMapper();
             Console.WriteLine(">>>>>>>==================================注册MVC过滤器,设置Json时间格式===============================<<<<<<<");
+
+            //添加认证Cookie信息
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.LoginPath = new PathString("/login");
+                        options.AccessDeniedPath = new PathString("/denied");
+                    });
+            Console.WriteLine(">>>>>>>==================================注册Authentication===============================<<<<<<<");
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ResourceFilterAttribute));
@@ -168,6 +178,8 @@ namespace Tibos.Admin
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            //验证中间件
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

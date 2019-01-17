@@ -12,5 +12,12 @@ namespace Tibos.Common
         /// </summary>
         [Description("处理成功")]
         Success = 200,
+
+
+        /// <summary>
+        /// 未授权
+        /// </summary>
+        [Description("处理成功")]
+        Unauthorized = 401,
     }
 }
