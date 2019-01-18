@@ -66,10 +66,8 @@ namespace Tibos.Api.Filters
                 return;
             }
             #endregion
-
             #region 权限验证
             //1.忽略权限验证的部分(如果要忽略的部分过多,可以提取成方法)
-            if (_Token.PassToken(MonLog.ControllerName, MonLog.ActionName)) return;
             //2.根据token获取用户实体对象
             //3.用户->职位->角色->是否具备操作权限
 

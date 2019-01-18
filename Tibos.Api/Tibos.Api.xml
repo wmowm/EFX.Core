@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tibos.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Tibos.Api.Annotation.AlwaysAccessibleAttribute">
+            <summary>
+            允许匿名访问
+            </summary>
+        </member>
+    </members>
+</doc>
