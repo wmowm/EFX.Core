@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User..........<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+            <input type="button" id="testButton" value="Test Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    $(testButton).click(function ()
+    {
+        $.post("/home/gettest", {}, function (data) {
+            console.log(data);
+        })
+    })
+</script>
