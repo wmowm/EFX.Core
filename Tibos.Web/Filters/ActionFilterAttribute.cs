@@ -10,7 +10,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Tibos.Common;
-using Tibos.Service.Contract;
 
 namespace Tibos.Web.Filters
 {

@@ -22,23 +22,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="Colorful.Console" Version="1.2.9" />
+    <PackageReference Include="Essensoft.AspNetCore.Payment.Security" Version="2.3.2" />
+
+    <PackageReference Include="Essensoft.AspNetCore.Payment.Alipay" Version="2.3.2" />
+    <PackageReference Include="Essensoft.AspNetCore.Payment.WeChatPay" Version="2.3.2" />
+    <PackageReference Include="Essensoft.AspNetCore.Payment.QPay" Version="2.3.2" />
+    <PackageReference Include="Essensoft.AspNetCore.Payment.JDPay" Version="2.3.2" />
+    <PackageReference Include="Essensoft.AspNetCore.Payment.UnionPay" Version="2.3.2" />
+    
+    <PackageReference Include="jQuery" Version="3.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tibos.Common\Tibos.Common.csproj" />
     <ProjectReference Include="..\Tibos.Confing\Tibos.Confing.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Views\Home\Html.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="wwwroot\js\common.min.js">
-      <DependentUpon>common.js</DependentUpon>
-    </Content>
   </ItemGroup>
 
 </Project>

@@ -52,6 +52,13 @@ namespace Tibos.Admin.Controllers
             return View();
         }
 
+
+        [AlwaysAccessible]
+        public IActionResult MineSweeping()
+        {
+            return View();
+        }
+
         [AlwaysAccessible]
         public IActionResult Menu()
         {

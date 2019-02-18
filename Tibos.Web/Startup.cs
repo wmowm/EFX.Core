@@ -50,7 +50,6 @@ namespace Web
             app.UseSession();
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else

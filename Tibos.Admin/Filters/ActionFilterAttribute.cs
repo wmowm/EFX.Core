@@ -59,6 +59,8 @@ namespace Tibos.Admin.Filters
             var requestId = context.ActionDescriptor.Id;
             #region 记录日志(所有的请求)
             MonitorLog MonLog = new MonitorLog();
+            MonLog.RequestID = requestId;
+            MonLog.UID = context.HttpContext.User.Identity.Name;
             MonLog.ExecuteStartTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.ffff", DateTimeFormatInfo.InvariantInfo));
             MonLog.ControllerName = context.RouteData.Values["controller"] as string;
             MonLog.ActionName = context.RouteData.Values["action"] as string;

@@ -19,17 +19,11 @@ namespace Test
 
         static void Main(string[] args)
         {
-
-
-
-            var mm = Assembly.GetEntryAssembly().Location;
-            Console.WriteLine(mm);
-
-            var path = @"F:\GitProject\EFX_Core\Tibos.Admin\bin\Debug\Tibos.Repository.dll";
-            var path2= @"F:\GitProject\EFX_Core\Tibos.Admin\bin\Debug\Tibos.Service.dll";
-            //程序集注入
-            byte[] buffer = System.IO.File.ReadAllBytes(path);
-            var Repository = Assembly.Load(buffer);
+            Double i = 1000000000;
+            var e = Math.Pow((1 + 1 / i), i);
+            Console.WriteLine(e);
+            //MQHelper mq = new MQHelper();
+            //mq.Publish();
 
             Console.Read();
         }

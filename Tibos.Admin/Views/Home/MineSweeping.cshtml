@@ -1,0 +1,180 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="man">
+    <table id="tb" class="tb"></table>
+</div>
+<style>
+    .man {
+        margin-left: 40%;
+        margin-top: 10%;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: 1px solid #c0c0c0;
+        cursor: pointer;
+    }
+
+    td {
+        border: 1px solid #d0d0d0;
+        color: #404060;
+        padding: 10px;
+        width: 20px;
+        height: 42px;
+        text-align: center;
+    }
+
+    .mine {
+        color: orangered;
+    }
+</style>
+<script src="~/js/jquery.js"></script>
+<script>
+
+    var line_number = 10; //10*10表格
+    var mine_number = 10; //雷的数量
+    var mine = new Array();//雷的集合
+    var clickTimeId;    //单击延时触发
+    $(function () {
+        //1.生成10*10的表格
+        var tb_html = "";
+        for (var i = 0; i < line_number; i++) {
+            tb_html += "<tr tag='" + (i + 1) + "'>";
+            for (var j = 1; j < 11; j++) {
+                tb_html += "<td id='td_" + (i * line_number + j) + "' tag='" + (i * line_number + j) + "'>*</td>";
+            }
+            tb_html += "</tr>";
+        }
+        $("#tb").html(tb_html);
+        //2.布10个雷
+        while (mine.length < mine_number) {
+            var num = sum(1, line_number * line_number);
+            var index = $.inArray(num, mine);
+            if (index == -1) {
+                mine[mine.length] = num;
+                //$("#td_" + num).addClass("mine");
+            }
+        }
+
+
+        $("#tb tr td").click(function () {
+            var t = this;
+            // 取消上次延时未执行的方法
+            clearTimeout(clickTimeId);
+            //执行延时
+            clickTimeId = setTimeout(function () {
+                //此处为单击事件要执行的代码
+                console.log("鼠标单击");
+                position(t);
+            }, 250);
+            //alert($(this).attr("id"));
+        })
+
+        $("#tb tr td").dblclick(function () {
+            // 取消上次延时未执行的方法
+            clearTimeout(clickTimeId);
+            console.log("鼠标双击");
+            if ($(this).html() == "") return;
+            if ($(this).html() != "√") {
+                $(this).html("√");
+            } else {
+                $(this).html("*");
+            }
+            //判断是否游戏结束
+            var victory = 0;
+            for (var i = 0; i < mine.length; i++) {
+                var v = $("#td_" + mine[i]).html();
+                if (v != "√") return;
+                victory++;
+            }
+            if (victory > 0) {
+                alert("牛逼,牛逼,你胜利啦!");
+            }
+        })
+    })
+
+    //随机数
+    function sum(m, n) {
+        var num = Math.floor(Math.random() * (m - n) + n);
+        return num;
+    }
+
+    //计算位置
+    function position(t) {
+        //tr的值
+        var th = $(t).parent().attr("tag");
+        //td的值
+        var td = $(t).attr("tag");
+        var td2 = $(t).prev().attr("tag");//左边
+        var td3 = $(t).next().attr("tag");//右边
+        var td4 = $(t).parent().prev().children("#td_" + (parseInt(td) - line_number)).attr("tag");//上边
+        var td5 = $(t).parent().next().children("#td_" + (1 * line_number + parseInt(td))).attr("tag");//下边
+        var td6 = $(t).parent().prev().children("#td_" + (parseInt(td) - line_number - 1)).attr("tag");//右上
+        var td7 = $(t).parent().prev().children("#td_" + (parseInt(td) - line_number + 1)).attr("tag");//左上
+        var td8 = $(t).parent().next().children("#td_" + (line_number + parseInt(td) + 1)).attr("tag");//右下
+        var td9 = $(t).parent().next().children("#td_" + (line_number + parseInt(td) - 1)).attr("tag");//左下
+        var count = 0;
+        var t1 = $.inArray(parseInt(td), mine);//自己
+        var t2 = $.inArray(parseInt(td2), mine);
+        var t3 = $.inArray(parseInt(td3), mine);
+        var t4 = $.inArray(parseInt(td4), mine);
+        var t5 = $.inArray(parseInt(td5), mine);
+        var t6 = $.inArray(parseInt(td6), mine);
+        var t7 = $.inArray(parseInt(td7), mine);
+        var t8 = $.inArray(parseInt(td8), mine);
+        var t9 = $.inArray(parseInt(td9), mine);
+        if (t1 != -1) {
+            //显示10个雷
+            for (var i = 0; i < mine.length; i++) {
+                $("#td_" + mine[i]).addClass("mine");
+            }
+            alert("踩到地雷啦!");
+            return;
+        }
+        var temp_td = new Array();
+        var temp_t = new Array();
+        temp_t[0] = t1;
+        temp_t[1] = t2;
+        temp_t[2] = t3;
+        temp_t[3] = t4;
+        temp_t[4] = t5;
+        temp_t[5] = t6;
+        temp_t[6] = t7;
+        temp_t[7] = t8;
+        temp_t[8] = t9;
+
+        temp_td[0] = td;
+        temp_td[1] = td2;
+        temp_td[2] = td3;
+        temp_td[3] = td4;
+        temp_td[4] = td5;
+        temp_td[5] = td6;
+        temp_td[6] = td7;
+        temp_td[7] = td8;
+        temp_td[8] = td9;
+
+        for (var i = 0; i < temp_t.length; i++) {
+            if (temp_t[i] != -1) {
+                count += 1;
+            }
+        }
+        if (count > 0) {
+            $(t).html(count);
+        } else {
+            for (var i = 0; i < temp_td.length; i++) {
+                var v = $("#td_" + temp_td[i]).html();
+                if (v == "*") {
+                    $("#td_" + temp_td[i]).html("");
+                }
+            }
+            if (td2 != null) {
+                position($("#td_" + temp_td[1]));
+            }
+        }
+
+    }
+</script>

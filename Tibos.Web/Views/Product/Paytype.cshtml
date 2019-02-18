@@ -1,0 +1,344 @@
+﻿@{ 
+    Layout = null;
+}
+<style>
+    div {
+        display: block;
+    }
+
+    .two-step p {
+        color: #666;
+    }
+
+        .two-step p strong {
+            font-size: 16px;
+            display: block;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .two-step p span {
+            color: #fb226b;
+        }
+
+    .two-step .pay-infor {
+        border: 1px solid #e5e5e5;
+        margin: 25px 0 20px;
+        content: "";
+        display: table;
+        clear: both;
+        width: 100%;
+    }
+
+        .two-step .pay-infor li:first-child {
+            padding-left: 50px;
+            text-align: left;
+        }
+
+        .two-step .pay-infor li {
+            float: left;
+            width: 33.3333%;
+            height: 58px;
+            line-height: 58px;
+            text-align: center;
+            font-size: 14px;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+            .two-step .pay-infor li strong {
+                font-size: 20px;
+                color: #fb226b;
+            }
+
+            .two-step .pay-infor li:last-child {
+                padding-right: 50px;
+                text-align: right;
+            }
+
+        .two-step .pay-infor li {
+            float: left;
+            width: 33.3333%;
+            height: 58px;
+            line-height: 58px;
+            text-align: center;
+            font-size: 14px;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+    .two-step h5 {
+        margin-bottom: 16px;
+        font-weight: 400;
+    }
+
+    .two-step .pay-label {
+        border: 1px solid #e5e5e5;
+        padding: 0 20px 20px;
+        content: "";
+        display: table;
+        clear: both;
+        width: 100%;
+    }
+
+        .two-step .pay-label li {
+            float: left;
+            width: 150px;
+            height: 42px;
+            position: relative;
+            margin: 20px 40px 0 0;
+            display: inline;
+        }
+
+            .two-step .pay-label li input {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 40px;
+                opacity: 0;
+            }
+
+                .two-step .pay-label li input:checked + label {
+                    border-color: #27c8e8;
+                }
+
+            .two-step .pay-label li label {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 150px;
+                height: 40px;
+                border: 1px solid #e5e5e5;
+                text-align: center;
+                line-height: 40px;
+                vertical-align: middle;
+            }
+
+                .two-step .pay-label li label img {
+                    vertical-align: middle;
+                    margin-top: 4px;
+                }
+
+    .two-step .btns {
+        right: 0;
+        bottom: 0;
+        line-height: 40px;
+        height: 40px;
+        float: right;
+        margin: 25px 0px;
+    }
+
+        .two-step .btns span:first-child {
+            border-radius: 3px;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #dcdcdc;
+            position: relative;
+            top: 4px;
+            margin-right: 10px;
+        }
+
+            .two-step .btns span:first-child:before {
+                position: absolute;
+                content: '';
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMi43MTkiIGhlaWdodD0iOS41MzEiIHZpZXdCb3g9IjAgMCAxMi43MTkgOS41MzEiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICMwMGI1ZDg7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8cGF0aCBpZD0i56Gu6K6kIiBjbGFzcz0iY2xzLTEiIGQ9Ik02OTQuNzM5LDk5NS42MTFhMC40NzksMC40NzksMCwwLDEtLjY4LDBsLTAuMTUxLS4xNTJoMGwtMC4xNi0uMTYyLTAuNzA5LS43MTJhMC4wNzksMC4wNzksMCwwLDEsMC0uMDA5TDY4OS43OSw5OTEuM2EwLjQ4NCwwLjQ4NCwwLDAsMSwwLS42ODNsMS4wMjEtMS4wMjVhMC40OCwwLjQ4LDAsMCwxLC42OCwwbDIuOTEyLDIuOTQ1LDYuMTIxLTYuMTQ1YTAuNDgsMC40OCwwLDAsMSwuNjgsMGwxLjAyMSwxLjAyNWEwLjQ4NCwwLjQ4NCwwLDAsMSwwLC42ODNaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjg5LjY1NiAtOTg2LjI1KSIvPgo8L3N2Zz4K) no-repeat 50%;
+            }
+
+        .two-step .btns span {
+            color: #0098b6;
+        }
+
+        .two-step .btns button {
+            vertical-align: top;
+            margin-left: 30px;
+        }
+
+    .pcdemo-btn {
+        border: none;
+        border-radius: 4px;
+        background-color: #27c8e8;
+        font-size: 16px;
+        color: #fff;
+        height: 40px;
+        line-height: 40px;
+        width: 160px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+        .pcdemo-btn:after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            content: attr(ta);
+            z-index: 2;
+        }
+
+    .confirm-pop {
+        background: rgba(0,0,0,.2);
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 3;
+    }
+
+        .confirm-pop .confirm {
+            background-color: #fff;
+            width: 400px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -100px 0 0 -200px;
+        }
+
+            .confirm-pop .confirm h4 {
+                height: 36px;
+                line-height: 36px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 400;
+                background-color: #f8f8f8;
+                margin: 0px;
+            }
+
+            .confirm-pop .confirm p:nth-child(2) {
+                display: block;
+                font-size: 14px;
+                margin-top: 26px;
+                color: #333;
+            }
+
+            .confirm-pop .confirm p {
+                color: #666;
+                text-align: center;
+            }
+
+                .confirm-pop .confirm p:nth-child(2) span {
+                    display: block;
+                    font-size: 12px;
+                    color: #666;
+                }
+
+            .confirm-pop .confirm .confirm-btns {
+                text-align: center;
+                margin: 25px 0 18px;
+            }
+
+            .confirm-pop .confirm p {
+                color: #666;
+                text-align: center;
+            }
+
+                .confirm-pop .confirm p:nth-child(4) span {
+                    color: #00a9f1;
+                    margin: 0 5px;
+                }
+
+            .confirm-pop .confirm .confirm-btns button:first-child:after {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                content: attr(ta);
+                z-index: 2;
+            }
+
+            .confirm-pop .confirm .confirm-btns button:first-child {
+                background-color: #27c8e8;
+                color: #fff;
+            }
+
+            .confirm-pop .confirm .confirm-btns button {
+                width: 130px;
+                height: 30px;
+                line-height: 30px;
+                border-radius: 4px;
+                vertical-align: top;
+                border: 0;
+                position: relative;
+                font-size: 14px;
+                margin: 0 20px;
+                overflow: hidden;
+                z-index: 2;
+            }
+
+                .confirm-pop .confirm .confirm-btns button:last-child {
+                    background-color: #fff;
+                    box-shadow: 0 0 0 1px #ccc;
+                    color: #666;
+                }
+
+                    .confirm-pop .confirm .confirm-btns button:last-child:after {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        content: attr(ta);
+                        z-index: 2;
+                    }
+</style>
+<div class="two-step">
+    <p>
+        <strong>请您及时付款，以便订单尽快处理！</strong>
+        请您在提交订单后<span>24小时</span>内完成支付，否则订单会自动取消。
+    </p>
+    <ul class="pay-infor">
+        <li>支付金额：<strong>0.01 <span>元</span></strong></li>
+        <li>收款方：付钱拉</li>
+        <li>订单编号：<span>DemoPay1498187568919</span></li>
+    </ul> <h5>选择支付方式</h5>
+    <ul class="pay-label">
+        <li>
+            <input type="radio" value="zfb" checked="checked" name="channel" id="zfb"> <label for="zfb">
+                <img src="data:image/svg+xml;base64,PHN2ZyBpZD0i5pSv5LuY5a6dIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NiIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDg2IDMwIj4NCiAgPGRlZnM+DQogICAgPHN0eWxlPg0KICAgICAgLmNscy0xIHsNCiAgICAgICAgZmlsbDogIzAwYTFlODsNCiAgICAgIH0NCg0KICAgICAgLmNscy0xLCAuY2xzLTIgew0KICAgICAgICBmaWxsLXJ1bGU6IGV2ZW5vZGQ7DQogICAgICB9DQoNCiAgICAgIC5jbHMtMiB7DQogICAgICAgIGZpbGw6ICMzODM4Mzg7DQogICAgICB9DQogICAgPC9zdHlsZT4NCiAgPC9kZWZzPg0KICA8cGF0aCBpZD0i5b2i54q2XzMiIGRhdGEtbmFtZT0i5b2i54q2IDMiIGNsYXNzPSJjbHMtMSIgZD0iTTMwNS4yOTEsODQ1LjNhNS44ODYsNS44ODYsMCwwLDAtMi45MjYsMS4wODdjLTIuMzA3LDIuMDEtLjkyNyw1LjY4NywzLjc0MSw1LjY4NywyLjcxMiwwLDUuNDI0LTEuNzM1LDcuNTUzLTQuNTExLTMuMDI4LTEuNDc4LTUuNTk1LTIuNTM3LTguMzY4LTIuMjYzaDBabTE3LjQxLDIuNTQxYTMxLjk4NiwzMS45ODYsMCwwLDAsNS4zLDEuNTI1VjgzMy44MDZBNC44LDQuOCwwLDAsMCwzMjMuMiw4MjlIMzAyLjgwNUE0LjgsNC44LDAsMCwwLDI5OCw4MzMuODA2Vjg1NC4yYTQuOCw0LjgsMCwwLDAsNC44MDUsNC44SDMyMy4yYTQuOCw0LjgsMCwwLDAsNC44LTQuOFY4NTRzLTcuOC0zLjI1My0xMS43NDUtNS4xNDhjLTIuNjQyLDMuMjUxLTYuMDUyLDUuMjI1LTkuNTkxLDUuMjI1LTUuOTg2LDAtOC4wMTgtNS4yMzgtNS4xODQtOC42ODZhNi4wMTcsNi4wMTcsMCwwLDEsMy4zLTEuODcyYzIuNTUyLS42MjcsNi42MTQuMzkyLDEwLjQyMSwxLjY0OGEyMC45NjYsMjAuOTY2LDAsMCwwLDEuNjktNC4xMjlIMzA1LjE2di0xLjE4OWg2LjA1di0yLjEzaC03LjMyN3YtMS4xODloNy4zMjd2LTMuMDM5YTAuNSwwLjUsMCwwLDEsLjUxOS0wLjUxMmgyLjk1NnYzLjU1MWg3LjI0NHYxLjE4OWgtNy4yNDR2Mi4xM0gzMjAuNmEyNC4yMjcsMjQuMjI3LDAsMCwxLTIuNSw2LjMyNWMxLjc5NCwwLjY0OCwzLjQwNiwxLjI2NCw0LjYwNiwxLjY2NWgwWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI5OCAtODI5KSIvPg0KICA8cGF0aCBpZD0i5b2i54q2XzE2IiBkYXRhLW5hbWU9IuW9oueKtiAxNiIgY2xhc3M9ImNscy0yIiBkPSJNMzcxLjk1Nyw4MzMuNzFoOC42MTF2MS43MjFoMy4wNzV2LTIuMDM5YTAuMDQ1LDAuMDQ1LDAsMCwxLDAtLjAxMiwwLjgyNCwwLjgyNCwwLDAsMC0uOC0wLjgzNmgtNC45Nzd2LTEuNjA1SDM3NC42NXYxLjYwNWgtNS43Njh2Mi44ODdoMy4wNzVWODMzLjcxaDBabS0xOC42MjktMi42MjItMy4xNTMsNy41MjdoMi40MTl2OC45NThoMi42NDVWODM1LjY5MWgtMC45NThsMS45OTItNC42aC0yLjk0NVpNMzg0LDg0Ny4xNjJsLTAuOTY3LTMuM2EwLjUsMC41LDAsMCwwLS40NzYtMC4zNjNoLTIuNTZsMC43NDIsMi41MzFoLTMuMDF2LTQuOWg1LjkxMXYtMS4xNjhoLTUuOTExVjgzNy42Nmg1LjkxMXYtMS4xNjdIMzY4Ljg4MnYxLjE2N2g1LjkxMXYyLjMwNmgtNS45MTF2MS4xNjhoNS45MTF2NC45aC01LjkxMVY4NDcuMkgzODRsLTAuMDEyLS4wNEgzODRabS0yMy45LTkuOWEwLjYxMSwwLjYxMSwwLDAsMC0uNTQ0LTAuMzUxaC0yLjI5bDEuNzgzLDUuNjdoMi43MWwtMS42NTktNS4zMTloMFptNS44LTYuMDM0aC0yLjc0OXYyLjloLTYuNzc0djEuMTY3aDYuNzc0djEwLjQyNGEwLjQ3NywwLjQ3NywwLDAsMS0uNDQzLjQzN2gtMS40djEuMjA4aDMuNTYyYTEuMDksMS4wOSwwLDAsMCwxLjAyNy0xLjA4MlY4MzUuMjkxaDEuMTE3di0xLjE2N2gtMS4xMTd2LTIuOWgwWm0tMTcuMTUxLDUuMjgzaC01LjI4VjgzNC42aDYuMTIydi0xLjE5aC02LjEyMnYtMi40MjFoLTIuNzNhMC41NTMsMC41NTMsMCwwLDAtLjU0MS41NjV2MS44NTVoLTYuMDc5djEuMTloNi4wNzl2MS45MWgtNS4xMzFWODM3LjdoMTAuMjIxYTEwLjIxNSwxMC4yMTUsMCwwLDEtMy4zNyw0LjYzMSwxMi44MTUsMTIuODE1LDAsMCwxLTMuMzUxLTMuNDQ4aC0yLjc0MmExNS4zNjIsMTUuMzYyLDAsMCwwLDQuMzgzLDQuNzI4LDIzLjY4OCwyMy42ODgsMCwwLDEtNi4yLDIuOHYxLjQyNWEyNy40ODIsMjcuNDgyLDAsMCwwLDcuOTMyLTMuMDg3LDI4LjIzOCwyOC4yMzgsMCwwLDAsNy44MjUsMy4wODdWODQ2LjQ4YTMyLjQzMywzMi40MzMsMCwwLDEtNi4wNTktMi45MTUsMTIuOTIzLDEyLjkyMywwLDAsMCw1LjAzOS03LjA1OWgwWm0tOS40NSwxMy41aC0wLjk3OWwtMi41MTEsNi45MDloMS4yODFsMC40NzYtMS4zOTJoMi41MTdsMC40NTcsMS4zOTJoMS4yNzlabS0xLjQzNCw0LjY0NSwwLjk4LTIuODY1aDBsMC45NDcsMi44NjVoLTEuOTI3Wm03Ljk5Mi00LjY0NXY2LjkwOWg0LjE0NFY4NTUuOThoLTIuOTEzdi01Ljk2OGgtMS4yMzFabTguNjU5LDBoMS4yMzJ2Ni45MDhIMzU0LjV2LTYuOTA4aDBabTguODgyLDBoLTIuNjZ2Ni45MDhoMS4yMzF2LTIuNjU1aDEuNDI5QTIuMTMsMi4xMywwLDEsMCwzNjMuMzg2LDg1MC4wMTJabS0wLjA2OSwzLjNoLTEuMzZ2LTIuMzYzaDEuMzZhMS4xMzMsMS4xMzMsMCwwLDEsMS4wOTEsMS4xODdBMS4xMTUsMS4xMTUsMCwwLDEsMzYzLjMxNyw4NTMuMzE1Wm04Ljc2Ny0zLjNoLTAuOTc4bC0yLjUxMSw2LjkwOWgxLjI4MWwwLjQ3NS0xLjM5MmgyLjUxOGwwLjQ1NiwxLjM5MmgxLjI4Wm0tMS40MzQsNC42NDUsMC45ODEtMi44NjUsMC45NDYsMi44NjVIMzcwLjY1Wm0xMC44MTItNC42NDUtMS4zNDMsMi45NDMtMS4zNjMtMi45NDNoLTEuMzMxbDIuMDcyLDQuMDcxdjIuODM4aDEuMjIydi0yLjgzOGwwLjAwOC0uMDE2LDIuMDY1LTQuMDU1aC0xLjMzWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI5OCAtODI5KSIvPg0KPC9zdmc+DQo=" alt="支付宝">
+            </label>
+        </li>
+        <li> <input type="radio" value="wx" name="channel" id="wx"> <label for="wx"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAAAeCAYAAAD99TobAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkMwODJBMDgxMzc3MTFFNjk0RDg5QkIzMDc0MTk5MUYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkMwODJBMDkxMzc3MTFFNjk0RDg5QkIzMDc0MTk5MUYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1M0Q2Qzk3RjEzNzcxMUU2OTREODlCQjMwNzQxOTkxRiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1M0Q2Qzk4MDEzNzcxMUU2OTREODlCQjMwNzQxOTkxRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpDXmRcAAAoCSURBVHja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" alt="微信支付"></label> </li>
+        <li> <input type="radio" value="yl" name="channel" id="yl"> <label for="yl"><img src="~/images/yl.png" alt="银联支付" style="height:30px"></label> </li>
+    </ul>
+    <div class="btns">
+        <span></span>我已经阅读并同意<span>《付钱拉DEMO商城购买协议》</span>
+        <button class="pcdemo-btn sbpay-btn" ta="立即支付"></button>
+    </div>
+</div>
+
+
+<div class="confirm-pop" style="display:none!important;">
+    <div class="confirm">
+        <h4>确认支付</h4> <p> 请在新打开的页面进行支付！<span>支付完成前请不要关闭此窗口</span> </p>
+        <div class="confirm-btns">
+            <button class="finish-btn" ta="已完成支付"></button>
+            <button class="change-pay" ta="更换支付方式"></button>
+        </div>
+        <p>支付遇到问题？请联系<span>付钱拉客服</span>获得帮助</p>
+    </div>
+</div>
+
+<script>
+    $(".sbpay-btn").click(function () {
+        var paytype = $('.pay-label li input[name="channel"]:checked ').val();
+        window.open("/Product/SubmitAlipay?order=1");
+        $(".confirm-pop").toggle();
+    });
+    $(".finish-btn").click(function () {
+        $(".confirm-pop").toggle();
+    })
+    $(".change-pay").click(function () {
+        $(".confirm-pop").toggle();
+    })
+</script>

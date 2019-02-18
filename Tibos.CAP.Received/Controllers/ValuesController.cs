@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Tibos.Domain;
 
 namespace Tibos.CAP.Received.Controllers
 {
+    //[EnableCors("any")]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -35,8 +37,9 @@ namespace Tibos.CAP.Received.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public JsonResult PostTest([FromBody]string value)
         {
+            return Json(value);
         }
 
         // PUT api/values/5

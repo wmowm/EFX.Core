@@ -29,14 +29,14 @@ namespace Tibos.CAP.Controllers
         [Route("~/adonet/transaction")]
         public IActionResult AdonetWithTransaction()
         {
-            string ConnectionString = "Data Source=132.232.4.73;Initial Catalog=666;port=3307; User ID=root;Password=As123456;SslMode = none;";
+            string ConnectionString = "Data Source=132.232.4.73;Initial Catalog=CAP_DB;port=3307; User ID=root;Password=As123456;SslMode = none;";
 
             using (var connection = new MySqlConnection(ConnectionString))
             {
 
                 using (var transaction = connection.BeginTransaction(_capBus, autoCommit: false))
                 {
-                    //connection.Execute($"insert into MessageRecord(UserName,Msg,CreateTime) values({i})", transaction: (IDbTransaction)transaction.DbTransaction);
+                    connection.Execute($"insert into MessageRecord(UserName,Msg,CreateTime) values('test','测试','{DateTime.Now}')", transaction: (IDbTransaction)transaction.DbTransaction);
                     //your business code
                     Users user = new Users();
                     user.Email = "XX";
