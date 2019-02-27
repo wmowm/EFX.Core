@@ -5,6 +5,8 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +39,76 @@ namespace Tibos.Test
 
             webClient.UploadDataAsync(new Uri(url), "POST", sendData);
         }
+
+
+
+
+        public static string HttpPost(string url, string strDate, Encoding encoding = null)
+        {
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "post";
+            request.Accept = "text/html, application/xhtml+xml, */*";
+            request.ContentType = "application/x-www-form-urlencoded";
+            var buffer = encoding.GetBytes(strDate);
+            request.ContentLength = buffer.Length;
+            request.GetRequestStream().Write(buffer, 0, buffer.Length);
+            if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                ServicePointManager.ServerCertificateValidationCallback =
+                        new RemoteCertificateValidationCallback(CheckValidationResult);
+            }
+            var response = (HttpWebResponse)request.GetResponse();
+            var responseStream = response.GetResponseStream();
+            if (responseStream == null) return string.Empty;
+            using (var reader = new StreamReader(responseStream, encoding))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            return true;// Always accept
+        }
+
+
+
+
+
+
+        public static string PostWebRequest(string postUrl, string paramData, Encoding dataEncode=null)
+        {
+            if (dataEncode == null)
+                dataEncode = Encoding.UTF8;
+            string ret = string.Empty;
+            try
+            {
+                byte[] byteArray = dataEncode.GetBytes(paramData); //转化
+                HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(new Uri(postUrl));
+                webReq.Method = "POST";
+                webReq.ContentType = "application/x-www-form-urlencoded";
+
+                webReq.ContentLength = byteArray.Length;
+                Stream newStream = webReq.GetRequestStream();
+                newStream.Write(byteArray, 0, byteArray.Length);//写入参数
+                newStream.Close();
+                HttpWebResponse response = (HttpWebResponse)webReq.GetResponse();
+                StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.Default);
+                ret = sr.ReadToEnd();
+                sr.Close();
+                response.Close();
+                newStream.Close();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return ret;
+        }
+
 
 
 

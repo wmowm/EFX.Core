@@ -9,5 +9,12 @@
             允许匿名访问
             </summary>
         </member>
+        <member name="M:Tibos.Api.Controllers.HomeController.PostTest(System.Collections.Generic.List{Tibos.Domain.Users})">
+            <summary>
+            测试
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

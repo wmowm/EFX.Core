@@ -31,7 +31,7 @@ namespace Tibos.Api.Controllers
             var config = JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
             return new string[] { "" };
         }
-
+        [AlwaysAccessible]
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<string> Get(int id)
@@ -263,6 +263,25 @@ namespace Tibos.Api.Controllers
 
             return await Task.Run<string>(()=> {return Test(); });
         }
+
+
+        /// <summary>
+        /// 测试
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        [AlwaysAccessible]
+        [HttpPost]
+        public async Task<string> PostTest([FromBody]List<Users> list)
+        {
+            return await Task.Run(() => 
+            {
+                return list.Count.ToString(); 
+            });
+            return "777";
+        }
+
+
 
         private string Test()
         {

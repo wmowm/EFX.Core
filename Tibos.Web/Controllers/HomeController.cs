@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Collections;
 using Tibos.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Web.Controllers
 {
@@ -36,5 +39,27 @@ namespace Web.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Logout(string logoutId)
+        {
+            //删除自己的凭证
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //删除验证服务器上面的凭证
+            await HttpContext.SignOutAsync("oidc");
+
+            return View();
+        }
+
+
+
     }
 }

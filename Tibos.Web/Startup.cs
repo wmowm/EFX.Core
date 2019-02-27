@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +43,25 @@ namespace Web
                 options.Filters.Add(typeof(ResultFilterAttribute));
 
             });
+
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // ensure not change any return Claims from Authorization Server
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc"; // oidc => open ID connect
+            })
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.SignInScheme = "Cookies";
+                options.Authority = $"http://localhost:5000";
+                options.RequireHttpsMetadata = false; // please use https in production env
+                options.ClientId = "cas.mvc.client.implicit";
+                options.ResponseType = "id_token token"; // allow to return access token
+            options.SaveTokens = true;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +84,7 @@ namespace Web
             });
 
 
-
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -73,7 +93,6 @@ namespace Web
                    template: "{controller}/{action}/{id?}",
                    defaults: new { controller = "Home", action = "Index" });
             });
-            app.UseAuthentication();
         }
     }
 }

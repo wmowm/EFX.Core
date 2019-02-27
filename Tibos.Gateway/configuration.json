@@ -1,0 +1,32 @@
+﻿{
+  "ReRoutes": [
+    // API:CAS.ClientService
+    {
+      "DownstreamPathTemplate": "/api/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7001"
+        }
+      ],
+      //"ServiceName": "Tibos.API",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/api/{url}",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotKey",
+        "AllowedScopes": []
+      } 
+    }
+  ],
+  //"GlobalConfiguration": {
+  //  "ServiceDiscoveryProvider": {
+  //    "Host": "193.112.104.103",
+  //    "Port": 8800
+  //  }
+  //}
+}

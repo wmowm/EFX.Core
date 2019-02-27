@@ -4,12 +4,20 @@
 }
 
 <div class="man">
+    <h2>Tibos扫雷游戏</h2>
+    <h4>说明:单击扫雷,双击标识地雷,地雷数:<span id="mine_number"></span>,剩余标记数:<span id="tp_number">10</span></h4>
     <table id="tb" class="tb"></table>
 </div>
 <style>
     .man {
-        margin-left: 40%;
-        margin-top: 10%;
+        margin: 10% auto;
+        width: 1000px;
+        height: 500px;
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     table {
@@ -17,6 +25,7 @@
         border-spacing: 0;
         border: 1px solid #c0c0c0;
         cursor: pointer;
+        margin: 0 auto;
     }
 
     td {
@@ -44,7 +53,7 @@
         var tb_html = "";
         for (var i = 0; i < line_number; i++) {
             tb_html += "<tr tag='" + (i + 1) + "'>";
-            for (var j = 1; j < 11; j++) {
+            for (var j = 1; j < line_number+1; j++) {
                 tb_html += "<td id='td_" + (i * line_number + j) + "' tag='" + (i * line_number + j) + "'>*</td>";
             }
             tb_html += "</tr>";
@@ -59,7 +68,7 @@
                 //$("#td_" + num).addClass("mine");
             }
         }
-
+        $("#mine_number").html(mine_number);
 
         $("#tb tr td").click(function () {
             var t = this;
@@ -78,21 +87,31 @@
             // 取消上次延时未执行的方法
             clearTimeout(clickTimeId);
             console.log("鼠标双击");
-            if ($(this).html() == "") return;
-            if ($(this).html() != "√") {
-                $(this).html("√");
-            } else {
-                $(this).html("*");
-            }
-            //判断是否游戏结束
-            var victory = 0;
-            for (var i = 0; i < mine.length; i++) {
-                var v = $("#td_" + mine[i]).html();
-                if (v != "√") return;
-                victory++;
-            }
-            if (victory > 0) {
-                alert("牛逼,牛逼,你胜利啦!");
+            if ($(this).html() == "*" || $(this).html() == "√") {
+                var tp_number = $("#tp_number").html();
+                var tm = 0;
+                if ($(this).html() != "√") {
+                    if (parseInt(tp_number) == 0) {
+                        alert("已经没有标记了!");
+                        return;
+                    }
+                    tm = parseInt(tp_number) - 1;
+                    $(this).html("√");
+                } else {
+                    tm = parseInt(tp_number) + 1;
+                    $(this).html("*");
+                }
+                $("#tp_number").html(tm);
+                //判断是否游戏结束
+                var victory = 0;
+                for (var i = 0; i < mine.length; i++) {
+                    var v = $("#td_" + mine[i]).html();
+                    if (v != "√") return;
+                    victory++;
+                }
+                if (victory > 0) {
+                    alert("牛逼,牛逼,你胜利啦!");
+                }
             }
         })
     })
@@ -105,6 +124,7 @@
 
     //计算位置
     function position(t) {
+        //if ($(t).html() != "*") return;
         //tr的值
         var th = $(t).parent().attr("tag");
         //td的值
@@ -132,7 +152,12 @@
             for (var i = 0; i < mine.length; i++) {
                 $("#td_" + mine[i]).addClass("mine");
             }
-            alert("踩到地雷啦!");
+
+
+            var r = confirm("踩到地雷啦!是否从新开始?")
+            if (r == true) {
+                location.reload();
+            }
             return;
         }
         var temp_td = new Array();
@@ -165,14 +190,18 @@
         if (count > 0) {
             $(t).html(count);
         } else {
-            for (var i = 0; i < temp_td.length; i++) {
-                var v = $("#td_" + temp_td[i]).html();
-                if (v == "*") {
-                    $("#td_" + temp_td[i]).html("");
-                }
-            }
-            if (td2 != null) {
+            $(t).html("");
+            if (td2 != null && $("#td_" + temp_td[1]).html() != "") {
                 position($("#td_" + temp_td[1]));
+            }
+            if (td5 != null && $("#td_" + temp_td[4]).html() != "") {
+                position($("#td_" + temp_td[4]));
+            }
+            if (td3 != null && $("#td_" + temp_td[2]).html() != "") {
+                position($("#td_" + temp_td[2]));
+            }
+            if (td4 != null && $("#td_" + temp_td[3]).html() != "") {
+                position($("#td_" + temp_td[3]));
             }
         }
 

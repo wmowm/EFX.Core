@@ -41,4 +41,10 @@
     <ProjectReference Include="..\Tibos.Confing\Tibos.Confing.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Home\Logout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

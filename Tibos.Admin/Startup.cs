@@ -89,7 +89,7 @@ namespace Tibos.Admin
                         options.LoginPath = new PathString("/login");
                         options.AccessDeniedPath = new PathString("/denied");
                     });
-            Console.WriteLine(">>>>>>>==================================注册Authentication===============================<<<<<<<");
+            Console.WriteLine(">>>>>>>==================================注册Authentication===========================================<<<<<<<");
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ResourceFilterAttribute));
