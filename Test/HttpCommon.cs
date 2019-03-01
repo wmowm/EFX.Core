@@ -130,8 +130,8 @@ namespace Tibos.Test
             }
             realUrl.Append(param.ToString());
             WebRequest req = WebRequest.Create(realUrl.ToString());
-            //req.ContentType = "text/html; charset=utf-8";
-            
+            req.ContentType = "text/html; charset=utf-8";
+            req.Headers.Add("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjRCQTUyN0FDNkFEQTNCNDZGNTg5MDQzRjhCMDg2NzcwNTkxMzJCRjYiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJTNlVuckdyYU8wYjFpUVFfaXdobmNGa1RLX1kifQ.eyJuYmYiOjE1NTEzNDQ0ODksImV4cCI6MTU1MTM0ODA4OSwiaXNzIjoiaHR0cDovLzE5My4xMTIuMTA0LjEwMzo5MTExIiwiYXVkIjpbImh0dHA6Ly8xOTMuMTEyLjEwNC4xMDM6OTExMS9yZXNvdXJjZXMiLCJhZ2VudHNlcnZpY2UiXSwiY2xpZW50X2lkIjoianMiLCJzdWIiOiIxMDAwMyIsImF1dGhfdGltZSI6MTU1MTM0NDQ4OSwiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiYWdlbnRzZXJ2aWNlIl0sImFtciI6WyJwd2QiXX0.FK37BlzKeyCVvoSFPxbmunGhRzP9_FBUXkCVg3sI3NsAwc_8cu_6clwTFP7QfKPRiymN6j9G_guDPwC1lGugbtUlY6KFpDVNL6A3mGuo-lc4VrGsn6yHzVbHsYDLr5o02fOolAXY6Y3jZigiJr3g2IOvAn8A3hyWmy8FI6OiJCGLxj_M-nJDQK7MtlLce9hbvD0S20MfLbvg86u1dN0qHhSpB_MkcSqFxhne-Uoi-Rq9tpxBjLYy0JzcbBn1aGDRwOP2CHgBVo9oKbQc8FqhwCpJx1q8_iSxNjYHOJvRj9u9vFZEozt4pSrFSYmwEzTDWFp0sik__mNbihIJc8kczw");
             WebResponse res = req.GetResponse();
             Stream stream = res.GetResponseStream();
 

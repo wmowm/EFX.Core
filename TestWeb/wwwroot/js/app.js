@@ -19,12 +19,12 @@ document.getElementById("api").addEventListener("click", api, false);
 document.getElementById("logout").addEventListener("click", logout, false);
 
 var config = {
-    authority: "http://localhost:5000",
+    authority: "http://193.112.104.103:9111",
     client_id: "js",
-    redirect_uri: "http://localhost:5002/js/callback.html",
+    redirect_uri: "http://193.112.104.103:6013/js/callback.html",
     response_type: "id_token token",
     scope: "openid profile agentservice",
-    post_logout_redirect_uri: "http://localhost:5002/js/index.html",
+    post_logout_redirect_uri: "http://193.112.104.103:6013/js/index.html",
 
 };
 var mgr = new Oidc.UserManager(config);
@@ -44,15 +44,14 @@ function login() {
 
 function api() {
     mgr.getUser().then(function (user) {
-        var url = "http://localhost:9500/api/values";
-
+        var url = "http://193.112.104.103:9222/api/values";
+        console.log(user.access_token);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.onload = function () {
             log(xhr.status, JSON.parse(xhr.responseText));
         }
         xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
-        //log(user.access_token);
         xhr.send();
     });
 }

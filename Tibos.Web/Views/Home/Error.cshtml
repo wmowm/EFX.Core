@@ -4,12 +4,18 @@
 
 <script src="~/js/jquery.min.js"></script>
 <script>
-    var url = "https://api.growingio.com/v3/b3adb7e5a168e167/s2s/cstm?stm=1550562819825";
-    var data = [{ "cs1": "15019400599", "tm": 1550562819825, "n": "trading", "var": { "tradingId": "test001", "tradingWay_var": "委托买入", "tradingPair": "ETH/VHKD" }, "t": "cstm" }];
-    $.post(url, data, function (t)
-    {
-        //alert(t);
-        console.log(t);
-    })
+    var url = "http://193.112.104.103:9222/api/values";
+    var access_token = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjRCQTUyN0FDNkFEQTNCNDZGNTg5MDQzRjhCMDg2NzcwNTkxMzJCRjYiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJTNlVuckdyYU8wYjFpUVFfaXdobmNGa1RLX1kifQ.eyJuYmYiOjE1NTEzNDAyNjEsImV4cCI6MTU1MTM0Mzg2MSwiaXNzIjoiaHR0cDovLzE5My4xMTIuMTA0LjEwMzo5MTExIiwiYXVkIjpbImh0dHA6Ly8xOTMuMTEyLjEwNC4xMDM6OTExMS9yZXNvdXJjZXMiLCJhZ2VudHNlcnZpY2UiXSwiY2xpZW50X2lkIjoianMiLCJzdWIiOiIxMDAwMyIsImF1dGhfdGltZSI6MTU1MTMzOTg5MywiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiYWdlbnRzZXJ2aWNlIl0sImFtciI6WyJwd2QiXX0.esEA9BcD-eAtFBBUNqBmXDe_O1WfusaMgijCSYRHkS_BgdKGNk5tBJZzLZELNu43H6Lnvn1Ak-O_PRPt8CoEfZByoxzmctlhbWDAmC_LI-u4-QYE27oXjhC9GepuANSo4ZgmIKt4kde8bhZx5d-32PGNqOnWWnFIQoBJN4P4JHX6WHDksys4jj1qr1lYcLx_WJSZGGVT32F3LrG_-60ZSnAEguYjmD_OhCCrWHxv-Un51Wfh7x5DXi9ScaPZkQT3hfQBMGqpgqXq1oMh1JdbHYh_iMxNv53G6hP_efepI9AMTvPUojbsdcNTl2Cqt8tTw8sZOw2Nlpzg6FxwylgR3A";
+    $.ajax({
+        headers: {
+            Authorization: access_token
+        },
+        dataType: "json",
+        type: "get",
+        url:url,
+        success: function (data) {
+            console.log(data);
+        }
+    });
 
 </script>

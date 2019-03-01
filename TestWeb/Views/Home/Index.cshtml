@@ -2,38 +2,4 @@
     ViewData["Title"] = "Home Page";
     Layout = null;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <button id="login">LoginXX</button>
-    <button id="api">Call API</button>
-    <button id="logout">Logout</button>
-
-    <pre id="results"></pre>
-    <script src="~/js/oidc-client.js"></script>
-</body>
-</html>
-
-<script>
-    function log() {
-        document.getElementById('results').innerText = '';
-
-        Array.prototype.forEach.call(arguments, function (msg) {
-            if (msg instanceof Error) {
-                msg = "Error: " + msg.message;
-            }
-            else if (typeof msg !== 'string') {
-                msg = JSON.stringify(msg, null, 2);
-            }
-            document.getElementById('results').innerHTML += msg + '\r\n';
-        });
-    }
-
-    document.getElementById("login").addEventListener("click", login, false);
-    document.getElementById("api").addEventListener("click", api, false);
-    document.getElementById("logout").addEventListener("click", logout, false);
-</script>
+<h1>这是6013的首页!</h1>

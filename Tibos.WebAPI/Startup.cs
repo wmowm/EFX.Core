@@ -40,7 +40,7 @@ namespace Tibos.WebAPI
             //配置跨域处理
             services.AddCors(options =>
             {
-                options.AddPolicy("any", builder =>
+                options.AddPolicy("default", builder =>
                 {
                     builder.AllowAnyOrigin() //允许任何来源的主机访问
                     .AllowAnyMethod()
@@ -67,12 +67,12 @@ namespace Tibos.WebAPI
             ServiceEntity serviceEntity = new ServiceEntity
             {
                 IP = "193.112.104.103",
-                Port = 6001,
+                Port = 6004,
                 ServiceName = "Tibos.API",
                 ConsulIP = "193.112.104.103",
                 ConsulPort = 8800
             };
-            //app.RegisterConsul(lifetime, serviceEntity);
+            app.RegisterConsul(lifetime, serviceEntity);
         }
     }
 }

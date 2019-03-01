@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -42,11 +43,20 @@ namespace TestWeb
             .AddOpenIdConnect("oidc", options =>
             {
                 options.SignInScheme = "Cookies";
-                options.Authority = $"http://localhost:5000";
+                options.Authority = $"http://193.112.104.103:9111";
                 options.RequireHttpsMetadata = false; // please use https in production env
                 options.ClientId = "cas.mvc.client.implicit";
                 options.ResponseType = "id_token token"; // allow to return access token
                 options.SaveTokens = true;
+                options.Events = new OpenIdConnectEvents
+                {
+                    OnRemoteFailure = context => {
+                        context.Response.Redirect("/");
+                        context.HandleResponse();
+
+                        return Task.FromResult(0);
+                    }
+                };
             });
 
 

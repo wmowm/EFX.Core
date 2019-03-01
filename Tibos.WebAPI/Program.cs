@@ -19,7 +19,7 @@ namespace Tibos.WebAPI
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:7001")
+                .UseUrls("http://localhost:7004")
                 .UseStartup<Startup>();
     }
 }

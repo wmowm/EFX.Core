@@ -66,11 +66,12 @@ namespace Tibos.IdentityService
                 },
                  new Client //应用程序
                 {
+                    
                     ClientId = "cas.mvc.client.implicit",
                     ClientName = "CAS MVC Web App Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = { $"http://localhost:5002/signin-oidc","http://localhost:5001/signin-oidc" },
-                    PostLogoutRedirectUris = { $"http://localhost:5002/signin-oidc/signout-callback-oidc","http://localhost:5001/signin-oidc/signout-callback-oidc" },
+                    RedirectUris = { $"http://localhost:6011/signin-oidc","http://localhost:6012/signin-oidc","http://localhost:6013/signin-oidc"},
+                    PostLogoutRedirectUris = { $"http://localhost:6011/signin-oidc/signout-callback-oidc","http://localhost:6012/signin-oidc/signout-callback-oidc","http://localhost:6013/signin-oidc/signout-callback-oidc" },
                     AllowedScopes = new [] {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
@@ -86,9 +87,9 @@ namespace Tibos.IdentityService
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
 
-                    RedirectUris =           { "http://localhost:5002/js/callback.html" },
-                    PostLogoutRedirectUris = { "http://localhost:5002/js/index.html" },
-                    AllowedCorsOrigins =     { "http://localhost:5002" },
+                    RedirectUris =           { "http://localhost:6011/js/callback.html","http://localhost:6012/js/callback.html","http://localhost:6013/js/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:6011/js/index.html","http://localhost:6012/js/index.html","http://localhost:6013/js/index.html" },
+                    AllowedCorsOrigins =     { "http://localhost:6011","http://localhost:6012","http://localhost:6013" },
 
                     AllowedScopes =
                     {

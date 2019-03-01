@@ -4,13 +4,13 @@
     {
       "DownstreamPathTemplate": "/api/{url}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "7001"
-        }
-      ],
-      //"ServiceName": "Tibos.API",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": "7001"
+      //  }
+      //],
+      "ServiceName": "Tibos.API",
       "UseServiceDiscovery": true,
       "UpstreamPathTemplate": "/api/{url}",
       "LoadBalancerOptions": {
@@ -23,10 +23,10 @@
       } 
     }
   ],
-  //"GlobalConfiguration": {
-  //  "ServiceDiscoveryProvider": {
-  //    "Host": "193.112.104.103",
-  //    "Port": 8800
-  //  }
-  //}
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "193.112.104.103",
+      "Port": 8800
+    }
+  }
 }

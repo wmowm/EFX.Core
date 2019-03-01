@@ -22,7 +22,7 @@ namespace Tibos.Gateway
         {
             return WebHost.CreateDefaultBuilder(args)
                             .UseStartup<Startup>()
-                            .UseUrls("http://localhost:9500")
+                            .UseUrls("http://localhost:8222")
                             .ConfigureAppConfiguration((hostingContext, builder) =>
                             {
                                 builder.AddJsonFile("configuration.json", false, true);

@@ -68,6 +68,7 @@ namespace Tibos.IdentityService
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors("default");
+
             app.UseIdentityServer();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();

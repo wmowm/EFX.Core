@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Tibos.WebAPI.Controllers
 {
     //[Authorize]
-    [EnableCors("any")]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -19,7 +18,7 @@ namespace Tibos.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return new JsonResult("这是API:7001");
+            return new JsonResult("这是API:6004");
         }
 
 

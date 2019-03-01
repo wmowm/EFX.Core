@@ -413,7 +413,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
 	if ( validTypes & 0x0010 && /^(2(014|149))/.test( value ) ) { // Enroute
 		return value.length === 15;
 	}
-	if ( validTypes & 0x0020 && /^(6011)/.test( value ) ) { // Discover
+	if ( validTypes & 0x0020 && /^(6012)/.test( value ) ) { // Discover
 		return value.length === 16;
 	}
 	if ( validTypes & 0x0040 && /^(3)/.test( value ) ) { // Jcb
