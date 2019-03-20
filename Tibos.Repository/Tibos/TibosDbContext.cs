@@ -26,5 +26,7 @@ namespace Tibos.Repository.Tibos
         public DbSet<RoleNavDict> RoleNavDict { get; set; }
 
         public DbSet<Users> Users { get; set; }
+
+        public DbSet<SysLog> SysLog { get; set; }
     }
 }

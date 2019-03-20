@@ -81,7 +81,11 @@ namespace Tibos.Domain
         {
             get; 
             set; 
-        }        
-		   
-	}
+        }
+
+        /// <summary>
+        /// 职位
+        /// </summary>
+        public virtual string PositionId { get; set; }
+    }
 }

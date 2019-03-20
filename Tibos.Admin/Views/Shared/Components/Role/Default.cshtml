@@ -1,0 +1,10 @@
+﻿@{
+    var list = Model as List<Dict>;
+}
+<select id="RoleId" name="RoleId" lay-verify="required" lay-search="">
+    <option value="">未选择</option>
+    @foreach (var item in list)
+    {
+        <option value="@item.Name">@item.Name</option>
+    }
+</select>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace EF_Test
@@ -17,6 +18,7 @@ namespace EF_Test
         /// <summary>
         /// 名称
         /// </summary>
+        [MaxLength(200)]
         public virtual string Name
         {
             get;

@@ -40,6 +40,7 @@ namespace EF_Test
                     optionsBuilder.UseMySql(ConnName);
                     break;
                 case "sqlserver":
+                    optionsBuilder.UseSqlServer(ConnName);
                     break;
                 case "sqlite":
                     break;

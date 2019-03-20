@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
@@ -12,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,6 +18,7 @@ using Newtonsoft.Json.Serialization;
 using Tibos.Admin.Filters;
 using Tibos.Confing.autofac;
 using Tibos.ConfingModel.model;
+using Tibos.IService.Tibos;
 
 namespace Tibos.Admin
 {
@@ -196,6 +194,28 @@ namespace Tibos.Admin
                     template: "{controller=Home}/{action=Login}/{id?}");
             });
 
+            Init(app);
+        }
+
+        private static void Init(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var _DictService = serviceScope.ServiceProvider.GetService<IDictService>();
+                var _NavigationService = serviceScope.ServiceProvider.GetService<INavigationService>();
+                var _Cache = serviceScope.ServiceProvider.GetService<IMemoryCache>();
+                var list_dict = _DictService.GetList();
+
+                var list_nav = _DictService.GetList();
+                foreach (var item in list_dict)
+                {
+                    _Cache.Set($"dict_{item.Id}", item);
+                }
+                foreach (var item in list_nav)
+                {
+                    _Cache.Set($"nav_{item.Id}", item);
+                }
+            }
         }
     }
 }

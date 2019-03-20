@@ -10,6 +10,12 @@
                 <input type="text" name="Name" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input" value="@Model?.Name">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标记</label>
+            <div class="layui-input-block">
+                <input type="text" name="Mark" lay-verify="required" placeholder="请输入标记" autocomplete="off" class="layui-input" value="@Model?.Mark">
+            </div>
+        </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-block">
@@ -25,7 +31,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                @{ 
+                @{
                     var status = "";
                     if (Model?.Status == 1)
                     {

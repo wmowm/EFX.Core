@@ -1,0 +1,18 @@
+﻿@{
+    var list = Model as List<Dict>;
+    var PositionId = ViewBag.PositionId;
+}
+<select name="PositionId" lay-verify="required" lay-search="">
+    <option value="">未选择</option>
+    @foreach (var item in list)
+    {
+        if (item.Id == PositionId)
+        {
+            <option selected="selected" value="@item.Id">@item.Name</option>
+        }
+        else
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    }
+</select>

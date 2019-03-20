@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Tibos.Domain;
 using Tibos.IRepository;
 using Z.EntityFramework.Extensions;
 
@@ -30,7 +31,9 @@ namespace Tibos.Repository
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            //modelBuilder.HasDefaultSchema("Admin");
+            //modelBuilder.Entity<Dict>().ToTable("Dict");
+            //base.OnModelCreating(modelBuilder);
         }
 
         //打印sql
@@ -52,6 +55,5 @@ namespace Tibos.Repository
                     break;
             }
         }
-
     }
 }

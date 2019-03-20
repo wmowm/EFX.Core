@@ -7,8 +7,8 @@
 namespace Tibos.Domain
 {
 	 //SysLog
-	public class SysLog:BaseEntity
-	{
+	public class SysLog: BaseEntity
+    {
       	/// <summary>
 		/// 主键标识
         /// </summary>
@@ -60,11 +60,13 @@ namespace Tibos.Domain
 		/// <summary>
 		/// 执行时间
         /// </summary>
-        public virtual DateTime? ExecuteTime
+        public virtual decimal? ExecuteTime
         {
             get; 
             set; 
-        }        
-		   
-	}
+        }
+        public string FromBady { get; set; }
+
+        public string UrlParam { get; set; }
+    }
 }

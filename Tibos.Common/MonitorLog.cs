@@ -11,6 +11,8 @@ namespace Tibos.Common
     {
         public string RequestID { get; set; }
 
+        public string NId { get; set; }
+
         /// <summary>
         /// 用户ID
         /// </summary>
@@ -39,7 +41,7 @@ namespace Tibos.Common
         /// <summary>
         /// 耗时（s）
         /// </summary>
-        public double TimeConsuming { get; set; }
+        public decimal TimeConsuming { get; set; }
 
         /// <summary>
         /// Body
@@ -65,6 +67,9 @@ namespace Tibos.Common
             Action = 1,
             View = 2
         }
+
+
+
         /// <summary>
         /// 获取监控指标日志
         /// </summary>

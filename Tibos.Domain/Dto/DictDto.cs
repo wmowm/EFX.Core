@@ -66,5 +66,13 @@ namespace Tibos.Domain
             get;
             set;
         }
+        /// <summary>
+        /// 标记
+        /// </summary>
+        public virtual string Mark
+        {
+            get;
+            set;
+        }
     }
 }

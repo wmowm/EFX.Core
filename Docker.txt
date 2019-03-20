@@ -22,6 +22,10 @@ nginx -t
 nginx
 nginx -s reload
 
+--supervisor
+Æô¶¯
+supervisord -c /etc/supervisor/supervisord.conf
+
 
 docker run --name mysq -p 3307:3306 -v /my/mysql/datadir:/var/lib/mysql -v /my/mysql/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=As123456 -d mysql:5.7
 
@@ -101,3 +105,7 @@ docker run  -d --name kafka \
 
 
 
+
+
+--------------------------EF×Ô¶¯Ç¨ÒÆ
+Add-Migration init -c xxx

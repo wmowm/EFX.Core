@@ -1,6 +1,252 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-<script>
 
-</script>
+<body layadmin-themealias="default" style="">
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">操作</label>
+                        <div class="layui-input-block">
+                            @await Component.InvokeAsync("Role")
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">时间筛选</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" id="st_createtime" placeholder=" - ">
+                        </div>
+                    </div>
+
+
+                    <div class="layui-inline">
+                        <button id="search" class="layui-btn" data-type="reload">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-card-body">
+                <div style="padding-bottom: 10px;">
+                    @*<button id="add" class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>*@
+                </div>
+                <table class="layui-hide" id="tableList" lay-filter="tableList"></table>
+                <script>
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        //监听开关
+                        form.on('switch(status)', function (data) {
+                            var status = 0;
+                            if (data.elem.checked) {
+                                status = 1;
+                            }
+                            var id = $(this).attr("tag");
+                            var url = "/sys/syslog/editStatus";
+
+                            var field = { Id: id, Status: status };
+                            $.post(url, field, function (data) {
+                                if (data.code == 200) {
+                                    layui.table.reload('tableList'); //重载表格
+                                    layer.msg("操作成功!", {
+                                        time: 1000,
+                                        icon: 1,
+                                    });
+                                } else {
+                                    layer.msg("操作失败!", {
+                                        time: 1000,
+                                        icon: 2,
+                                    });
+
+                                }
+                            })
+
+                        });
+                    });
+                    layui.use('table', function () {
+                        var table = layui.table;
+                        table.render({
+                            elem: '#tableList',
+                            height: '630px'
+                            , url: '/sys/syslog/GetList'
+
+                            , request: {
+                                pageName: 'pageIndex' //页码的参数名称，默认：page
+                                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                            }
+                            , response: {
+                                statusName: 'status' //规定数据状态的字段名称，默认：code
+                                , statusCode: 0 //规定成功的状态码，默认：0
+                                , msgName: 'msg' //规定状态信息的字段名称，默认：msg
+                                , countName: 'total' //规定数据总数的字段名称，默认：count
+                                , dataName: 'data' //规定数据列表的字段名称，默认：data
+                            }
+                            , method: 'post'
+                            , title: '系统日志'
+                            , cols: [[ //表头
+                                { type: 'checkbox', fixed: 'left' },
+
+                                { field: 'ManagerName', title: '用户名', minWidth: 50, fixed: 'left' }
+                                , { field: 'NavName', title: '菜单', minWidth: 60 }
+                                , { field: 'DictName', title: '操作', minWidth: 30 }
+                                , { field: 'CreateTime', title: '操作时间', minWidth: 80 }
+                                , { field: 'LoginIp', title: '登录IP', minWidth: 60 }
+                                , { field: 'ExecuteTime', title: '执行时间', minWidth: 80 }
+                                , { field: 'FromBady', title: '表单参数', minWidth: 80 }
+                                , { field: 'UrlParam', title: 'URL参数', minWidth: 80 }
+                            ]]
+                            , id: 'tableList'
+                            , limit: 20
+                            , limits: [20, 30, 40, 50, 60, 80, 100]
+                            , page: true
+                        });
+                        //自定义事件
+
+                        $('#search').on('click', function () {
+                            var RoleId = $('#RoleId').val();
+                            var st_createtime = $('#st_createtime').val();
+                            var StartTime = st_createtime.split(" - ")[0];
+                            var EndTime = st_createtime.split(" - ")[1];
+                            //执行重载
+                            table.reload('tableList', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                                , where: {
+                                    RoleId: RoleId,
+                                    StartTime: StartTime,
+                                    EndTime: EndTime
+                                }
+                            });
+                            //var type = $(this).data('type');
+                            //active[type] ? active[type].call(this) : '';
+                        })
+
+                        //监听表格排序问题
+                        table.on('sort(tableList)', function (obj) { //注：tool是工具条事件名，tableList是table原始容器的属性 lay-filter="对应的值"
+                            console.log(obj.field); //当前排序的字段名
+                            console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
+                            console.log(this); //当前排序的 th 对象
+
+                            //尽管我们的 table 自带排序功能，但并没有请求服务端。
+                            //有些时候，你可能需要根据当前排序的字段，重新向服务端发送请求，从而实现服务端排序，如：
+                            table.reload('tableList', { //testTable是表格容器id
+                                initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。 layui 2.1.1 新增参数
+                                , where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+                                    sortKey: obj.field //排序字段
+                                    , sortType: obj.type == "desc" ? 1 : 0 //排序方式
+                                }
+                            });
+                        });
+
+                        //头工具栏事件
+                        table.on('toolbar(tableList)', function (obj) {
+                            var checkStatus = table.checkStatus(obj.config.id);
+                            switch (obj.event) {
+                                case 'getCheckData':
+                                    var data = checkStatus.data;
+                                    layer.alert(JSON.stringify(data));
+                                    break;
+                                case 'getCheckLength':
+                                    var data = checkStatus.data;
+                                    layer.msg('选中了：' + data.length + ' 个');
+                                    break;
+                                case 'isAll':
+                                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                                    break;
+                            };
+                        });
+
+                        //监听行工具事件
+                        table.on('tool(tableList)', function (obj) {
+                            var data = obj.data;
+                            //console.log(obj)
+                            if (obj.event === 'del') {
+                                layer.confirm('确定删除么?', function (index) {
+                                    var url = "/sys/syslog/del";
+
+                                    var field = { Id: data.Id };
+                                    $.post(url, field, function (data) {
+                                        if (data.code == 200) {
+                                            layui.table.reload('tableList'); //重载表格
+                                            layer.msg("操作成功!", {
+                                                time: 1000,
+                                                icon: 1,
+                                            });
+                                        } else {
+                                            layer.msg("操作失败!", {
+                                                time: 1000,
+                                                icon: 2,
+                                            });
+
+                                        }
+                                    })
+                                });
+                            } else if (obj.event === 'edit') {
+                                var url = "?Id=" + data.Id;
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.open({
+                                        type: 2,
+                                        area: ['650px', '600px'],
+                                        fixed: false, //不固定
+                                        maxmin: true,
+                                        content: '/sys/syslog/edit' + url,
+                                        title: '编辑',
+                                        btn: ['确定', '取消'],
+                                        yes: function (index, layero) {
+                                            $("#form").length;//直接获取表单长度=0
+                                            $(layero).find("#form").length;//表单长度还是等于0
+                                            var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-edit");
+                                            submit.click();
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    });
+
+                    layui.use('laydate', function ()
+                    {
+                        var laydate = layui.laydate;
+                        //日期时间范围
+                        laydate.render({
+                            elem: '#st_createtime'
+                           ,type: 'datetime'
+                           ,range: true
+                        });
+                    }
+                    );
+
+                    function ValidateLog() {
+
+                    }
+
+                    //登录回调函数
+                    function tips(data) {
+                        alert(data);
+                    }
+
+
+                </script>
+
+                <script type="text/html" id="Status">
+                    <input type="checkbox" id="Status" name="Status" lay-skin="switch" lay-text="启用|禁用" title="是否启用" tag="{{d.Id}}" lay-filter="status" value="{{d.Status}}" {{# if(d.Status === 1){}} checked="" {{# } }}>
+                </script>
+
+
+                <script type="text/html" id="Operating">
+                    @*<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail"><i class="layui-icon layui-icon-read"></i>查看</a>*@
+                    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon"></i>编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon"></i>删除</a>
+
+                </script>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-layer-move" style="cursor: move; display: none;"></div>
+</body>

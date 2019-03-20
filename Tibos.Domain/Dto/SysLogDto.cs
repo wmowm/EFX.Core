@@ -61,12 +61,24 @@ namespace Tibos.Domain
 		/// <summary>
 		/// 执行时间
         /// </summary>
-        public virtual DateTime? ExecuteTime
+        public virtual decimal? ExecuteTime
         {
             get; 
             set; 
-        }        
-		   
-	}
+        }
+        public string FromBady { get; set; }
+
+        public string UrlParam { get; set; }
+
+        public string ManagerName { get; set; }
+
+        public string DictName { get; set; }
+
+        public string NavName { get; set; }
+
+        public DateTime? StartTime { get; set; }
+
+        public DateTime? EndTime { get; set; }
+    }
 	
 }

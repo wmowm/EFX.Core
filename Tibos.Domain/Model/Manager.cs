@@ -80,7 +80,8 @@ namespace Tibos.Domain
         {
             get; 
             set; 
-        }        
-		   
-	}
+        }
+
+        public virtual string PositionId { get; set; }
+    }
 }

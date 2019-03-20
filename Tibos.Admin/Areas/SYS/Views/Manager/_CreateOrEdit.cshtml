@@ -46,6 +46,13 @@
             </div>
         </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">职位</label>
+            <div class="layui-input-inline">
+                @await Component.InvokeAsync("Position",Model)
+            </div>
+        </div>
+
         <div class="layui-form-item" pane="" style="margin:0px">
             <label class="layui-form-label">角色</label>
             <div class="layui-input-block">
