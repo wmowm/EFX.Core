@@ -8,7 +8,7 @@ namespace RPC.Server
         static void Main(string[] args)
         {
             Console.WriteLine("我是服务端:");
-            RPCServer rPCServer = new RPCServer(9999);
+            RPCServer rPCServer = new RPCServer(9988);
             rPCServer.RegisterService<IHello, Hello>();
             rPCServer.Start();
 

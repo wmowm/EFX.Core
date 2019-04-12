@@ -51,6 +51,10 @@ namespace Web.Controllers
             return View();
         }
 
+        public IActionResult Html()
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Logout(string logoutId)

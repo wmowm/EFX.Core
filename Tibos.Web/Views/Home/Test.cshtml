@@ -57,11 +57,11 @@
         <fieldset>
             <legend>登录</legend>
 
-            国家区号(+86):<input id="lgoin_areaCode" type="text" name="name" value="86" /><br />
+            国家区号(+86):<input id="lgoin_areaCode" type="text" name="name" value="" /><br />
 
-            账号:<input id="lgoin_account" type="text" name="name" value="15019400599" /><br />
+            账号:<input id="lgoin_account" type="text" name="name" value="505613915@qq.com" /><br />
 
-            密码:<input id="lgoin_password" type="text" name="name" value="qwe123qwe" /><br />
+            密码:<input id="lgoin_password" type="text" name="name" value="tibos@tibos1321231" /><br />
 
 
 
@@ -193,21 +193,23 @@
         </fieldset>
 
         <fieldset>
-            <legend>BTC->VHKD(卖出)</legend>
-            PIN:<input id="vhkd_PIN" type="text" name="name" value="" /><br />
-            交易对(基于VHKD):<input id="Symbol" type="text" name="name" value="BTC/VHKD" /><br />
-            转出数量:<input id="TotalAmount" type="text" name="name" value="" /><br />
+            <legend>提币申请</legend>
+            资产ID:<input id="t_CoinID" type="text" name="name" value="" /><br />
+            虚拟币地址:<input id="t_CoinAddress" type="text" name="name" value="" /><br />
+            申请数量:<input id="t_ApplyQuantity" type="text" name="name" value="" /><br />
+            手续费(实时计算,只展示给用户):<input id="t_HandlingFee" type="text" name="name" value="0" /><br />
+            实际到帐(实时计算,只展示给用户):<input id="t_Actual" type="text" name="name" value="0" /><br />
             <fieldset>
                 <legend>提交信息</legend>
-                用户票据:<textarea id="vhkd_token" style="height:50px;width:1600px"></textarea><br />
-                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
+                用户票据:<textarea id="t_token" style="height:50px;width:1600px"></textarea><br />
+                客户端类型:<textarea id="t_ClientType" style="height:50px;width:1600px">3</textarea><br />
             </fieldset>
 
             <fieldset>
                 <legend>返回信息</legend>
-                状态:<span id="vhkd_Status"></span><br />
+                状态:<span id="t_Status"></span><br />
 
-                消息:<span id="vhkd_Msg"></span><br />
+                消息:<span id="t_Msg"></span><br />
 
             </fieldset>
 
@@ -215,91 +217,7 @@
         </fieldset>
 
 
-        <fieldset>
-            <legend>VHKD->BTC(买入)</legend>
-            PIN:<input id="curr_PIN" type="text" name="name" value="" /><br />
-            交易对(基于VHKD):<input id="curr_Symbol" type="text" name="name" value="BTC/VHKD" /><br />
-            转出数量:<input id="curr_TotalAmount" type="text" name="name" value="" /><br />
-            <fieldset>
-                <legend>提交信息</legend>
-                用户票据:<textarea id="curr_token" style="height:50px;width:1600px"></textarea><br />
-                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
-            </fieldset>
 
-            <fieldset>
-                <legend>返回信息</legend>
-                状态:<span id="curr_Status"></span><br />
-
-                消息:<span id="curr_Msg"></span><br />
-
-            </fieldset>
-
-
-        </fieldset>
-
-        <fieldset>
-            <legend>查询币币交易订单</legend>
-            交易对:<input id="get_Symbol" type="text" name="name" value="BTC/VHKD" /><br />
-            订单号:<input id="get_orderID" type="text" name="name" value="" /><br />
-            用户账户:<input id="get_Account" type="text" name="name" value="" /><br />
-            <fieldset>
-                <legend>提交信息</legend>
-                用户票据:<textarea id="get_token" style="height:50px;width:1600px"></textarea><br />
-                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
-            </fieldset>
-
-            <fieldset>
-                <legend>返回信息</legend>
-                状态:<span id="get_Status"></span><br />
-
-                消息:<span id="get_Msg"></span><br />
-
-            </fieldset>
-
-
-        </fieldset>
-
-        <fieldset>
-            <legend>取消币币交易订单</legend>
-            交易对(基于VHKD):<input id="cancel_Symbol" type="text" name="name" value="BTC/VHKD" /><br />
-            订单号:<input id="cancel_orderID" type="text" name="name" value="" /><br />
-            交易方向(BUY买入,SELL卖出):<input id="cancel_Side" type="text" name="name" value="" /><br />
-            <fieldset>
-                <legend>提交信息</legend>
-                用户票据:<textarea id="cancel_token" style="height:50px;width:1600px"></textarea><br />
-                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
-            </fieldset>
-
-            <fieldset>
-                <legend>返回信息</legend>
-                状态:<span id="cancel_Status"></span><br />
-
-                消息:<span id="cancel_Msg"></span><br />
-
-            </fieldset>
-
-
-        </fieldset>
-
-        <fieldset>
-            <legend>查询审核单详情</legend>
-            单号:<input id="review_id" type="text" name="name" value="" /><br />
-            <fieldset>
-                <legend>提交信息</legend>
-                用户票据:<textarea id="review_token" style="height:50px;width:1600px"></textarea><br />
-                客户端类型:<textarea id="Amount_ClientType" style="height:50px;width:1600px">3</textarea><br />
-            </fieldset>
-
-            <fieldset>
-                <legend>返回信息</legend>
-                状态:<span id="review_Status"></span><br />
-
-                消息:<span id="review_Msg"></span><br />
-
-            </fieldset>
-
-
-        </fieldset>
 
         <input id="testme" type="button" value="生成sign" />
 
@@ -315,17 +233,19 @@
 
         <input id="btn5" type="button" value="用户资产转入/转出" />
 
-        <input id="btn7" type="button" value="BTC->VHKD" />
+        <input id="btn7" type="button" value="提币申请" />
 
-        <input id="btn8" type="button" value="VHKD->BTC" />
+        <input id="btn8" type="button" value="获取充币地址" />
 
-        <input id="btn9" type="button" value="查询币币交易订单" />
+        <input id="btn9" type="button" value="财务记录" />
 
-        <input id="btn10" type="button" value="取消币币交易订单" />
+        <input id="btn10" type="button" value="提币配置" />
+
+        @*<input id="btn10" type="button" value="取消币币交易订单" />
 
         <input id="btn11" type="button" value="查询审核单详情" />
 
-        <input id="btn12" type="button" value="根据审核单挂币币交易卖单" />
+        <input id="btn12" type="button" value="根据审核单挂币币交易卖单" />*@
     </form>
 </body>
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
@@ -352,9 +272,9 @@
         //var path = "http://preapi.idcm.io:8339";
         //var path = "https://api.idcm.io:8323";
 
-        //var path = "https://api.bi-xing.com:8323";
+        var path = "https://pokerwebapi.pokertime.cc:8339";
 
-        var path = "https://preapi.pokerblock.io:8339";
+        //var path = "https://preapi.pokerblock.io:8339";
         $("#btn").click(function () {
             var param = {
                 "countryCode": $("#countryCode").val(),
@@ -425,7 +345,7 @@
 
                     $("#pin_token").html(data.Data.Token);
                     $("#Amount_token").html(data.Data.Token);
-                    $("#vhkd_token").html(data.Data.Token);
+                    $("#t_token").html(data.Data.Token);
                     $("#curr_token").html(data.Data.Token);
                     $("#get_token").html(data.Data.Token);
                     $("#cancel_token").html(data.Data.Token);
@@ -471,7 +391,7 @@
 
         $("#btn4").click(function () {
             var param = {
-                "UserID": $("#get_UserID").val(),
+               
             };
             $.ajax({
                 type: "post",
@@ -560,9 +480,9 @@
 
         $("#btn7").click(function () {
             var param = {
-                "PIN": $("#vhkd_PIN").val(),
-                "Symbol": $("#Symbol").val(),
-                "TotalAmount": $("#TotalAmount").val(),
+                "CoinID": $("#t_CoinID").val(),
+                "CoinAddress": $("#t_CoinAddress").val(),
+                "ApplyQuantity": $("#t_ApplyQuantity").val(),
             };
             //1.json对象转字符串
             var json = JSON.stringify(param);
@@ -571,66 +491,57 @@
             json = $.decrypt(json);
             $.ajax({
                 type: "post",
-                url: path + "/api/ExternalAPI/UpdateAssetsCurrency_VHKD",
+                url: path + "/api/ExternalAPI/ApplyTransactionOut",
                 data: { "json": json },
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Token", $("#vhkd_token").html());
+                    xhr.setRequestHeader("Token", $("#t_token").html());
                     xhr.setRequestHeader("ClientType", "3");
                     xhr.setRequestHeader("sign", $("#sign").html());
                 },
                 success: function (data, status) {
-                    $("#vhkd_Status").html(data.StatusCode);
-                    $("#vhkd_Msg").html(data.Msg);
+                    $("#t_Status").html(data.StatusCode);
+                    $("#t_Msg").html(data.Msg);
                 }
             });
         })
 
         $("#btn8").click(function () {
-            var param = {
-                "PIN": $("#curr_PIN").val(),
-                "Symbol": $("#curr_Symbol").val(),
-                "TotalAmount": $("#curr_TotalAmount").val(),
-            };
-            //1.json对象转字符串
-            var json = JSON.stringify(param);
-            $("#login").html(json);
-            //2.字符串RSA加密
-            json = $.decrypt(json);
+           
             $.ajax({
                 type: "post",
-                url: path + "/api/ExternalAPI/UpdateAssetsVHKD_Currency",
-                data: { "json": json },
+                url: path + "/api/ExternalAPI/GetAddress",
+                data: { "AssetsID": "9PqFnATs2U6oYPFxJjAooQ" },
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Token", $("#curr_token").html());
-                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("Token", $("#t_token").html());
+                    xhr.setRequestHeader("ClientType", "4");
                     xhr.setRequestHeader("sign", $("#sign").html());
                 },
                 success: function (data, status) {
-                    $("#curr_Status").html(data.StatusCode);
-                    $("#curr_Msg").html(data.Msg);
+                    //$("#curr_Status").html(data.StatusCode);
+                    //$("#curr_Msg").html(data.Msg);
                 }
             });
         })
 
         $("#btn9").click(function () {
             var param = {
-                "orderID": $("#get_orderID").val(),
-                "Symbol": $("#get_Symbol").val(),
-                "Account": $("#get_Account").val()
+               "EndDate":"2019-04-11 13:59:03"
             };
             //1.json对象转字符串
             var json = JSON.stringify(param);
             $("#login").html(json);
             //2.字符串RSA加密
             json = $.decrypt(json);
+            console.log(json);
             $.ajax({
                 type: "post",
-                url: path + "/api/ExternalAPI/GetOrderInfo",
+                url: path + "/api/ExternalAPI/GetAssetsRecordPageList",
+                
                 data: { "json": json },
                 beforeSend: function (xhr) {
-                    //xhr.setRequestHeader("Token", $("#get_token").html());
-                    xhr.setRequestHeader("ClientType", "3");
-                    xhr.setRequestHeader("sign", $("#sign").html());
+                    xhr.setRequestHeader("Token","db65d344b7894440bfcc58bee1dad94c");
+                    xhr.setRequestHeader("ClientType", "4");
+                    xhr.setRequestHeader("sign", "cWnhyQ5b06N0LYxHPl8NxvXRhRphgoaG0V64+TYPDPxKvqNrfFJe0e+gOxjgnK1XQBRxjcINPfUHqbVFa773ZVqsHDKnGBWe0+RzIXuowt5abN3xdphOJPsAxJS6a8T+LiOkYpYg3eIhvQX/j56T3ofUh8My60c23HU+e/qAabJ+2IIQSCkUT/7/3AXgm7l5U/QbQHHY7qyjN5qLO24Ph7S1/WejUZdvhx874KBcBA4djBcd3hIswuJ2Kkr4sPqs5rrzGFSsXPvwqO9kYKfPtIHx+uOYa1Hxtjb0Dw7U2O0jddGIWoJsXjPuVHZVXCvs7/4US/ZN2hahAGJwLmW8Jw==");
                 },
                 success: function (data, status) {
                     $("#get_Status").html(data.StatusCode);
@@ -639,24 +550,21 @@
             });
         })
 
+     
         $("#btn10").click(function () {
-            var param = {
-                "orderID": $("#cancel_orderID").val(),
-                "Symbol": $("#cancel_Symbol").val(),
-                "Side": $("#cancel_Side").val(),
-            };
+           
             $.ajax({
                 type: "post",
-                url: path + "/api/ExternalAPI/CancelOrder",
-                data: param,
+                url: path + "/api/ExternalAPI/GetCoinTransactionOutConfig",
+                data: { "AssetsID": "1xx3-k3olkGgIwEiPqwXMw" },
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Token", $("#cancel_token").html());
-                    xhr.setRequestHeader("ClientType", "3");
+                    xhr.setRequestHeader("Token", $("#t_token").html());
+                    xhr.setRequestHeader("ClientType", "4");
                     xhr.setRequestHeader("sign", $("#sign").html());
                 },
                 success: function (data, status) {
-                    $("#get_Status").html(data.StatusCode);
-                    $("#get_Msg").html(data.Msg);
+                    //$("#curr_Status").html(data.StatusCode);
+                    //$("#curr_Msg").html(data.Msg);
                 }
             });
         })

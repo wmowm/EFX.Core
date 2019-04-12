@@ -266,7 +266,7 @@ namespace Tibos.Api.Controllers
 
 
         /// <summary>
-        /// 测试
+        /// 测试首页的路由
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>

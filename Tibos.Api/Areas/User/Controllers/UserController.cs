@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using Tibos.Api.Annotation;
 using Tibos.Common;
 using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
@@ -23,7 +22,7 @@ namespace Tibos.Api.Areas.User.Controllers
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     [EnableCors("any")]
-    [AlwaysAccessibleAttribute]
+    [Annotation.AlwaysAccessibleAttribute]
     public class UserController : Controller
     {
 
@@ -76,10 +75,16 @@ namespace Tibos.Api.Areas.User.Controllers
         }
 
         [HttpPost]
-        public JsonResult Test()
+        public JsonResult Test(Domain.Dict dict)
         {
-            _DictService.SaveChanges();
             return Json("");
         }
+
+        [HttpPost]
+        public JsonResult Test2(Annotation.Dict dict)
+        {
+            return Json("");
+        }
+
     }
 }

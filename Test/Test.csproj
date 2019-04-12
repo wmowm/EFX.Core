@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
+    <PackageReference Include="IronPython" Version="2.7.9" />
   </ItemGroup>
 
 

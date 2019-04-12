@@ -9,9 +9,51 @@
             允许匿名访问
             </summary>
         </member>
-        <member name="M:Tibos.Api.Controllers.HomeController.PostTest(System.Collections.Generic.List{Tibos.Domain.Users})">
+        <member name="P:Tibos.Api.Annotation.Dict.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tibos.Api.Annotation.Dict.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tibos.Api.Annotation.Dict.Tid">
+            <summary>
+            类型编号
+            </summary>
+        </member>
+        <member name="P:Tibos.Api.Annotation.Dict.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tibos.Api.Annotation.Dict.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Tibos.Api.Annotation.Dict.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Tibos.Api.Annotation.Dict.Mark">
+            <summary>
+            标记
+            </summary>
+        </member>
+        <member name="M:Tibos.Api.Areas.User.Controllers.HomeController.PostTest666(System.Collections.Generic.List{Tibos.Domain.Users})">
             <summary>
             测试
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tibos.Api.Controllers.HomeController.PostTest(System.Collections.Generic.List{Tibos.Domain.Users})">
+            <summary>
+            测试首页的路由
             </summary>
             <param name="list"></param>
             <returns></returns>

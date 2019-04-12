@@ -17,7 +17,17 @@ namespace Tibos.CAP.Received.Controllers
         [CapSubscribe("tibos.services.bar")]
         public Users BarMessageProcessor(Users user)
         {
-            user.Email = "tibos";
+            try
+            {
+                //执行任务成功
+                user.Email = "执行任务成功";
+            }
+            catch (Exception ex)
+            {
+                //执行任务失败
+                user.Email = "执行任务失败";
+            }
+
             return user;
         }
 

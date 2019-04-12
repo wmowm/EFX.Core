@@ -7,6 +7,9 @@ using System.Threading;
 using Tibos.Test;
 using Newtonsoft.Json;
 using Test.Model;
+using System.Diagnostics;
+using Microsoft.Scripting.Hosting;
+using IronPython.Hosting;
 
 namespace Test
 {
@@ -43,13 +46,42 @@ namespace Test
             //var res = HttpCommon.PostWebRequest(url, data);
 
 
-            string url = "http://193.112.104.103:9222/api/values";
-            var res = HttpCommon.Get(url);
+            //string url = "http://193.112.104.103:9222/api/values";
+            //var res = HttpCommon.Get(url);
 
+            var pythonPath = @"F:\PythonProject\test\test3.py";
+
+            //ScriptRuntime scriptRuntime = Python.CreateRuntime();
+            //ScriptEngine pythEng = scriptRuntime.GetEngine("Python");
+            //ScriptSource scriptSource = pythEng.CreateScriptSourceFromFile(pythonPath);
+            //ScriptScope scope = pythEng.CreateScope();
+            //scope.SetVariable("prodCount", Convert.ToInt32("34343"));
+            //scope.SetVariable("amt", Convert.ToDecimal("434"));
+
+
+
+
+            //scope.SetVariable("argv", new string[] { "haha", "6666" });
+            //scriptSource.Execute(scope);
+            //dynamic a = scope.GetVariable("retAmt");
+
+
+
+            var a = new Test() { Name = "xxx" };
+            var b = a;
+            Console.WriteLine(a.Equals(b));
+            b.Name = "zzz";
+            Console.WriteLine(a.Equals(b));
+
+
+            var c = new String("XXX");
+            var z = c;
+            Console.WriteLine(c.Equals(z));
+            z = "zzz";
+            Console.WriteLine(c.Equals(z));
 
             Console.Read();
         }
-
 
 
         /// <summary>
@@ -64,5 +96,9 @@ namespace Test
             intResult = (dateTime - startTime).TotalMilliseconds;
             return  Convert.ToInt64(Math.Round(intResult, 0).ToString());
         }
+    }
+    class Test
+    {
+        public string Name { get; set; }
     }
 }
