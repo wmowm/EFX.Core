@@ -135,12 +135,13 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             List<RoleNavDict> rnd_list = new List<RoleNavDict>();
             foreach (var item in request.RoleNavDict)
             {
-                _RoleNavDictService.Delete(item.Id);
+                _RoleNavDictService.Delete(item.Id,false);
                 item.Id = Guid.NewGuid().GuidTo16String();
                 item.RId = model.Id;
                 rnd_list.Add(item);
             }
             _RoleNavDictService.Add(rnd_list);
+            _RoleService.SaveChanges(); //不同模块,必须单独提交事务
             response.code = StatusCodeDefine.Success;
             response.status = 0;
             return Json(response);

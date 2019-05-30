@@ -33,6 +33,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Tibos.Api
 {
@@ -87,7 +89,7 @@ namespace Tibos.Api
             //配置跨域处理
             services.AddCors(options =>
             {
-                options.AddPolicy("any", builder =>
+                options.AddPolicy("default", builder =>
                 {
                     builder.AllowAnyOrigin() //允许任何来源的主机访问
                     .AllowAnyMethod()
@@ -147,6 +149,7 @@ namespace Tibos.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("default");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -154,6 +157,18 @@ namespace Tibos.Api
                    template: "{controller}/{action}/{id?}",
                    defaults: new { controller = "Home", action = "Index" });
             });
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings.Add(".ipa","application/octet-stream.ipa");
+            provider.Mappings.Add(".plist", "application/xml");
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                     Path.Combine(Directory.GetCurrentDirectory(), @"upload")),   //实际目录地址
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/upload"),  //用户访问地址
+                ContentTypeProvider = provider,
+                //EnableDirectoryBrowsing = true                                     //开启目录浏览
+            });
+
             app.UseAuthentication();
             loggerFactory.AddNLog();//添加NLog
             env.ConfigureNLog(AppContext.BaseDirectory + "config/nlog.config");//读取Nlog配置文件

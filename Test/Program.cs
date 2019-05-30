@@ -67,18 +67,19 @@ namespace Test
 
 
 
-            var a = new Test() { Name = "xxx" };
-            var b = a;
-            Console.WriteLine(a.Equals(b));
-            b.Name = "zzz";
-            Console.WriteLine(a.Equals(b));
+
+            //Test t = new Test() { Name = "ttt" };
+
+            //List<Test> list = new List<Test>();
+
+            //list.Add(t);
+            //list.Add(new Test() { Name = "2"});
+            //list.Add(t);
 
 
-            var c = new String("XXX");
-            var z = c;
-            Console.WriteLine(c.Equals(z));
-            z = "zzz";
-            Console.WriteLine(c.Equals(z));
+            //list[0].Name = "1";
+            //list[1].Name = "2";
+            //list[2].Name = "3";
 
             Console.Read();
         }

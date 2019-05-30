@@ -46,7 +46,7 @@ namespace Tibos.Api.Areas.User.Controllers
         {
             return await Task.Run<JsonResult>(() =>
             {
-                PageResponse json = new Common.PageResponse();
+                PageResponse json = new Tibos.Common.PageResponse();
                 //获取dhm库的数据
                 var list_manager = _ManagerService.GetList();
                 //获取tibos库数据

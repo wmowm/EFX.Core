@@ -23,10 +23,11 @@ namespace Tibos.CAP.Received
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             //配置跨域处理
             //services.AddCors(options =>
             //{
-            //    options.AddPolicy("any", builder =>
+            //    options.AddPolicy("default", builder =>
             //    {
             //        builder.AllowAnyOrigin() //允许任何来源的主机访问
             //        .AllowAnyMethod()
@@ -57,7 +58,7 @@ namespace Tibos.CAP.Received
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //app.UseCors("default");
             app.UseMvc();
         }
     }

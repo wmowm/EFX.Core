@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01表现层", "01表现层", "{D4C12E8F-5E0D-455E-81E8-71546D866440}"
 EndProject
@@ -97,6 +97,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibos.Quartz", "Tibos.Quartz\Tibos.Quartz.csproj", "{22D64625-A9CD-4AA2-9888-57FF67DA6399}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibos.HostedService", "Tibos.HostedService\Tibos.HostedService.csproj", "{977DB6D3-BBA2-4E06-973D-0C7C0C349DB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSnapshots", "WebSnapshots\WebSnapshots.csproj", "{DF1BF93F-0E13-46B7-95DE-38DA716F429B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phantom", "Phantom", "{CBEAFB2C-A012-452E-8861-42CE431E56DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tibos.Phantomjs", "Phantomjs\Tibos.Phantomjs.csproj", "{7C6A2B64-B7C9-4797-AF75-05AC9B14FFCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -224,6 +230,14 @@ Global
 		{977DB6D3-BBA2-4E06-973D-0C7C0C349DB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{977DB6D3-BBA2-4E06-973D-0C7C0C349DB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{977DB6D3-BBA2-4E06-973D-0C7C0C349DB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF1BF93F-0E13-46B7-95DE-38DA716F429B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1BF93F-0E13-46B7-95DE-38DA716F429B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1BF93F-0E13-46B7-95DE-38DA716F429B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1BF93F-0E13-46B7-95DE-38DA716F429B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C6A2B64-B7C9-4797-AF75-05AC9B14FFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C6A2B64-B7C9-4797-AF75-05AC9B14FFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C6A2B64-B7C9-4797-AF75-05AC9B14FFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C6A2B64-B7C9-4797-AF75-05AC9B14FFCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -265,6 +279,9 @@ Global
 		{B705293C-DB96-480C-BED0-0D42CFD29927} = {10278CAB-48C6-49B9-BA57-D302EB155BE0}
 		{22D64625-A9CD-4AA2-9888-57FF67DA6399} = {B705293C-DB96-480C-BED0-0D42CFD29927}
 		{977DB6D3-BBA2-4E06-973D-0C7C0C349DB8} = {B705293C-DB96-480C-BED0-0D42CFD29927}
+		{DF1BF93F-0E13-46B7-95DE-38DA716F429B} = {7564C207-C628-4F92-8E46-C97698AF7DB6}
+		{CBEAFB2C-A012-452E-8861-42CE431E56DC} = {10278CAB-48C6-49B9-BA57-D302EB155BE0}
+		{7C6A2B64-B7C9-4797-AF75-05AC9B14FFCE} = {CBEAFB2C-A012-452E-8861-42CE431E56DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A94B1D2-C9FB-4144-B80F-BED3F002B315}

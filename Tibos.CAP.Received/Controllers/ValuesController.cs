@@ -47,7 +47,7 @@ namespace Tibos.CAP.Received.Controllers
 
         // POST api/values
         [HttpPost]
-        public JsonResult PostTest([FromBody]string value)
+        public JsonResult PostTest(string value)
         {
             return Json(value);
         }

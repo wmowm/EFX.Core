@@ -3,19 +3,30 @@
 }
 
 <script src="~/js/jquery.min.js"></script>
+<input type="button" name="name" value="test" onclick="test()" />
 <script>
-    var url = "http://193.112.104.103:9222/api/values";
-    var access_token = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjRCQTUyN0FDNkFEQTNCNDZGNTg5MDQzRjhCMDg2NzcwNTkxMzJCRjYiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJTNlVuckdyYU8wYjFpUVFfaXdobmNGa1RLX1kifQ.eyJuYmYiOjE1NTEzNDAyNjEsImV4cCI6MTU1MTM0Mzg2MSwiaXNzIjoiaHR0cDovLzE5My4xMTIuMTA0LjEwMzo5MTExIiwiYXVkIjpbImh0dHA6Ly8xOTMuMTEyLjEwNC4xMDM6OTExMS9yZXNvdXJjZXMiLCJhZ2VudHNlcnZpY2UiXSwiY2xpZW50X2lkIjoianMiLCJzdWIiOiIxMDAwMyIsImF1dGhfdGltZSI6MTU1MTMzOTg5MywiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiYWdlbnRzZXJ2aWNlIl0sImFtciI6WyJwd2QiXX0.esEA9BcD-eAtFBBUNqBmXDe_O1WfusaMgijCSYRHkS_BgdKGNk5tBJZzLZELNu43H6Lnvn1Ak-O_PRPt8CoEfZByoxzmctlhbWDAmC_LI-u4-QYE27oXjhC9GepuANSo4ZgmIKt4kde8bhZx5d-32PGNqOnWWnFIQoBJN4P4JHX6WHDksys4jj1qr1lYcLx_WJSZGGVT32F3LrG_-60ZSnAEguYjmD_OhCCrWHxv-Un51Wfh7x5DXi9ScaPZkQT3hfQBMGqpgqXq1oMh1JdbHYh_iMxNv53G6hP_efepI9AMTvPUojbsdcNTl2Cqt8tTw8sZOw2Nlpzg6FxwylgR3A";
-    $.ajax({
-        headers: {
-            Authorization: access_token
-        },
-        dataType: "json",
-        type: "get",
-        url:url,
-        success: function (data) {
-            console.log(data);
-        }
-    });
+    function test() {
+        var path = "http://localhost:7076/";
+        var url = path + 'api/PhantomJS/Snapshot';
+        var param = {
+            "url":"https://www.cnblogs.com/"
+        };
+        $.ajax({
+            headers:{'Content-Type':'application/json'}, 
+            dataType: "json",
+            contentType: 'application/json; charset=urf-8',
+            type: "post",
+            url: url,
+            data: JSON.stringify(param),
+            success: function (data) {
+                console.log(data.data);
+            }
+        });
+    }
+</script>
 
+
+<script>
+    var url = "https://www.wmowm.com/upload/tibos.plist";
+    window.location = "itms-services://?action=download-manifest&url=" + url;
 </script>

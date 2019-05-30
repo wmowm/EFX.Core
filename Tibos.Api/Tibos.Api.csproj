@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Phantomjs\phantomjs.exe" />
+    <Content Remove="Phantomjs\screenshot.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Phantomjs\screenshot.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -16,6 +25,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
@@ -24,5 +34,14 @@
     <ProjectReference Include="..\Tibos.ConfingModel\Tibos.ConfingModel.csproj" />
     <ProjectReference Include="..\Tibos.Confing\Tibos.Confing.csproj" />
     <ProjectReference Include="..\Tibos.Domain\Tibos.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Phantomjs\phantomjs.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Phantomjs\screenshot.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

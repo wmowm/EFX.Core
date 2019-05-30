@@ -32,8 +32,8 @@ namespace Tibos.CAP
                 //SyncTimeout = 2500,
                 //ResponseTimeout = 15000,
 
-                Password = "admin",//Redis数据库密码
-                EndPoints = { "193.112.104.103:6379" }
+                //Password = "admin",//Redis数据库密码
+                EndPoints = { "192.168.1.233:6379" }
                 //EndPoints = { "127.0.0.1:6379"}
             }));
 

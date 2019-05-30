@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using Tibos.CAP.Common;
 using Tibos.CAP.Models;
 using Tibos.Domain;
@@ -62,7 +63,7 @@ namespace Tibos.CAP.Controllers
         [CapSubscribe("callback-show-execute-time")]
         public void BarMessageProcessor(Users user)
         {
-            if(user.Email == "执行任务成功")
+            if (user.Email == "执行任务成功")
             {
 
             }
@@ -76,8 +77,59 @@ namespace Tibos.CAP.Controllers
         [Route("~/adonet/test")]
         public JsonResult Test()
         {
-            var model = new temp() { msg = GetOrder() };
-            return Json(model);
+            SendDepth(new Depth()
+            {
+                Symbol = "VHKD/CNY",
+                Asks = 0.8840M,
+                Bids = 0.8800M,
+                AsksAmount = 10000000,
+                BidsAmount = 10000000,
+                CreateTime = DateTime.Now
+            });
+            SendDepth(new Depth()
+            {
+                Symbol = "BTC/CNY",
+                Asks = 56293M,
+                Bids = 54622M,
+                AsksAmount = 10000000,
+                BidsAmount = 10000000,
+                CreateTime = DateTime.Now
+            });
+            SendDepth(new Depth()
+            {
+                Symbol = "ETH/CNY",
+                Asks = 900M,
+                Bids = 800M,
+                AsksAmount = 10000000,
+                BidsAmount = 10000000,
+                CreateTime = DateTime.Now
+            });
+            SendDepth(new Depth()
+            {
+                Symbol = "BTC/VHKD",
+                Asks = 36000M,
+                Bids = 35000M,
+                AsksAmount = 10000000,
+                BidsAmount = 10000000,
+                CreateTime = DateTime.Now
+            });
+            SendDepth(new Depth()
+            {
+                Symbol = "ETH/VHKD",
+                Asks = 1000M,
+                Bids = 900M,
+                AsksAmount = 10000000,
+                BidsAmount = 10000000,
+                CreateTime = DateTime.Now
+            });
+            return Json("");
+        }
+
+
+        [Route("~/adonet/GetTest/")]
+        public JsonResult GetTest(string value)
+        {
+            return Json(value);
         }
 
 
@@ -120,10 +172,111 @@ namespace Tibos.CAP.Controllers
             return res;
         }
 
+
+
+
+
+
+        /// <summary>
+        /// 推送行情
+        /// </summary>
+        /// <returns></returns>
+        public string Symbol { get; set; }
+
+
+
+
+        private void SendDepth(Depth depth)
+        {
+
+            var key = $"_VGPAY_{depth.Symbol}_";
+            var db = _redis.GetDatabase();
+            var info = "vgpay" + Guid.NewGuid();
+            //如果5秒不释放锁 自动释放。避免死锁
+            if (db.LockTake($"_vgpay_{depth.Symbol}_", info, TimeSpan.FromSeconds(5)))
+            {
+                try
+                {
+                    _redis.Set(key, depth);
+                    Console.WriteLine("添加成功!");
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    db.LockRelease($"_vgpay_{depth.Symbol}", info);
+                }
+            }
+        }
+
+
+
+        private Depth GetDepth(string Symbol)
+        {
+            var key = $"_VGPAY_{Symbol}_";
+
+            var bl = _redis.Exists("num");
+            var temp_num = 0;
+            if (bl)
+            {
+                temp_num = _redis.Get<int>("num");
+                temp_num += 1;
+                _redis.Set("num", temp_num);
+            }
+            else
+            {
+                _redis.Set("num", 1);
+                temp_num = 1;
+            }
+
+            var value = _redis.Get<Depth>(key);
+            var res = $"第{temp_num}次获取行情,行情:{JsonConvert.SerializeObject(value)}";
+            Console.WriteLine(res);
+            return value;
+        }
     }
 
     public class temp
     {
         public string msg { get; set; }
+
+        public Depth model { get; set; }
+    }
+
+
+
+    public class Depth
+    {
+        /// <summary>
+        /// 交易对
+        /// </summary>
+        public string Symbol { get; set; }
+
+        /// <summary>
+        /// 卖币数量
+        /// </summary>
+        public decimal AsksAmount { get; set; }
+
+        /// <summary>
+        /// 买币数量
+        /// </summary>
+        public decimal BidsAmount { get; set; }
+
+        /// <summary>
+        /// 平台卖币
+        /// </summary>
+        public decimal Asks { get; set; }
+
+        /// <summary>
+        /// 平台收币
+        /// </summary>
+        public decimal Bids { get; set; }
+
+        /// <summary>
+        /// 推送时间
+        /// </summary>
+        public DateTime CreateTime { get; set; }
     }
 }
