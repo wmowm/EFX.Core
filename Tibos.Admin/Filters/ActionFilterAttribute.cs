@@ -107,10 +107,12 @@ namespace Tibos.Admin.Filters
             if (userId == null)
             {
                 context.HttpContext.Response.Headers.Add("TibosFilter", HttpStatusCode.Unauthorized.ToString());
-                json.code = StatusCodeDefine.Unauthorized;
-                json.status = -1;
-                json.msg = "登录超时！";
-                context.Result = new JsonResult(json);
+                //json.code = StatusCodeDefine.Unauthorized;
+                //json.status = -1;
+                //json.msg = "未登录！";
+                //context.Result = new JsonResult(json);
+                //return;
+                context.HttpContext.Response.Redirect("/home/login");
                 return;
             }
             //获取用户对象

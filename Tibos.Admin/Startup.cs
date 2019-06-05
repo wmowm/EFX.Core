@@ -84,8 +84,7 @@ namespace Tibos.Admin
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
                     {
-                        options.LoginPath = new PathString("/login");
-                        options.AccessDeniedPath = new PathString("/denied");
+                        options.LoginPath = new PathString("/home/login");
                     });
             Console.WriteLine(">>>>>>>==================================注册Authentication===========================================<<<<<<<");
             services.AddMvc(options =>
