@@ -1,4 +1,5 @@
-﻿$.loading = function (bool, text) {
+﻿console.log("AAA");
+$.loading = function (bool, text) {
     var $loadingpage = parent.$("#loadingPage");
     var $loadingtext = $loadingpage.find('.loading-content');
     if (bool) {

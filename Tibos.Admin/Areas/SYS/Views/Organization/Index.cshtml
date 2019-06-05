@@ -1,0 +1,183 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+    <body layadmin-themealias="default" style="">
+        <div class="layui-fluid">
+            <div class="layui-card">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">操作</label>
+                            <div class="layui-input-block">
+                                @await Component.InvokeAsync("Role")
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">时间筛选</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" id="st_createtime" placeholder=" - ">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <button id="search" class="layui-btn" data-type="reload">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-card-body">
+                    <div style="padding-bottom: 10px;">
+                        <button id="add" class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
+                    </div>
+                    <div style="height:630px">
+                        <table class="layui-hidden" id="treeTable" lay-filter="treeTable"></table>
+                    </div>
+
+
+                    <script>
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            //监听开关
+                            form.on('switch(status)', function (data) {
+                                var status = 0;
+                                if (data.elem.checked) {
+                                    status = 1;
+                                }
+                                var id = $(this).attr("tag");
+                                var url = "/sys/syslog/editStatus";
+
+                                var field = { Id: id, Status: status };
+                                $.post(url, field, function (data) {
+                                    if (data.code == 200) {
+                                        layui.table.reload('tableList'); //重载表格
+                                        layer.msg("操作成功!", {
+                                            time: 1000,
+                                            icon: 1,
+                                        });
+                                    } else {
+                                        layer.msg("操作失败!", {
+                                            time: 1000,
+                                            icon: 2,
+                                        });
+
+                                    }
+                                })
+
+                            });
+                        });
+
+                        layui.use('laydate', function () {
+                            var laydate = layui.laydate;
+                            //日期时间范围
+                            laydate.render({
+                                elem: '#st_createtime'
+                                , type: 'datetime'
+                                , range: true
+                            });
+                        }
+                        );
+
+                        function ValidateLog() {
+
+                        }
+
+
+                        function tips(data) {
+                            alert(data);
+                        }
+
+
+                    </script>
+
+
+                    <script>
+
+
+
+                        var editObj = null, ptable = null, treeGrid = null, tableId = 'treeTable', layer = null;
+                        layui.config({
+                            base: '/lib/design/extend/'
+                        }).extend({
+                            treeGrid: 'treeGrid'
+                        }).use(['jquery', 'treeGrid', 'layer'], function () {
+                            var $ = layui.jquery;
+                            treeGrid = layui.treeGrid;//很重要
+                            layer = layui.layer;
+                            ptable = treeGrid.render({
+                                id: tableId
+                                , elem: '#' + tableId
+                                , method: 'get'
+                                , idField: 'id'
+                                , url: 'http://localhost:8540/data2.json'
+                                , cellMinWidth: 100
+                                , treeId: 'id'//树形id字段名称
+                                , treeUpId: 'pId'//树形父id字段名称
+                                , treeShowName: 'name'//以树形式显示的字段
+                                , cols: [[
+                                    {
+                                        width: 100, title: '操作', align: 'center'/*toolbar: '#barDemo'*/
+                                        , templet: function (d) {
+                                            var html = '';
+                                            var addBtn = '<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="add">添加</a>';
+                                            var delBtn = '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                                            return addBtn + delBtn;
+                                        }
+                                    }
+                                    , { field: 'name', edit: 'text', width: 300, title: '水果名称' }
+                                    , { field: 'id', width: 100, title: 'id' }
+                                    , { field: 'pId', title: 'pid' }
+                                ]]
+                                , page: false
+                            });
+
+                            treeGrid.on('tool(' + tableId + ')', function (obj) {
+                                if (obj.event === 'del') {//删除行
+                                    del(obj);
+                                } else if (obj.event === "add") {//添加行
+                                    add(obj.data);
+                                }
+                            });
+                        });
+
+                        function del(obj) {
+                            layer.confirm("你确定删除数据吗？如果存在下级节点则一并删除，此操作不能撤销！", { icon: 3, title: '提示' },
+                                function (index) {//确定回调
+                                    obj.del();
+                                    layer.close(index);
+                                }, function (index) {//取消回调
+                                    layer.close(index);
+                                }
+                            );
+                        }
+
+
+                        var i = 1000;
+                        //添加
+                        function add(pObj) {
+                            var param = {};
+                            param.name = '水果' + Math.random();
+                            param.id = ++i;
+                            param.pId = pObj ? pObj.id : 0;
+                            treeGrid.addRow(tableId, pObj ? pObj.LAY_TABLE_INDEX + 1 : 0, param);
+                        }
+
+                        function print() {
+                            console.log(treeGrid.cache[tableId]);
+                            var loadIndex = layer.msg("对象已打印，按F12，在控制台查看！", {
+                                time: 3000
+                                , offset: 'auto'//顶部
+                                , shade: 0
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-layer-move" style="cursor: move; display: none;"></div>
+    </body>

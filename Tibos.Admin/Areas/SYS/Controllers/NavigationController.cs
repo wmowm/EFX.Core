@@ -32,7 +32,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
         public IActionResult Create(string Id)
         {
             var model = new Navigation();
-            if (!string.IsNullOrEmpty(Id))
+            if (!string.IsNullOrEmpty(Id) && Id != "0")
             {
                model = _NavigationService.Get(Id);
             }
@@ -180,6 +180,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 Sort = request.Sort,
                 Level = request.Level
             };
+            model.Level = string.IsNullOrEmpty(model.ParentId) ? 1 : 2;
             var id = _NavigationService.Add(model);
             //新增菜单权限
             foreach (var item in request.DictList)

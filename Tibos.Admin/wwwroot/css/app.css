@@ -1,0 +1,281 @@
+﻿.list-wall {
+    padding: 10px 10px 5px 10px;
+}
+iframe-wall {
+    padding: 5px 0px 5px 10px;
+    background:#ffffff;
+}
+.list-top{
+    height:30px;
+    padding:0px 0px 0px 0px;
+    
+}
+
+.layui-btn-xs {
+    height: 20px;
+    line-height: 20px;
+}
+
+.form-control {
+    height: 20px;
+    text-align: left;
+}
+
+ .list-top>input{
+    float:left;
+    margin:0px 3px 0px 10px;
+    height:23px;
+    width:120px;
+}
+.list-top > button {
+        float: left;
+    }
+.ui-jqgrid .ui-jqgrid-btable tbody tr.jqgrow td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    line-height: 20px;
+    text-align: center;
+}
+/*.ui-jqgrid tr.jqgrow td {
+    height: 24px;
+}*/
+th{
+    font-weight:normal;
+}
+html {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+}
+.layui-badge {
+    height: 14px;
+    line-height: 14px;
+}
+body {
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+}
+.ui-jqgrid .ui-jqgrid-pager{
+    font-size:12px;
+}
+.ui-jqgrid .ui-jqgrid-htable th{
+    padding-bottom:1px;
+    padding-top:1px;
+}
+.ui-jqgrid .ui-jqgrid-view {
+    font-size: 12px;
+}
+.ui-jqgrid .ui-jqgrid-hdiv {
+    border-bottom:1px solid #d5d5d5
+ 
+}
+.ui-pg-button{
+    width:25px;
+}
+.ui-jqgrid .ui-paging-pager td{
+    padding:0px 0px;
+}
+#loadingPage .loading-shade {
+    cursor: wait;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.0;
+    filter: alpha(opacity=00);
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100009;
+}
+
+#loadingPage .loading-content {
+    cursor: default;
+    position: absolute;
+    z-index: 888888888;
+    width: auto;
+    border: 1px solid rgb(187, 187, 187);
+    height: 80px;
+    line-height: 80px;
+    padding-left: 80px;
+    padding-right: 20px;
+    border-radius: 10px;
+    color: rgb(102, 102, 102);
+    font-size: 20px;
+    left: 0px;
+    top: 0px;
+    background: url(../images/loading.gif) 5px 50% no-repeat rgb(255, 255, 255);
+    box-shadow: 0 1px 15px rgba(0,0,0,.175);
+}
+.form {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border-collapse: collapse;
+    border-width: 3px 1px 1px;
+    table-layout: fixed
+}
+
+    .form .formTitle {
+        position: relative;
+        left: 0px;
+        text-align: right;
+        white-space: nowrap;
+        font-weight: normal;
+        width: 80px;
+        padding-right: 5px;
+    }
+
+        .form .formTitle font {
+            color: red;
+            position: absolute;
+            right: 0px;
+        }
+
+    .form .formValue {
+        position: relative;
+        padding: 3px;
+        width: auto;
+        height: 25px;
+    }
+
+        .form .formValue input.form-control {
+            height: 28px;
+            line-height: 10px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-right: 0px;
+            padding-left: 5px;
+            resize: none;
+            border-radius: 0px;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }
+
+        .form .formValue select.form-control {
+            height: 28px;
+            line-height: 10px;
+            border-radius: 0px;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }
+
+        .form .formValue textarea.form-control {
+            padding-left: 5px;
+            resize: none;
+            border-radius: 0px;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }
+
+        .form .formValue .input-group .btn {
+            padding: 4px 0px;
+            font-size: 14px;
+            height: 30px;
+            min-width: 30px;
+            border-radius: 0px;
+        }
+
+            .form .formValue .input-group .btn .fa-ellipsis-h {
+                margin-top: 4.5px;
+            }
+
+        .form .formValue.has-error .form-control.error {
+            border-color: #e7bebe;
+            background-color: #fffafa;
+        }
+
+        .form .formValue.has-error .form-control-feedback.error {
+            color: #e46f61;
+            top: 5.5px;
+            right: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        .form .formValue.has-error .form-control.success {
+            border-color: #b0dd9c;
+            background-color: #f3f7f1;
+        }
+
+        .form .formValue.has-error .form-control-feedback.success {
+            color: #8cc474;
+            top: 5px;
+            right: 4px;
+            font-size: 16px;
+        }
+
+        .form .formValue.has-error .select2-selection--single {
+            border-color: #e7bebe;
+            background-color: #fffafa;
+        }
+
+        .form .formValue.has-error .tooltip-arrow {
+            border-left-color: #d73d32;
+        }
+
+        .form .formValue.has-error .tooltip-inner {
+            background-color: #d73d32;
+        }
+
+.form-button {
+    padding: 0px;
+    height: 40px;
+    line-height: 36px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+    background-color: #eee;
+    position: absolute;
+    top: 100%;
+    margin-top: -40px;
+    width: 100%;
+    padding-right: 6px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.table > tbody > tr > td > input[type=checkbox] {
+    margin-left: 8px;
+}
+.ui-filter-list {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: hidden;
+    padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    width: 100%;
+    display: none;
+    left: 0px;
+    top: 25px;
+    background-color: #fff;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 100;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.ui-filter {
+    cursor: pointer;
+    outline: 0;
+    width: auto;
+    height: 27px;
+    line-height: 28px;
+    position: relative;
+}
+
+    .ui-filter .ui-filter-text {
+        border-radius: 4px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid #ccc;
+        padding-left: 5px;
+        height: 27px;
+        line-height: 26px;
+        position: relative;
+        z-index: 100;
+    }

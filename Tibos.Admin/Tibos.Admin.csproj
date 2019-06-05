@@ -38,13 +38,65 @@
     <None Include="wwwroot\images\banner1.svg" />
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />
+    <None Include="wwwroot\lib\design\extend\dltable.js" />
+    <None Include="wwwroot\lib\design\extend\treeGrid.js" />
+    <None Include="wwwroot\lib\design\font\iconfont.svg" />
+    <None Include="wwwroot\lib\design\layui.all.js" />
+    <None Include="wwwroot\lib\design\layui.js" />
+    <None Include="wwwroot\lib\design\lay\all-mobile.js" />
+    <None Include="wwwroot\lib\design\lay\all.js" />
+    <None Include="wwwroot\lib\design\lay\modules\carousel.js" />
+    <None Include="wwwroot\lib\design\lay\modules\code.js" />
+    <None Include="wwwroot\lib\design\lay\modules\element.js" />
+    <None Include="wwwroot\lib\design\lay\modules\flow.js" />
+    <None Include="wwwroot\lib\design\lay\modules\form.js" />
+    <None Include="wwwroot\lib\design\lay\modules\jquery.js" />
+    <None Include="wwwroot\lib\design\lay\modules\laydate.js" />
+    <None Include="wwwroot\lib\design\lay\modules\layedit.js" />
+    <None Include="wwwroot\lib\design\lay\modules\layer.js" />
+    <None Include="wwwroot\lib\design\lay\modules\laypage.js" />
+    <None Include="wwwroot\lib\design\lay\modules\laytpl.js" />
+    <None Include="wwwroot\lib\design\lay\modules\mobile.js" />
+    <None Include="wwwroot\lib\design\lay\modules\mobile\layer-mobile.js" />
+    <None Include="wwwroot\lib\design\lay\modules\mobile\layim-mobile-open.js" />
+    <None Include="wwwroot\lib\design\lay\modules\mobile\upload-mobile.js" />
+    <None Include="wwwroot\lib\design\lay\modules\mobile\zepto.js" />
+    <None Include="wwwroot\lib\design\lay\modules\table.js" />
+    <None Include="wwwroot\lib\design\lay\modules\tree.js" />
+    <None Include="wwwroot\lib\design\lay\modules\upload.js" />
+    <None Include="wwwroot\lib\design\lay\modules\util.js" />
+    <None Include="wwwroot\lib\layuiadmin\config.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\font\iconfont.svg" />
+    <None Include="wwwroot\lib\layuiadmin\layui\layui.all.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\layui.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\carousel.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\code.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\element.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\flow.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\form.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\jquery.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\laydate.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\layedit.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\layer.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\laypage.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\laytpl.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\mobile.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\rate.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\table.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\tree.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\upload.js" />
+    <None Include="wwwroot\lib\layuiadmin\layui\lay\modules\util.js" />
+    <None Include="wwwroot\lib\layuiadmin\lib\admin.js" />
+    <None Include="wwwroot\lib\layuiadmin\lib\index.js" />
+    <None Include="wwwroot\lib\layuiadmin\lib\view.js" />
+    <None Include="wwwroot\lib\layuiadmin\style\modules\common.js" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.9" />
     <PackageReference Include="jQuery" Version="3.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
   </ItemGroup>
 
   <ItemGroup>

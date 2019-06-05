@@ -27,8 +27,15 @@ namespace Tibos.Admin.Controllers
 
         public IMemoryCache _MemoryCache { get; set; }
 
-        [AlwaysAccessible]
+
         public IActionResult Index()
+        {
+            return View();
+        }
+
+
+
+        public IActionResult Index2()
         {
             return View();
         }
@@ -126,6 +133,7 @@ namespace Tibos.Admin.Controllers
         //该方法会被拦截
         public JsonResult CheckLogin()
         {
+            
             PageResponse response = new PageResponse();
             return Json(response);
         }

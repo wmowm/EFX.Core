@@ -71,7 +71,7 @@
                             elem: '#tableList',
                             height: '630px'
                             , url: '/sys/syslog/GetList'
-
+                            //, totalRow:true
                             , request: {
                                 pageName: 'pageIndex' //页码的参数名称，默认：page
                                 , limitName: 'pageSize' //每页数据量的参数名，默认：limit
@@ -232,17 +232,8 @@
 
                 </script>
 
-                <script type="text/html" id="Status">
-                    <input type="checkbox" id="Status" name="Status" lay-skin="switch" lay-text="启用|禁用" title="是否启用" tag="{{d.Id}}" lay-filter="status" value="{{d.Status}}" {{# if(d.Status === 1){}} checked="" {{# } }}>
-                </script>
 
 
-                <script type="text/html" id="Operating">
-                    @*<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail"><i class="layui-icon layui-icon-read"></i>查看</a>*@
-                    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon"></i>编辑</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon"></i>删除</a>
-
-                </script>
 
             </div>
         </div>
