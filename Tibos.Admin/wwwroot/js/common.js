@@ -1,6 +1,8 @@
-﻿$.loading = function (bool, text) {
+﻿
+$.loading = function (bool, text) {
     var $loadingpage = parent.$("#loadingPage");
     var $loadingtext = $loadingpage.find('.loading-content');
+    
     if (bool) {
         $loadingpage.show();
     } else {
@@ -92,11 +94,9 @@ function showInfo(u, name, id) {
 
 $.ajaxSetup({
     complete: function (xhr, status) {
-        console.log("z");
         //拦截器实现超时跳转到登录页面
         // 通过xhr取得响应头
         var REDIRECT = xhr.getResponseHeader("TibosFilter");
-        console.log(xhr.getResponseHeader("TibosFilter"))
         //如果响应头中包含 REDIRECT 则说明是拦截器返回的
         if (REDIRECT == "Unauthorized") {
             var win = window;

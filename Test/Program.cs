@@ -68,18 +68,18 @@ namespace Test
 
 
 
-            //Test t = new Test() { Name = "ttt" };
+            Test t = new Test() { Name = "ttt" };
 
-            //List<Test> list = new List<Test>();
+            List<Test> list = new List<Test>();
 
-            //list.Add(t);
-            //list.Add(new Test() { Name = "2"});
-            //list.Add(t);
+            list.Add(t);
+            list.Add(new Test() { Name = "2" });
 
+            var list2 = list;
 
-            //list[0].Name = "1";
-            //list[1].Name = "2";
-            //list[2].Name = "3";
+            list2.Remove(t);
+
+            Console.WriteLine(list);
 
             Console.Read();
         }

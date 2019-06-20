@@ -91,6 +91,6 @@ namespace Tibos.Domain
             get; 
             set; 
         }
-        public List<DictDto> DictList { get; set; }
+        public List<NavigationRoleDto> NRList { get; set; }
     }
 }

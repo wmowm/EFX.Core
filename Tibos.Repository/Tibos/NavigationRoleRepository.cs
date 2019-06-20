@@ -37,19 +37,32 @@ namespace Tibos.Repository.Tibos
             {
                 query = query.Where(p => p.Status == dto.Status);
             }
-            response.total = query.Count();
+            var db = (TibosDbContext)base.DbContent;
+            var queryList = from m in query
+                            join n in db.Navigation on m.NId equals n.Id
+                            join d in db.Dict on m.DId equals d.Id
+                            select new NavigationRoleDto()
+                            {
+                                DId = m.DId,
+                                Id = m.Id,
+                                NId = m.NId,
+                                Status = m.Status,
+                                NavName = n.Name,
+                                DictName = d.Name
+                            }; 
+            response.total = queryList.Count();
             if (query.Count() > 0)
             {
                 if (dto.pageIndex.HasValue && dto.pageSize.HasValue)
                 {
-                    query = query.Skip((dto.pageIndex.Value - 1) * dto.pageSize.Value).Take(dto.pageSize.Value);
+                    queryList = queryList.Skip((dto.pageIndex.Value - 1) * dto.pageSize.Value).Take(dto.pageSize.Value);
                 }
                 //根据参数进行排序
                 //query = query.OrderBy(p => p.Sort);
             }
             response.status = 0;
             response.code = StatusCodeDefine.Success;
-            response.data = query.ToList();
+            response.data = queryList.ToList();
             return response;
         }
 

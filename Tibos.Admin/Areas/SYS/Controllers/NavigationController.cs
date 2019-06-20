@@ -37,11 +37,11 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                model = _NavigationService.Get(Id);
             }
             var dto = _IMapper.Map<NavigationDto>(model);
-            dto.DictList = GetDictRole();
-            foreach (var item in dto.DictList)
-            {
-                item.Status = 0;
-            }
+            //dto.DictList = GetDictRole();
+            //foreach (var item in dto.DictList)
+            //{
+            //    item.Status = 0;
+            //}
             return View(dto);
         }
         public IActionResult Edit(string Id)
@@ -52,20 +52,20 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 model = _NavigationService.Get(Id);
             }
             var dto = _IMapper.Map<NavigationDto>(model);
-            dto.DictList = GetDictRole();
+            //dto.DictList = GetDictRole();
             //获取菜单下所有选中的权限按钮
-            var nr_list = _NavigationRoleService.GetList(m => m.NId == dto.Id && m.Status == 1);
-            foreach (var item in dto.DictList)
-            {
-                if(nr_list.Find(m=>m.DId == item.Id) != null)
-                {
-                    item.Status = 1;
-                }
-                else
-                {
-                    item.Status = 0;
-                }
-            }
+            //var nr_list = _NavigationRoleService.GetList(m => m.NId == dto.Id && m.Status == 1);
+            //foreach (var item in dto.DictList)
+            //{
+            //    if(nr_list.Find(m=>m.DId == item.Id) != null)
+            //    {
+            //        item.Status = 1;
+            //    }
+            //    else
+            //    {
+            //        item.Status = 0;
+            //    }
+            //}
             return View(dto);
         }
 
@@ -120,46 +120,60 @@ namespace Tibos.Admin.Areas.SYS.Controllers
 
 
         [HttpPost]
-        public JsonResult List(NavigationDto dto)
+        public JsonResult List()
         {
-            dto.Level = 1;
-            var navData = _NavigationService.GetList(dto);
+            //dto.Level = 1;
+            //var navData = _NavigationService.GetList(dto);
 
-            List<Navigation> nav_list = new List<Navigation>();
+            //List<Navigation> nav_list = new List<Navigation>();
 
-            foreach (var item in (List<Navigation>)navData.data)
+            //foreach (var item in (List<Navigation>)navData.data)
+            //{
+            //    nav_list.Add(item);
+            //    dto.Level = 2;
+            //    dto.ParentId = item.Id;
+            //    var sub_list = _NavigationService.GetList(dto);
+            //    nav_list.AddRange((List<Navigation>)sub_list.data);
+            //}
+
+
+
+            //var dto_list = _IMapper.Map<List<NavigationDto>>(nav_list);
+            //foreach (var item in dto_list)
+            //{
+            //    item.DictList = GetDictRole();
+            //    var nr_list = _NavigationRoleService.GetList(m => m.NId == item.Id && m.Status == 1).ToList();
+            //    foreach (var it in item.DictList)
+            //    {
+            //        if (nr_list.Find(m => m.DId == it.Id) != null)
+            //        {
+            //            it.Status = 1;
+            //        }
+            //        else
+            //        {
+            //            it.Status = 0;
+            //        }
+            //    }
+            //}
+            var response = _NavigationService.GetList(new NavigationDto());
+            var nav_dto = _IMapper.Map<List<NavigationDto>>(response.data);
+            //菜单的权限按钮
+            foreach (var item in nav_dto)
             {
-                nav_list.Add(item);
-                dto.Level = 2;
-                dto.ParentId = item.Id;
-                var sub_list = _NavigationService.GetList(dto);
-                nav_list.AddRange((List<Navigation>)sub_list.data);
-            }
-
-
-
-            var dto_list = _IMapper.Map<List<NavigationDto>>(nav_list);
-            foreach (var item in dto_list)
-            {
-                item.DictList = GetDictRole();
-                var nr_list = _NavigationRoleService.GetList(m => m.NId == item.Id && m.Status == 1).ToList();
-                foreach (var it in item.DictList)
+                var res = _NavigationRoleService.GetList(new NavigationRoleDto() { NId = item.Id});
+                if (res.total > 0)
                 {
-                    if (nr_list.Find(m => m.DId == it.Id) != null)
-                    {
-                        it.Status = 1;
-                    }
-                    else
-                    {
-                        it.Status = 0;
-                    }
+                    item.NRList = (List<NavigationRoleDto>)res.data;
                 }
+                else
+                {
+                    item.NRList = new List<NavigationRoleDto>();
+                }
+               
             }
+            response.data = nav_dto;
+            response.code = 0;
 
-            PageResponse response = new PageResponse();
-            response.code = StatusCodeDefine.Success;
-            response.total = nav_list.Count;
-            response.data = dto_list;
             return Json(response);
         }
 
@@ -183,17 +197,17 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             model.Level = string.IsNullOrEmpty(model.ParentId) ? 1 : 2;
             var id = _NavigationService.Add(model);
             //新增菜单权限
-            foreach (var item in request.DictList)
-            {
-                NavigationRole m_nr = new NavigationRole()
-                {
-                    Id = Guid.NewGuid().GuidTo16String(),
-                    DId = item.Id,
-                    NId = model.Id,
-                    Status = item.Status
-                };
-                _NavigationRoleService.Add(m_nr);
-            }
+            //foreach (var item in request.DictList)
+            //{
+            //    NavigationRole m_nr = new NavigationRole()
+            //    {
+            //        Id = Guid.NewGuid().GuidTo16String(),
+            //        DId = item.Id,
+            //        NId = model.Id,
+            //        Status = item.Status
+            //    };
+            //    _NavigationRoleService.Add(m_nr);
+            //}
 
             zTree ztree = new zTree()
             {
@@ -232,24 +246,24 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 Sort = request.Sort,
                 Level = request.Level
             };
-            //删除该菜单下,所有的权限按钮
-            var list_role = _NavigationRoleService.GetList(m => m.NId == model.Id).ToList();
-            foreach (var item in list_role)
-            {
-                _NavigationRoleService.Delete(item.Id);
-            }
-            //新增菜单权限
-            foreach (var item in request.DictList)
-            {
-                NavigationRole m_nr = new NavigationRole()
-                {
-                    Id = Guid.NewGuid().GuidTo16String(),
-                    DId = item.Id,
-                    NId = model.Id,
-                    Status = item.Status
-                };
-                _NavigationRoleService.Add(m_nr);
-            }
+            ////删除该菜单下,所有的权限按钮
+            //var list_role = _NavigationRoleService.GetList(m => m.NId == model.Id).ToList();
+            //foreach (var item in list_role)
+            //{
+            //    _NavigationRoleService.Delete(item.Id);
+            //}
+            ////新增菜单权限
+            //foreach (var item in request.DictList)
+            //{
+            //    NavigationRole m_nr = new NavigationRole()
+            //    {
+            //        Id = Guid.NewGuid().GuidTo16String(),
+            //        DId = item.Id,
+            //        NId = model.Id,
+            //        Status = item.Status
+            //    };
+            //    _NavigationRoleService.Add(m_nr);
+            //}
             _NavigationService.Update(model);
 
             zTree ztree = new zTree()
@@ -283,6 +297,86 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             return Json(response);
         }
 
+
+        public IActionResult Authorize(string Id)
+        {
+            //获取所有的权限按钮
+            List<DictDto> list_dict = GetDictRole();
+            //获取菜单所有的按钮
+            var res = _NavigationRoleService.GetList(new NavigationRoleDto() { NId = Id });
+            if (res.total > 0)
+            {
+                var NRList = (List<NavigationRoleDto>)res.data;
+
+                var list_dict_new = list_dict.Where(m => NRList.Select(p => p.DId).Contains(m.Id)).ToList(); //权限按钮交集
+
+                var NRList_new  = NRList.Where(m => list_dict.Select(p => p.Id).Contains(m.DId)).ToList(); //菜单按钮交集
+
+                NRList.RemoveAll(m=>NRList_new.Select(p=>p.Id).Contains(m.Id));
+
+                list_dict.RemoveAll(m => list_dict_new.Select(p => p.Id).Contains(m.Id));
+
+                List<NavigationRole> list_nr_add = new List<NavigationRole>();
+                List<NavigationRole> list_nr_del = new List<NavigationRole>();
+                foreach (var item in list_dict)
+                {
+                    NavigationRole nr_model = new NavigationRole()
+                    {
+                        Id = Guid.NewGuid().GuidTo16String(),
+                        DId = item.Id,
+                        NId = Id,
+                        Status = 0
+                    };
+                    list_nr_add.Add(nr_model);
+                }
+                list_nr_del = _IMapper.Map<List<NavigationRole>>(NRList);
+                _NavigationRoleService.Add(list_nr_add, false);
+                _NavigationRoleService.Delete(list_nr_del, false);
+            }
+            else
+            {
+                List<NavigationRole> list_nr_init = new List<NavigationRole>();
+                foreach (var item in list_dict)
+                {
+                    NavigationRole nr_model = new NavigationRole()
+                    {
+                        Id = Guid.NewGuid().GuidTo16String(),
+                        DId = item.Id,
+                        NId = Id,
+                        Status = 0
+                    };
+                    list_nr_init.Add(nr_model);
+                }
+                _NavigationRoleService.Add(list_nr_init, false);
+            } 
+            _NavigationRoleService.SaveChanges();
+            var response = _NavigationRoleService.GetList(new NavigationRoleDto() { NId = Id });
+            ViewData["list_nr"] = response.data;
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Authorize(List<NavigationRole> list)
+        {
+            PageResponse response = new PageResponse()
+            {
+                code = StatusCodeDefine.Success,
+                msg = "授权失败",
+                status = -1
+            };
+            if (!list.Any())
+            {
+                return Json(response);
+            }
+            _NavigationRoleService.Update(list);
+            response = new PageResponse()
+            {
+                code = StatusCodeDefine.Success,
+                msg = "授权成功",
+                status = 0
+            };
+            return Json(response);
+        }
 
         private List<DictDto> GetDictRole()
         {

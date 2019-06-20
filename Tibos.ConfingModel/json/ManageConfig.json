@@ -11,12 +11,12 @@
     "TibosDB": {
       //数据库类型(sqlserver,mysql,sqlite)
       "ConnType": "mysql",
-      "ConnName": "server=127.0.0.1;database=tibos;uid=root;pwd=123456;port=3306;Charset=utf8;"
+      "ConnName": "server=193.112.104.103;database=tibos;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;"
     },
     "DhmDB": {
       //数据库类型(sqlserver,mysql,sqlite)
       "ConnType": "mysql",
-      "ConnName": "server=127.0.0.1;database=dhm;uid=root;pwd=123456;port=3306;Charset=utf8;"
+      "ConnName": "server=193.112.104.103;database=dhm;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;"
     }
   }
 }

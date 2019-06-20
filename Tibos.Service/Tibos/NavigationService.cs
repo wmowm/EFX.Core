@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tibos.Common;
 using Tibos.Domain;
 using Tibos.IRepository;
 using Tibos.IService.Tibos;
@@ -14,12 +15,12 @@ using Tibos.IService.Tibos;
 //Entity Code Generation Template
 namespace Tibos.Service.Tibos
 {
-	public class NavigationService:BaseService<Navigation>,INavigationService
-	{
-		private readonly IBaseRepository<Navigation> dao;
-        public NavigationService(IBaseRepository<Navigation> dao):base(dao)
-		{
+    public class NavigationService : BaseService<Navigation>, INavigationService
+    {
+        private readonly IBaseRepository<Navigation> dao;
+        public NavigationService(IBaseRepository<Navigation> dao) : base(dao)
+        {
             this.dao = dao;
         }
-	}
+    }
 }

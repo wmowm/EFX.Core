@@ -32,7 +32,7 @@ layui.define('jquery', function(exports){
   };
   
   //外部Tab新增
-  Element.prototype.tabAdd = function(filter, options){
+    Element.prototype.tabAdd = function (filter, options) {
     var TITLE = '.layui-tab-title'
     ,tabElem = $('.layui-tab[lay-filter='+ filter +']')
     ,titElem = tabElem.children(TITLE)

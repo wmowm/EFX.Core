@@ -8,15 +8,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-
     <link rel="shortcut icon" href="~/favicon.ico">
-    <link href="~/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="~/lib/layuiadmin/layui/css/layui.css" rel="stylesheet" />
     <link href="~/css/admin.css" rel="stylesheet" />
     <link href="~/css/app.css" rel="stylesheet" />
+    <link href="~/css/pace.css" rel="stylesheet" />
+
 
     <script src="~/js/jquery.js"></script>
+    <script src="~/js/common.js"></script>
 
+    <script src="~/js/plugins/pace/pace.min.js"></script>
+
+    <script src="~/lib/layuiadmin/layui/layui.js" type="text/javascript"></script>
     <title>TibosAdmin</title>
 
 </head>
@@ -167,14 +171,6 @@
             padding: 2px 10px 0px 0px;
         }
     </style>
-    <script src="~/lib/layuiadmin/layui/layui.js" type="text/javascript"></script>
-    @*<script>
-            //JavaScript代码区域
-            layui.use('element', function () {
-                var element = layui.element;
-
-            });
-        </script>*@
     <script>
             layui.config({
                 base: '/lib/layuiadmin/' //静态资源所在路径
@@ -182,11 +178,24 @@
                 index: '/lib/index', //主入口模块
                 treeGrid:'treeGrid'
             }).use('index');
-    </script>
-    <script>
     function LoginOut() {
-            window.location = "/home/login";
+        window.location = "/home/login";
             }
+
+
+
+      layui.use('element', function(){
+      var element = layui.element;
+  
+      //一些事件监听
+      element.on('tab(LAY_app_tabs)', function(data){
+        console.log(data);
+      });
+    });
+
+
     </script>
+
+    
 </body>
 </html>

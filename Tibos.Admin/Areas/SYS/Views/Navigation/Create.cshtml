@@ -61,23 +61,6 @@
 
                 </div>
             </div>
-            <div class="layui-form-item" pane="" style="margin:0px">
-                <label class="layui-form-label">菜单权限</label>
-                <div class="layui-input-block">
-                    @{
-                        foreach (var item in Model.DictList)
-                        {
-                            var status = "";
-                            if (item.Status == 1)
-                            {
-                                status = "checked";
-                            }
-                            <input type="checkbox" lay-skin="primary" lay-filter="dict" name="@item.Id" title="@item.Name" @status>
-                            <input type="hidden" id="@item.Id" name="Dict" value="@item.Status" />
-                        }
-                    }
-                </div>
-            </div>
             <div class="layui-form-item layui-hide">
                 <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
                 <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">

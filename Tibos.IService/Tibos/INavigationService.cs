@@ -13,6 +13,5 @@ namespace Tibos.IService.Tibos
 	public interface INavigationService:IBaseService<Navigation>
 	{
 
-        
-	}
+    }
 }

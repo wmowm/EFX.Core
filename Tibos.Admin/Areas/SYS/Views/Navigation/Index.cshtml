@@ -31,7 +31,9 @@
                 </div>
                 <div class="layui-form layui-card-header layuiadmin-card-header-auto">
 
-                    <table class="layui-hide" id="table"></table>
+                    <div style="height:630px">
+                        <table class="layui-hidden" id="treeTable" lay-filter="treeTable"></table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,7 +134,7 @@ var setting = {
                     success: function (data) {
                         if (data.code == 200) {
                             zTree.removeNode(treeNode);
-                            layui.table.reload('tableList'); //重载表格
+                            layui.treeGrid.reload('treeTable'); //重载表格
                             layer.msg("操作成功!", {
                                 time: 1000,
                                 icon: 1,
@@ -277,53 +279,78 @@ var setting = {
 
         $.fn.zTree.init($("#tree"), setting, zNodes);
         $("#selectAll").bind("click", selectAll);
-        layui.use('table', function () {
-            var table = layui.table;
 
-            table.render({
-                elem: '#table'
-                , request: {
-                    pageName: 'pageIndex' //页码的参数名称，默认：page
-                    , limitName: 'pageSize' //每页数据量的参数名，默认：limit
-                }
-                , response: {
-                    statusName: 'status' //规定数据状态的字段名称，默认：code
-                    , statusCode: 0 //规定成功的状态码，默认：0
-                    , msgName: 'msg' //规定状态信息的字段名称，默认：msg
-                    , countName: 'total' //规定数据总数的字段名称，默认：count
-                    , dataName: 'data' //规定数据列表的字段名称，默认：data
-                },
-                id: 'tableList'
-                , method: 'post'
-                , url: '/sys/navigation/list'
-                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                , cols: [[
-                    { title: '菜单名称', width: 180, templet: '#Name' }
-                    , { templet: '#Icon', width: 80, title: '图标' }
-                    , { field: 'Level', width: 80, title: '层级' }
-                    , { field: 'Link', width: 180, title: '链接' }
-                    , { field: 'Sort', width: 80, title: '排序' }
-                    , { field: 'Areas', minWidth: 80, title: '模块' }
-                    , { field: 'ControllerName', minWidth: 100, title: '控制器' }
-                    , { title: '系统裁掉', width: 80, templet: '#IsSys' }
-                    , { title: '菜单权限', width: 480, templet: '#Dict' }
-                ]]
-            });
-        });
+
+
+         var editObj = null, ptable = null, treeGrid = null, tableId = 'treeTable', layer = null;
+                    layui.config({
+                        base: '/lib/design/extend/'
+                    }).extend({
+                        treeGrid: 'treeGrid'
+                    }).use(['jquery', 'treeGrid', 'layer'], function () {
+                        var $ = layui.jquery;
+                        treeGrid = layui.treeGrid;//很重要
+                        layer = layui.layer;
+                        ptable = treeGrid.render({
+                            id: tableId
+                            , elem: '#' + tableId
+                            , method: 'post'
+                            , idField: 'Id'
+                            , url: '/SYS/Navigation/List'
+                            , cellMinWidth: 100
+                            , treeId: 'Id'//树形id字段名称
+                            , treeUpId: 'ParentId'//树形父id字段名称
+                            , treeShowName: 'Name'//以树形式显示的字段
+                            , cols: [[
+                                {
+                                    width: 100, title: '操作', align: 'center'/*toolbar: '#barDemo'*/
+                                    , templet: function (d) {
+                                        var html = '';
+                                        var editBtn = '<a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon"></i>授权</a>';
+                                        return editBtn;
+                                    }
+                                },
+                                { title: '菜单名称', width: 180, field: 'Name' }
+                                , { templet: '#Icon', width: 80,align: 'center', title: '图标' }
+                                , { field: 'Level', width: 80, title: '层级' }
+                                , { field: 'Link', width: 180, title: '链接' }
+                                , { field: 'Sort', width: 80, title: '排序' }
+                                , { field: 'Areas', minWidth: 80, title: '模块' }
+                                , { field: 'ControllerName', minWidth: 100, title: '控制器' }
+                                , { title: '系统菜单', width: 120,align: 'center', templet:'#IsSys'}
+                                , { title: '菜单权限', width: 480, templet: '#Dict' }
+                            ]]
+                            , page: false
+                        });
+
+                        treeGrid.on('tool(' + tableId + ')', function (obj) {
+                         var data = obj.data;
+                            if (obj.event === 'edit') {//编辑
+                                layui.use('layer', function () {
+                                    var url = "?Id=" + data.Id;
+                                    var layer = layui.layer;
+                                    layer.open({
+                                        type: 2,
+                                        area: ['500px', '450px'],
+                                        fixed: false, //不固定
+                                        maxmin: true,
+                                        content: '/sys/navigation/authorize' + url,
+                                        title: '授权',
+                                        btn: ['确定', '取消'],
+                                        yes: function (index, layero) {
+                                            $("#form").length;//直接获取表单长度=0
+                                            $(layero).find("#form").length;//表单长度还是等于0
+                                            var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                                            submit.click();
+                                        }
+                                    });
+                                });
+                            } 
+                        });
+                    });
     });
 
-    for (var i = 0; i < length; i++) {
 
-    }
-
-</script>
-
-<script type="text/html" id="Name">
-    {{#  if(d.Level === 1){ }}
-    <span>|--{{ d.Name }}</span>
-    {{#  } else { }}
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;|--{{ d.Name }}</span>
-    {{#  } }}
 </script>
 
 
@@ -344,12 +371,10 @@ var setting = {
 </script>
 
 <script type="text/html" id="Dict">
-    {{#  for (var i = 0; i < d.DictList.length; i++) { }}
-    {{d.DictList[i].Name}}:
-    {{#  if(d.DictList[i].Status == 1){ }}
-    <span class="layui-badge">√</span>
+    {{#  for (var i = 0; i < d.NRList.length; i++) { }}
+    {{#  if(d.NRList[i].Status == 1){ }}
+    <span class="layui-badge">{{d.NRList[i].DictName}}</span>
     {{#  } else { }}
-    <span class="layui-badge layui-bg-gray">×</span>
     {{#  } }}
     {{#  } }}
 </script>
