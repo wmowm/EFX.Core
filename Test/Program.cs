@@ -68,18 +68,25 @@ namespace Test
 
 
 
-            Test t = new Test() { Name = "ttt" };
+            //Test t = new Test() { Name = "ttt" };
 
-            List<Test> list = new List<Test>();
+            //List<Test> list = new List<Test>();
 
-            list.Add(t);
-            list.Add(new Test() { Name = "2" });
+            //list.Add(t);
+            //list.Add(new Test() { Name = "2" });
 
-            var list2 = list;
+            //var list2 = list;
 
-            list2.Remove(t);
+            //list2.Remove(t);
 
-            Console.WriteLine(list);
+            //Console.WriteLine(list);
+
+            var k = Math.Pow(2, 64);
+
+            var a = Convert.ToDecimal(17988573481630807577) / (2^64);
+;
+
+            string b = a.ToString();
 
             Console.Read();
         }

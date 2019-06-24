@@ -46,7 +46,7 @@ namespace Tibos.HostedService.Config
                 //数据源名称
                 ["quartz.jobStore.dataSource"] = "myDS",
                 //连接字符串
-                ["quartz.dataSource.myDS.connectionString"] = "Server=localhost;Database=myDS;Uid=root;Pwd=123456",
+                ["quartz.dataSource.myDS.connectionString"] = "server=193.112.104.103;database=myDS;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;",
                 //版本
                 ["quartz.dataSource.myDS.provider"] = "MySql"
             };
