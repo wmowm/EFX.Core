@@ -48,7 +48,8 @@ namespace Tibos.Repository.Tibos
                                 NId = m.NId,
                                 Status = m.Status,
                                 NavName = n.Name,
-                                DictName = d.Name
+                                DictName = d.Name,
+                                Sort = d.Sort
                             }; 
             response.total = queryList.Count();
             if (query.Count() > 0)
@@ -58,7 +59,7 @@ namespace Tibos.Repository.Tibos
                     queryList = queryList.Skip((dto.pageIndex.Value - 1) * dto.pageSize.Value).Take(dto.pageSize.Value);
                 }
                 //根据参数进行排序
-                //query = query.OrderBy(p => p.Sort);
+                queryList = queryList.OrderBy(p => p.Sort);
             }
             response.status = 0;
             response.code = StatusCodeDefine.Success;

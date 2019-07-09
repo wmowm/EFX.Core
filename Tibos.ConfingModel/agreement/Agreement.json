@@ -1,8 +1,0 @@
-//全局约定
-{
-  "status": "0:false,1:true", //状态
-  "Cache": { //缓存
-    "Role_*": "Permission列表", //角色权限
-    "Is_Permission_Init": "false,true"//是否已缓存角色权限
-  }
-}

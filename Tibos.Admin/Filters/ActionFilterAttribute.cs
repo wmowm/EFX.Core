@@ -117,6 +117,14 @@ namespace Tibos.Admin.Filters
             }
             //获取用户对象
             var m_manager = _Cache.Get<Manager>(userId);
+
+            //15分有效时间
+            //if (m_manager == null)
+            //{
+            //    context.HttpContext.Response.Redirect("/home/login");
+            //    return;
+            //}
+            //永不过期策略
             if (m_manager == null)
             {
                 m_manager = _ManagerService.Get(m => m.Id == userId && m.Status == 1);
@@ -130,7 +138,6 @@ namespace Tibos.Admin.Filters
                 }
                 else
                 {
-                    //添加到缓存
                     _Cache.GetOrCreate(m_manager.Id, entry =>
                     {
                         entry.SetSlidingExpiration(TimeSpan.FromSeconds(15 * 60)); //15分钟

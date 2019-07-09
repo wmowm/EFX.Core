@@ -21,29 +21,29 @@ namespace Test
         {
 
 
-            //var ai = "b3adb7e5a168e167";
-            //var sendingTime = DateTimeToUnixTimestamp(DateTime.Now);
-            //Model.Body body = new Model.Body()
-            //{
-            //    cs1 = "15019400599",
-            //    t = "cstm",
-            //    tm = sendingTime,
-            //    n = "trading",
-            //    var = new Model.DataTrading()
-            //    {
-            //        //tradingId = "test001",
-            //        tradingPair = "ETH/VHKD",
-            //        //tradingWay_var = "委托买入"
-            //    }
-            //};
-            //List<Body> list = new List<Body>();
-            //list.Add(body);
-            //var data = JsonConvert.SerializeObject(list);
+            var ai = "b3adb7e5a168e167";
+            var sendingTime = DateTimeToUnixTimestamp(DateTime.Now);
+            Model.Body body = new Model.Body()
+            {
+                cs1 = "15019400599",
+                t = "cstm",
+                tm = sendingTime,
+                n = "trading",
+                var = new Model.DataTrading()
+                {
+                    //tradingId = "test001",
+                    tradingPair = "ETH/VHKD",
+                    //tradingWay_var = "委托买入"
+                }
+            };
+            List<Body> list = new List<Body>();
+            list.Add(body);
+            var data = JsonConvert.SerializeObject(list);
 
-            //string url = $"https://api.growingio.com/v3/{ai}/s2s/cstm?stm={sendingTime}";
+            string url = $"https://api.growingio.com/v3/{ai}/s2s/cstm?stm={sendingTime}";
 
 
-            //var res = HttpCommon.PostWebRequest(url, data);
+            var res = HttpCommon.PostWebRequest(url, data);
 
 
             //string url = "http://193.112.104.103:9222/api/values";
@@ -81,16 +81,10 @@ namespace Test
 
             //Console.WriteLine(list);
 
-            var k = Math.Pow(2, 64);
-
-            var a = Convert.ToDecimal(17988573481630807577) / (2^64);
-;
-
-            string b = a.ToString();
+            
 
             Console.Read();
         }
-
 
         /// <summary>
         /// 日期转换成unix时间戳
