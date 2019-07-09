@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Tibos.Admin.Components
     {
         private INavigationService _navigationService;
 
+
         public MenuViewComponent(INavigationService navigationIService)
         {
             this._navigationService = navigationIService;
@@ -19,7 +21,8 @@ namespace Tibos.Admin.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var list = _navigationService.GetList();
+            var userId = HttpContext.User.Identity.Name;
+            var list = _navigationService.GetList(userId);
             return View(list);
         }
     }

@@ -31,43 +31,11 @@ namespace Web.Controllers
         }
         public IActionResult Index()
         {
-            ViewData["GUID"] = Guid.NewGuid();
             return View();
         }
-
         public IActionResult Error()
         {
             return View();
         }
-
-        [Authorize]
-        public IActionResult About()
-        {
-            return View();
-        }
-
-        public IActionResult Test()
-        {
-            return View();
-        }
-
-        public IActionResult Html()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Logout(string logoutId)
-        {
-            //删除自己的凭证
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            //删除验证服务器上面的凭证
-            await HttpContext.SignOutAsync("oidc");
-
-            return View();
-        }
-
-
-
     }
 }

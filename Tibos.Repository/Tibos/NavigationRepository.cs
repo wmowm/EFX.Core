@@ -44,7 +44,7 @@ namespace Tibos.Repository.Tibos
                     query = query.Skip((dto.pageIndex.Value - 1) * dto.pageSize.Value).Take(dto.pageSize.Value);
                 }
                 //根据参数进行排序
-                query = query.OrderBy(p => p.Sort);
+                query = query.OrderBy(p => p.Sort).OrderBy(m=>m.Level);
             }
             response.status = 0;
             response.code = StatusCodeDefine.Success;

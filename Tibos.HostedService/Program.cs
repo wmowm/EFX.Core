@@ -40,7 +40,6 @@ namespace Tibos.HostedService
                         {
                             services.AddLogging();
                             //services.AddHostedService<TimedHostedService>();
-
                             services.AddSingleton<IJobFactory, JobFactory>();
                             services.AddSingleton<IHello, Hello>();
                             services.AddSingleton(provider =>
@@ -57,10 +56,9 @@ namespace Tibos.HostedService
                                 //.Build();
                                 ////4、创建任务
                                 //var jobDetail = JobBuilder.Create<TibosJob>()
-                                //                .WithIdentity("job", "group4")
+                                //                .WithIdentity("job", "group5")
                                 //                .Build();
                                 //scheduler.ScheduleJob(jobDetail, trigger);
-
                                 scheduler.JobFactory = provider.GetService<IJobFactory>();
                                 return scheduler;
                             });
@@ -71,7 +69,7 @@ namespace Tibos.HostedService
 
 
                             RPCServer rPCServer = new RPCServer(9988);
-                            rPCServer.RegisterService<IHello,Hello>();
+                            rPCServer.RegisterService<IHello, Hello>();
                             rPCServer.Start();
                             Console.WriteLine("服务端启动了");
 

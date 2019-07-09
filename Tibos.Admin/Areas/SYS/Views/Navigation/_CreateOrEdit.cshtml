@@ -61,7 +61,7 @@
             {
                 layer.close(load);
                 if (data.code == 200) {
-                    parent.layui.table.reload('tableList'); //重载表格
+                    parent.layui.treeGrid.reload('treeTable'); //重载表格
                     if (type == "add") {
                         parent.addNode(data.data);//访问父页面方法
                     } else {

@@ -21,29 +21,29 @@ namespace Test
         {
 
 
-            //var ai = "b3adb7e5a168e167";
-            //var sendingTime = DateTimeToUnixTimestamp(DateTime.Now);
-            //Model.Body body = new Model.Body()
-            //{
-            //    cs1 = "15019400599",
-            //    t = "cstm",
-            //    tm = sendingTime,
-            //    n = "trading",
-            //    var = new Model.DataTrading()
-            //    {
-            //        //tradingId = "test001",
-            //        tradingPair = "ETH/VHKD",
-            //        //tradingWay_var = "委托买入"
-            //    }
-            //};
-            //List<Body> list = new List<Body>();
-            //list.Add(body);
-            //var data = JsonConvert.SerializeObject(list);
+            var ai = "b3adb7e5a168e167";
+            var sendingTime = DateTimeToUnixTimestamp(DateTime.Now);
+            Model.Body body = new Model.Body()
+            {
+                cs1 = "15019400599",
+                t = "cstm",
+                tm = sendingTime,
+                n = "trading",
+                var = new Model.DataTrading()
+                {
+                    //tradingId = "test001",
+                    tradingPair = "ETH/VHKD",
+                    //tradingWay_var = "委托买入"
+                }
+            };
+            List<Body> list = new List<Body>();
+            list.Add(body);
+            var data = JsonConvert.SerializeObject(list);
 
-            //string url = $"https://api.growingio.com/v3/{ai}/s2s/cstm?stm={sendingTime}";
+            string url = $"https://api.growingio.com/v3/{ai}/s2s/cstm?stm={sendingTime}";
 
 
-            //var res = HttpCommon.PostWebRequest(url, data);
+            var res = HttpCommon.PostWebRequest(url, data);
 
 
             //string url = "http://193.112.104.103:9222/api/values";
@@ -73,17 +73,18 @@ namespace Test
             //List<Test> list = new List<Test>();
 
             //list.Add(t);
-            //list.Add(new Test() { Name = "2"});
-            //list.Add(t);
+            //list.Add(new Test() { Name = "2" });
 
+            //var list2 = list;
 
-            //list[0].Name = "1";
-            //list[1].Name = "2";
-            //list[2].Name = "3";
+            //list2.Remove(t);
+
+            //Console.WriteLine(list);
+
+            
 
             Console.Read();
         }
-
 
         /// <summary>
         /// 日期转换成unix时间戳

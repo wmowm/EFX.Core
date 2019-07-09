@@ -12,7 +12,6 @@ namespace Tibos.IService.Tibos
 {
 	public interface INavigationService:IBaseService<Navigation>
 	{
-
-        
-	}
+        List<Navigation> GetList(string userId);
+    }
 }

@@ -41,9 +41,14 @@ namespace Tibos.Domain
         {
             get; 
             set; 
-        }        
-		   
-	}
+        }
+
+        public virtual string NavName { get; set; }
+
+        public virtual string DictName { get; set; }
+
+        public virtual int Sort { get; set; }
+    }
 	public class NavigationRoleRequest : NavigationRole
     {
         /// <summary>

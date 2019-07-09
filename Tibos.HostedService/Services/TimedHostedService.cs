@@ -22,7 +22,7 @@ namespace Tibos.HostedService.Services
         {
             _logger.LogInformation("Timed Background Service is starting.");
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
 
             return Task.CompletedTask;
         }

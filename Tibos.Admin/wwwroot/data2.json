@@ -1,0 +1,153 @@
+{
+  "msg": "",
+  "code": 0,
+  "data": [
+    {
+      "Id": "bdY8Bf4YA0uUa-O3IHSHQg",
+      "ParentId": "0",
+      "Level": 1,
+      "Name": "资讯管理",
+      "Icon": "fa fa-clipboard",
+      "Link": "#",
+      "Sort": 1,
+      "IsSys": 0,
+      "ControllerName": "News",
+      "Areas": "CMS"
+    },
+    {
+      "Id": "I9fHTsbVeEmawNSbgyzG1Q",
+      "ParentId": "0",
+      "Level": 1,
+      "Name": "系统设置",
+      "Icon": "fa fa-gears",
+      "Link": "#",
+      "Sort": 99,
+      "IsSys": 0,
+      "ControllerName": "#",
+      "Areas": "SYS"
+    },
+    {
+      "Id": "A1LcWlkok0mvZBEiLrgScQ",
+      "ParentId": "bdY8Bf4YA0uUa-O3IHSHQg",
+      "Level": 2,
+      "Name": "公告列表",
+      "Icon": "fa fa-hand-pointer-o",
+      "Link": "/cms/news/index",
+      "Sort": -3,
+      "IsSys": 0,
+      "ControllerName": "GG",
+      "Areas": "CMS"
+    },
+    {
+      "Id": "svwtxMblLEGBXnII1pBjKA",
+      "ParentId": "bdY8Bf4YA0uUa-O3IHSHQg",
+      "Level": 2,
+      "Name": "资讯列表",
+      "Icon": "fa fa-hand-pointer-o",
+      "Link": "/CMS/News/Indexzz",
+      "Sort": 1,
+      "IsSys": 0,
+      "ControllerName": "News",
+      "Areas": "CMS"
+    },
+    {
+      "Id": "vIqymh738UiudkzI1a3b-A",
+      "ParentId": "I9fHTsbVeEmawNSbgyzG1Q",
+      "Level": 2,
+      "Name": "菜单列表",
+      "Icon": "fa fa-cog",
+      "Link": "/SYS/Navigation/Index",
+      "Sort": 1,
+      "IsSys": 1,
+      "ControllerName": "Navigation",
+      "Areas": "SYS"
+    },
+    {
+      "Id": "PKFvoBxTSkqFhnXpR5k4zQ",
+      "ParentId": "I9fHTsbVeEmawNSbgyzG1Q",
+      "Level": 2,
+      "Name": "字典管理",
+      "Icon": "fa fa-tags",
+      "Link": "/sys/dicttype",
+      "Sort": 3,
+      "IsSys": 0,
+      "ControllerName": "DictType,Dict",
+      "Areas": "SYS"
+    },
+    {
+      "Id": "UaM_saUYwEeKG3BpSAZN_Q",
+      "ParentId": "bdY8Bf4YA0uUa-O3IHSHQg",
+      "Level": 2,
+      "Name": "广告弹窗",
+      "Icon": "fa fa-hand-pointer-o",
+      "Link": "/CMS/News/Indexzxxxx",
+      "Sort": 3,
+      "IsSys": 0,
+      "ControllerName": "5",
+      "Areas": "4"
+    },
+    {
+      "Id": "3iS2aMGqEEqy6Z2DJDXeSA",
+      "ParentId": "I9fHTsbVeEmawNSbgyzG1Q",
+      "Level": 2,
+      "Name": "组织机构",
+      "Icon": "fa fa-sitemap",
+      "Link": "/SYS/Organization/Index",
+      "Sort": 4,
+      "IsSys": 0,
+      "ControllerName": "Organization",
+      "Areas": "SYS"
+    },
+    {
+      "Id": "741eWiHuT0qpN90usHfjBg",
+      "ParentId": "bdY8Bf4YA0uUa-O3IHSHQg",
+      "Level": 2,
+      "Name": "封面列表",
+      "Icon": "fa fa-hand-pointer-o",
+      "Link": "/CMS/News/Indexrrr",
+      "Sort": 4,
+      "IsSys": 0,
+      "ControllerName": "#",
+      "Areas": "CMS"
+    },
+    {
+      "Id": "kmA7aSIQW0m2O0v8Pin94w",
+      "ParentId": "I9fHTsbVeEmawNSbgyzG1Q",
+      "Level": 2,
+      "Name": "角色管理",
+      "Icon": "fa fa-group",
+      "Link": "/sys/role/index",
+      "Sort": 4,
+      "IsSys": 0,
+      "ControllerName": "Role",
+      "Areas": "SYS"
+    },
+    {
+      "Id": "imNnSDrrxUahyoP0lVucNw",
+      "ParentId": "I9fHTsbVeEmawNSbgyzG1Q",
+      "Level": 2,
+      "Name": "后台用户管理",
+      "Icon": "fa fa-child",
+      "Link": "/SYS/Manager/index",
+      "Sort": 5,
+      "IsSys": 0,
+      "ControllerName": "Manager",
+      "Areas": "SYS"
+    },
+    {
+      "Id": "xoKLLt3Y_EmVXwko5S2sYg",
+      "ParentId": "I9fHTsbVeEmawNSbgyzG1Q",
+      "Level": 2,
+      "Name": "操作日志",
+      "Icon": "fa fa-language",
+      "Link": "/SYS/SysLog/Index",
+      "Sort": 5,
+      "IsSys": 0,
+      "ControllerName": "SysLog",
+      "Areas": "SYS"
+    }
+  ],
+  "count": 12,
+  "is": true,
+  "tip": "操作成功！"
+}

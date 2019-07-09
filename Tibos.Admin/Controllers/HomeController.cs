@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Tibos.Admin.Annotation;
 using Tibos.Admin.Models;
 using Tibos.Common;
@@ -27,8 +28,17 @@ namespace Tibos.Admin.Controllers
 
         public IMemoryCache _MemoryCache { get; set; }
 
-        [AlwaysAccessible]
+
+
+
         public IActionResult Index()
+        {
+            return View();
+        }
+
+
+
+        public IActionResult Index2()
         {
             return View();
         }
@@ -91,6 +101,7 @@ namespace Tibos.Admin.Controllers
             {
                 json.status = -1;
                 json.msg = "验证码不正确";
+                return Json(json);
             }
             var model = _ManagerService.Get(m => m.UserName == user_name && m.Password == password && m.Status == 1);
             if (model != null)
@@ -126,6 +137,7 @@ namespace Tibos.Admin.Controllers
         //该方法会被拦截
         public JsonResult CheckLogin()
         {
+            
             PageResponse response = new PageResponse();
             return Json(response);
         }

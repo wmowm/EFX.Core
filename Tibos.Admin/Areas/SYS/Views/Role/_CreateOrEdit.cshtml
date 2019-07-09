@@ -29,15 +29,15 @@
                         <label class="layui-form-label">@item.Name</label>
                         <div class="layui-input-block">
                             @{
-                                foreach (var dict in item.DictList)
+                                foreach (var dict in item.NRList)
                                 {
                                     var status = "";
                                     if (dict.Status == 1)
                                     {
                                         status = "checked";
                                     }
-                                    <input type="checkbox" lay-skin="primary" lay-filter="dict" name="@dict.Id" tag="@item.Id" title="@dict.Name" @status>
-                                    <input type="hidden" id="@dict.Id" name="Dict" value="@dict.Status" tag="@item.Id"   did="@dict.Id" nid="@item.Id" rndid="@dict.Extra" />
+                                    <input type="checkbox" lay-skin="primary" lay-filter="dict" name="@dict.Id" tag="@item.Id" title="@dict.DictName" @status>
+                                    <input type="hidden" id="@dict.Id" name="Dict" value="@dict.Status" tag="@item.Id"   did="@dict.DId" nid="@item.Id" />
                                 }
                             }
                         </div>
@@ -49,15 +49,15 @@
                             <label class="layui-form-label">@subitem.Name</label>
                             <div class="layui-input-block">
                                 @{
-                                    foreach (var dict in subitem.DictList)
+                                    foreach (var dict in subitem.NRList)
                                     {
                                         var status = "";
                                         if (dict.Status == 1)
                                         {
                                             status = "checked";
                                         }
-                                        <input type="checkbox" lay-skin="primary" lay-filter="dict" name="@subitem.Id@dict.Id" tag="@item.Id" title="@dict.Name" @status>
-                                        <input type="hidden" id="@subitem.Id@dict.Id" name="Dict" value="@dict.Status" tag="@item.Id" did="@dict.Id" nid="@subitem.Id" rndid="@dict.Extra" />
+                                        <input type="checkbox" lay-skin="primary" lay-filter="dict" name="@subitem.Id@dict.Id" tag="@item.Id" title="@dict.DictName" @status>
+                                        <input type="hidden" id="@subitem.Id@dict.Id" name="Dict" value="@dict.Status" tag="@item.Id" did="@dict.DId" nid="@subitem.Id" />
                                     }
                                 }
                             </div>
@@ -113,7 +113,6 @@
                 var dict = {};
                 dict.DId = $(this).attr("did");
                 dict.NId = $(this).attr("nid");
-                dict.Id = $(this).attr("rndid");
                 dict.Status = parseInt($(this).val());
                 array.push(dict);
             })
@@ -128,7 +127,6 @@
                 var dict = {};
                 dict.DId = $(this).attr("did");
                 dict.NId = $(this).attr("nid");
-                dict.Id = $(this).attr("rndid");
                 dict.Status = parseInt($(this).val());
                 array.push(dict);
             })

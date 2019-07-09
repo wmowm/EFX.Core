@@ -1,222 +1,201 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
     Layout = null;
 }
+
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title></title>
-    <!--[if lt IE 9]>
-    <meta http-equiv="refresh" content="0;ie.html" />
-    <![endif]-->
+    <meta name="viewport" content="width=device-width" />
     <link rel="shortcut icon" href="~/favicon.ico">
-    <link href="~/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
-    <link href="~/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="~/css/animate.min.css" rel="stylesheet">
-    <link href="~/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <link href="~/css/lsj.css" rel="stylesheet" />
-    <link href="~/css/ui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/layuiadmin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/admin.css" rel="stylesheet" />
+    <link href="~/css/app.css" rel="stylesheet" />
+    <link href="~/css/pace.css" rel="stylesheet" />
+
+
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/common.js"></script>
+
+    <script src="~/js/plugins/pace/pace.min.js"></script>
+
+    <script src="~/lib/layuiadmin/layui/layui.js" type="text/javascript"></script>
+    <title>TibosAdmin</title>
+
 </head>
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
-    <div id="wrapper">
-        <!--左侧导航开始-->
-        <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="nav-close">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li class="nav-header">
-                        <div class="dropdown profile-element">
-                            <span>
-                                <img alt="image" class="img-circle" src="~/img/logo.png" />
-                            </span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear">
-                                    <span class="block m-t-xs"><strong class="font-bold">用户名</strong></span>
-                                    <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li>
-                                    <a class="J_menuItem" onclick="editManager()">修改密码</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="/Home/login">安全退出</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="logo-element">
-                            NH
-                        </div>
+<body class="layui-layout-body">
+
+    <div id="LAY_app">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <!-- 头部区域 -->
+                <ul class="layui-nav layui-layout-left">
+                    <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                        <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                            <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                        </a>
+                    </li>
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                            <i class="layui-icon layui-icon-refresh-3"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                        <a href="javascript:;" layadmin-event="theme">
+                            <i class="layui-icon layui-icon-theme"></i>
+                        </a>
                     </li>
 
-                    @await Component.InvokeAsync("Menu")
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;">
+                            <cite>@(ViewBag.LoginName)</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+                            <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+                            <hr>
+                            @*layadmin-event="logout"*@
+                            <dd style="text-align: center;"><a onclick="LoginOut()">退出</a></dd>
+                        </dl>
+                    </li>
 
+
+                    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                    </li>
+                    <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+                        <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                    </li>
                 </ul>
             </div>
-        </nav>
-        <!--左侧导航结束-->
-        @*@using (Ajax.BeginForm("", new { }, new AjaxOptions() { HttpMethod = "Post", OnSuccess = "tips(data)", OnBegin = "ValidateLog" }))
-            {
-                <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index:1000">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <input type="hidden" name="id" class="form-control" id="id">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" name="id" class="form-control" id="id">
-                                <div class="form-group">
-                                    <label for="txt_departmentlevel">新密码</label>
-                                    <input type="password" name="txt_password" class="form-control" id="txt_password" placeholder="密码(必填)" required="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="txt_statu">确认密码</label>
-                                    <input type="password" name="txt_passwords" class="form-control" id="txt_passwords" placeholder="确认密码(必填)" required="">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-                                <button style="display: initial;" class="btn btn-primary block" id="btn_submit"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
-                            </div>
-                        </div>
+
+            <!-- 侧边菜单 -->
+            <div class="layui-side layui-side-menu">
+                <div class="layui-side-scroll">
+                    <div class="layui-logo">
+                        <span>TibosAdmin</span>
                     </div>
+                    <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                        @await Component.InvokeAsync("Menu")
+                    </ul>
                 </div>
-            }*@
-
-
-        <!--右侧部分开始-->
-        <div id="page-wrapper" class="gray-bg dashbard-1">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    </div>
-
-                </nav>
             </div>
-            <div class="row content-tabs">
-                <button class="roll-nav roll-left J_tabLeft">
-                    <i class="fa fa-backward"></i>
-                </button>
-                <nav class="page-tabs J_menuTabs">
-                    <div class="page-tabs-content">
-                        <a href="javascript:;" class="active J_menuTab" data-id="s1">首页</a>
-                    </div>
-                </nav>
-                <button class="roll-nav roll-right J_tabRight">
-                    <i class="fa fa-forward"></i>
-                </button>
-                <div class="btn-group roll-nav roll-right">
-                    <button class="dropdown J_tabClose" data-toggle="dropdown">
-                        关闭操作<span class="caret"></span>
-                    </button>
-                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                        <li class="J_tabShowActive">
-                            <a>定位当前选项卡</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="J_tabCloseAll">
-                            <a>关闭全部选项卡</a>
-                        </li>
-                        <li class="J_tabCloseOther">
-                            <a>关闭其他选项卡</a>
+
+            <!-- 页面标签 -->
+            <div class="layadmin-pagetabs" id="LAY_app_tabs">
+                <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+                <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+                <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                    <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                        <li class="layui-nav-item" lay-unselect>
+                            <a href="javascript:;"></a>
+                            <dl class="layui-nav-child layui-anim-fadein">
+                                <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                                <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                                <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                            </dl>
                         </li>
                     </ul>
                 </div>
-                <a id="logout" href="/Home/login" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                    <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                        <li lay-id="/Home/Home" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    </ul>
+                </div>
+
             </div>
-            <div class="row J_mainContent" id="content-main">
-                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="../home/home" frameborder="0" data-id="s1"></iframe>
-                @*<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="../Student/GetStudentInfo/5" frameborder="0" data-id="s2"></iframe>*@
+
+
+            <!-- 主体内容 -->
+            <div class="layui-body" id="LAY_app_body">
+                <div class="layadmin-tabsbody-item layui-show">
+                    <iframe src="/Home/Home" frameborder="0" class="layadmin-iframe"></iframe>
+                </div>
             </div>
+
         </div>
-        <!--右侧部分结束-->
-        <!--右侧边栏开始-->
-        <!--右侧边栏结束-->
     </div>
     <div id="loadingPage" style="display: none;">
         <div class="loading-shade"></div>
         <div class="loading-content" onclick="$.loading(false)">数据加载中，请稍后…</div>
     </div>
-    <script src="~/js/jquery.min.js?v=2.1.4"></script>
-    <script src="~/js/common.js"></script>
-    <script src="~/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="~/js/plugins/layer/layer.min.js"></script>
-    <script type="text/javascript" src="~/js/contabs.min.js"></script>
-    <script src="~/js/plugins/pace/pace.min.js"></script>
-    <script src="~/js/hplus.min.js?v=4.1.0"></script>
-    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/js/dialog-plus-min.js"></script>
+    <style>
+
+        .layui-layer-btn .layui-layer-btn0 {
+            background: #5cb85c;
+            border: 1px solid #4cae4c;
+            color: #fff;
+        }
+
+        .layui-layer-btn .layui-layer-btn1 {
+            background: #d9534f;
+            border: 1px solid #d43f3a;
+            color: #fff;
+        }
+
+        .layui-layer-iframe .layui-layer-btn {
+            padding: 0px;
+            padding-top: 5px;
+            padding-right: 2px;
+            height: 35px;
+            text-align: right;
+            border: 0px solid #ccc;
+            border-top: none;
+            background-color: #f5f5f5;
+        }
+
+        .layui-layer-title {
+            margin: 0px;
+            padding: 0px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 15px;
+            font-family: inherit;
+            padding-left: 16px;
+            border-bottom: 1px solid #ccc;
+            background-color: #fff;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .layui-layer-btn a {
+            margin: 0 5px;
+            padding: 0 20px;
+        }
+
+        .layui-form-label {
+            width: 80px;
+            padding: 2px 10px 0px 0px;
+        }
+    </style>
     <script>
-        @*function editManager()
-        {
-            $("#myModalLabel").text("修改密码");
-            $("#form0").attr("action", "/Home/EditManagerPwd");
-            $("#id").val(@manager.id);
-            $('#myModal').modal();
-        }*@
-
-        //登录前js验证
-        function ValidateLog() {
-            if ($("#txt_password").val() != $("#txt_passwords").val()) {
-                alert("两次输入密码不一致!");
-                return false;
+            layui.config({
+                base: '/lib/layuiadmin/' //静态资源所在路径
+            }).extend({
+                index: '/lib/index', //主入口模块
+                treeGrid:'treeGrid'
+            }).use('index');
+    function LoginOut() {
+        window.location = "/home/login";
             }
-            $.loading(true);
-        }
-        //登录回调函数
-        function tips(data) {
-            $.loading(false);
-            if (data.status == 0) {
-                //添加成功
-                $('#myModal').modal('hide')
 
 
 
-                var content = '<button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-check"></i></button><span class="dialog-content">' + data.msg + '</span>'
-                var d = dialog({
-                    fixed: true,
-                    content: content,
-                    padding: 20
+      layui.use('element', function(){
+      var element = layui.element;
+  
+      //一些事件监听
+      element.on('tab(LAY_app_tabs)', function(data){
+        console.log(data);
+      });
+    });
 
-                });
-                d.show();
-                //关闭提示模态框
-                setTimeout(function () {
-                    d.close().remove();
-                    //刷新数据
-                    window.location.href = "/home/login";
-                }, 2000);
-            } else if (data.pitchId != "") {
-                alert(data.msg);
-            } else {
-                //添加失败
-                alert(data.msg);
-            }
-        }
-        //输出提示信息
-        function point(id, content) {
-            var follow = document.getElementById(id);
-            var d = dialog({
-                align: 'bottom',
-                content: '<span class="label label-warning">!</span> ' + content
-            });
-            d.show(follow);
-            setTimeout(function () {
-                d.close().remove();
-            }, 2000);
-        }
+
     </script>
+
+    
 </body>
 </html>

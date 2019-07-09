@@ -3,3 +3,143 @@
     Layout = null;
 }
 
+<script>
+    var FindPhoneOrEmailOrPassword =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "areaCode", "in": "query", "type": "string", "required": false, "default": "86", "description": "国家区号" },
+                { "name": "phoneOrEmailOrPassword", "in": "query", "type": "string", "required": true, "default": "", "description": "手机号or邮箱or密码" },
+                { "name": "editType", "in": "query", "type": "string", "required": true, "default": "", "description": "修改类型:1.手机号,2.邮箱,3.密码" }
+            ]
+    }
+    var RegisterUser =
+    {
+        "isRsa": true,
+        "data":
+        [
+        { "name": "countryCode", "in": "query", "type": "string", "required": true, "default": "CN", "description": "国家编码" },
+        { "name": "areaCode", "in": "query", "type": "string", "required": false, "default": "86", "description": "国家区号" },
+        { "name": "phoneOrEmail", "in": "query", "type": "string", "required": true, "default": "", "description": "手机或邮箱" },
+        { "name": "account", "in": "query", "type": "string", "required": true, "default": "", "description": "账号" },
+        { "name": "password", "in": "query", "type": "string", "required": true, "default": "", "description": "密码" },
+        { "name": "verifyDeviceType", "in": "query", "type": "int", "required": true, "default": "", "description": "注册类型：1.手机;2.邮箱" },
+        { "name": "RealName", "in": "query", "type": "string", "required": false, "default": "", "description": "客户端用户名" }
+            ]
+    }
+
+    var GetAssets =
+    {
+        "isRsa": true,
+        "data":
+            []
+    }
+
+    var SignIn =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "areaCode", "in": "query", "type": "string", "required": true, "default": "86", "description": "国家区号" },
+                { "name": "account", "in": "query", "type": "string", "required": true, "default": "", "description": "账号" },
+                { "name": "password", "in": "query", "type": "string", "required": true, "default": "", "description": "密码" }
+            ]
+    }
+    var UpdateAssets =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "Symbol", "in": "query", "type": "string", "required": true, "default": "", "description": "交易对" },
+                { "name": "TransactionDirection", "in": "query", "type": "int", "required": true, "default": "", "description": "交易方向(0兑入,1兑出)" },
+                { "name": "UserInputTokenNumber", "in": "query", "type": "decimal", "required": true, "default": "0", "description": "用户输入平台币数量" },
+                { "name": "UserInputAssetsNumber", "in": "query", "type": "decimal", "required": true, "default": "0", "description": "用户输入数字货币数量" }
+            ]
+    }
+
+    var GetAssetsRecordPageList =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "AssetsID", "in": "query", "type": "string", "required": false, "default": "", "description": "数字资产ID" },
+                { "name": "StartDate", "in": "query", "type": "datetime", "required": false, "default": "", "description": "开始时间" },
+                { "name": "EndDate", "in": "query", "type": "datetime", "required": false, "default": "", "description": "结束时间" },
+                { "name": "AssetsRecordType", "in": "query", "type": "int", "required": false, "default": "", "description": "资产数据类型(非必填,1充币,2充值,3提币,4提现,5系统赠送,6充入,7转出)" },
+                { "name": "PageIndex", "in": "query", "type": "int", "required": true, "default": "1", "description": "页码(从1开始,必填)" },
+                { "name": "PageSize", "in": "query", "type": "int", "required": true, "default": "15", "description": "每页显示条数(必填)" }
+            ]
+    }
+
+    var GetAddress =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "AssetsID", "in": "query", "type": "string", "required": true, "default": "", "description": "数字资产编号" }
+            ]
+    }
+
+
+
+    var ApplyTransactionOut =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "CoinID", "in": "query", "type": "string", "required": true, "default": "", "description": "数字资产编号" },
+                { "name": "CoinAddress", "in": "query", "type": "string", "required": true, "default": "", "description": "提币地址" },
+                { "name": "ApplyQuantity", "in": "query", "type": "decimal", "required": true, "default": "0", "description": "提币数量" }
+            ]
+    }
+
+    var IsExistAssetsRecord =
+    {
+        "isRsa": true,
+        "data":
+            [
+                { "name": "UserID", "in": "query", "type": "string", "required": true, "default": "", "description": "用户ID" },
+                { "name": "BillNO", "in": "query", "type": "string", "required": true, "default": "", "description": "订单号" }
+            ]
+    }
+
+
+
+
+
+    //-----不需要加密的
+    var IsExistEmail =
+    {
+        "isRsa": false,
+        "data":
+            [
+                { "name": "email", "in": "query", "type": "string", "required": true, "default": "", "description": "邮箱" }
+            ]
+    }
+    var IsExistPhone =
+    {
+        "isRsa": false,
+        "data":
+            [
+                { "name": "phone", "in": "query", "type": "string", "required": true, "default": "", "description": "手机号" }
+            ]
+    }
+    var GetDepth=
+    {
+        "isRsa": false,
+        "data":
+            [
+                { "name": "Symbol", "in": "query", "type": "string", "required": true, "default": "", "description": "交易对" }
+            ]
+    }
+
+        var GetCoinTransactionOutConfig =
+    {
+        "isRsa": false,
+        "data":
+            [
+                { "name": "AssetsID", "in": "query", "type": "string", "required": true, "default": "", "description": "数字资产编号" }
+            ]
+    }
+</script>

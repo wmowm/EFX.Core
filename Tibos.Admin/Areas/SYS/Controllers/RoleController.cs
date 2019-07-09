@@ -36,17 +36,17 @@ namespace Tibos.Admin.Areas.SYS.Controllers
 
         public IActionResult Create()
         {
+
+            var respose = _NavigationRoleService.GetList(new NavigationRoleDto() { Status = 1 });
+            var AllNRList = respose.data as List<NavigationRoleDto>;
             NavigationDto dto = new NavigationDto();
             var res_nav = _NavigationService.GetList(dto);
             var list_navdto = new List<NavigationDto>();
             foreach (var model in (List<Navigation>)res_nav.data)
             {
                 var dto_nav = _IMapper.Map<NavigationDto>(model);
-                dto_nav.DictList = GetDictRole(model.Id);
-                foreach (var item in dto_nav.DictList)
-                {
-                    item.Status = 0;
-                }
+                dto_nav.NRList = AllNRList.Where(m => m.NId == model.Id).ToList();
+                dto_nav.NRList.ForEach(m => { m.Status = 0; });
                 list_navdto.Add(dto_nav);
             }
             ViewData["list_navdto"] = list_navdto;
@@ -59,21 +59,33 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             {
                 m_role = _RoleService.Get(Id);
             }
+            //获取所有的角色按钮权限
+            var list_rnd =_RoleNavDictService.GetList(m => m.RId == Id && m.Status == 1);
+            var respose = _NavigationRoleService.GetList(new NavigationRoleDto() { Status = 1 });
+            var AllNRList = respose.data as List<NavigationRoleDto>;
             NavigationDto request = new NavigationDto();
             var list_nav = _NavigationService.GetList(request);
             var list_navdto = new List<NavigationDto>();
             foreach (var model in (List<Navigation>)list_nav.data)
             {
                 var dto = _IMapper.Map<NavigationDto>(model);
-                dto.DictList = GetDictRole(model.Id);
-                //判断该权限是否被选中
-                var rnd_list = _RoleNavDictService.GetList(m => m.RId == Id).ToList();
-                foreach (var item in dto.DictList)
+                dto.NRList = AllNRList.Where(m => m.NId == model.Id).ToList();
+                dto.NRList.ForEach(m =>
                 {
-                    var m_dict = rnd_list.Find(m => m.DId == item.Id && m.NId == model.Id);
-                    item.Status = (int)m_dict.Status;
-                    item.Extra = m_dict.Id;
-                }
+                    if (m.NavName == "广告弹窗")
+                    {
+
+                    }
+                    var index = list_rnd.FindIndex(p => p.NId == m.NId && p.DId == m.DId);
+                    if (index > -1)
+                    {
+                        m.Status = 1;
+                    }
+                    else
+                    {
+                        m.Status = 0;
+                    }
+                });
                 list_navdto.Add(dto);
             }
             ViewData["list_navdto"] = list_navdto;
@@ -119,6 +131,7 @@ namespace Tibos.Admin.Areas.SYS.Controllers
                 rnd_list.Add(item);
             }
             _RoleNavDictService.Add(rnd_list);
+            _RoleService.SaveChanges();
             PageResponse response = new PageResponse();
             response.code = StatusCodeDefine.Success;
             response.status = 0;
@@ -131,11 +144,13 @@ namespace Tibos.Admin.Areas.SYS.Controllers
             PageResponse response = new PageResponse();
             Role model = _IMapper.Map<Role>(request);
             _RoleService.Update(model, false);
+            //删除角色所有权限
+            var list_rnd = _RoleNavDictService.GetList(m => m.RId == request.Id);
+            _RoleNavDictService.Delete(list_rnd, false);
             //添加角色权限
             List<RoleNavDict> rnd_list = new List<RoleNavDict>();
             foreach (var item in request.RoleNavDict)
             {
-                _RoleNavDictService.Delete(item.Id,false);
                 item.Id = Guid.NewGuid().GuidTo16String();
                 item.RId = model.Id;
                 rnd_list.Add(item);
