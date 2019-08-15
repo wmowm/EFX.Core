@@ -69,6 +69,13 @@ namespace Tibos.Admin.Controllers
             return View();
         }
 
+
+        [AlwaysAccessible]
+        public IActionResult Sudoku()
+        {
+            return View();
+        }
+
         [AlwaysAccessible]
         public IActionResult Menu()
         {

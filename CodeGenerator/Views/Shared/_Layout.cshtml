@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CodeGenerator</title>
+    <environment>
+        <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/layui/layui.js"></script>
+    </environment>
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+        @*<hr />
+        <footer>
+            <p>&copy; 2019 - CodeGenerator</p>
+        </footer>*@
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

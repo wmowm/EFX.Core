@@ -1,0 +1,89 @@
+﻿@model TemplateConfig
+<link href="~/css/font-awesome.min93e3.css" rel="stylesheet" />
+<form id="form" class="layui-form" action="">
+    <div class="layui-col-xs11" style="margin-top:5%">
+        @Html.HiddenFor(m => m.Id)
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" lay-verify="required" placeholder="模板名称" autocomplete="off" class="layui-input" value="@Model?.Name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板路径</label>
+            <div class="layui-input-block">
+                <input type="text" name="TempatePaht" lay-verify="required" placeholder="模板路径" autocomplete="off" class="layui-input" value="@Model?.TempatePaht">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成文件名称,格式:I{TableName}Server</label>
+            <div class="layui-input-block">
+                <input type="text" name="FileName" placeholder="生成文件名称" autocomplete="off" class="layui-input" value="@Model?.FileName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成文件后缀</label>
+            <div class="layui-input-block">
+                <input type="text" name="FileSuffix" lay-verify="required" placeholder="生成文件后缀" autocomplete="off" class="layui-input" value="@Model?.FileSuffix">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成文件保存路径</label>
+            <div class="layui-input-block">
+                <input type="text" name="FilePath" lay-verify="required" placeholder="生成文件保存路径" autocomplete="off" class="layui-input" value="@Model?.FilePath">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+
+    </div>
+</form>
+<script>
+        layui.use('form', function () {
+            var form = layui.form;
+            //自定义验证规则
+            form.verify({
+
+            });
+            //监听提交
+            form.on('submit(layuiadmin-app-form-submit)', function (data) {
+                var field = data.field; //获取提交的字段
+                return postForm("/TemplateConfig/AddTemp", field, "add");
+            });
+            form.on('submit(layuiadmin-app-form-edit)', function (data) {
+                var field = data.field; //获取提交的字段
+                return postForm("/TemplateConfig/UpdateTemp", field, "edit");
+            });
+            //提取公共提交表单方法
+            function postForm(url, field, type) {
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                //提交 Ajax 成功后，关闭当前弹层并重载表格
+                var load = layer.load(1, {
+                    shade: [0.3, '#808080'] //0.1透明度的白色背景
+                });
+                $.post(url, field, function (data) {
+                    layer.close(load);
+                    if (data.code == 200) {
+                        if (type == "add") {
+                            console.log(data.data);
+                            parent.addNode2(data.data);//访问父页面方法
+                        } else {
+                            parent.editNode2(data.data);//访问父页面方法
+                        }
+                        parent.layer.close(index); //再执行关闭
+                        parent.layer.msg("操作成功!", {
+                            time: 1000,
+                            icon: 1,
+                        });
+                    } else {
+                        parent.layer.msg("操作失败!", {
+                            time: 1000,
+                            icon: 2,
+                        });
+                    }
+                })
+            }
+        });
+</script>

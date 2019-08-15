@@ -77,51 +77,57 @@ namespace Tibos.CAP.Controllers
         [Route("~/adonet/test")]
         public JsonResult Test()
         {
-            SendDepth(new Depth()
+            SendFlashDepth(new FlashDepth()
             {
-                Symbol = "VHKD/CNY",
-                Asks = 0.8840M,
-                Bids = 0.8800M,
-                AsksAmount = 10000000,
-                BidsAmount = 10000000,
-                CreateTime = DateTime.Now
+                CreateTime = DateTime.Now,
+                Price = 82140,
+                Symbol = "BTC/VHKD"
             });
-            SendDepth(new Depth()
-            {
-                Symbol = "BTC/CNY",
-                Asks = 56293M,
-                Bids = 54622M,
-                AsksAmount = 10000000,
-                BidsAmount = 10000000,
-                CreateTime = DateTime.Now
-            });
-            SendDepth(new Depth()
-            {
-                Symbol = "ETH/CNY",
-                Asks = 900M,
-                Bids = 800M,
-                AsksAmount = 10000000,
-                BidsAmount = 10000000,
-                CreateTime = DateTime.Now
-            });
-            SendDepth(new Depth()
-            {
-                Symbol = "BTC/VHKD",
-                Asks = 36000M,
-                Bids = 35000M,
-                AsksAmount = 10000000,
-                BidsAmount = 10000000,
-                CreateTime = DateTime.Now
-            });
-            SendDepth(new Depth()
-            {
-                Symbol = "ETH/VHKD",
-                Asks = 1000M,
-                Bids = 900M,
-                AsksAmount = 10000000,
-                BidsAmount = 10000000,
-                CreateTime = DateTime.Now
-            });
+            //SendDepth(new Depth()
+            //{
+            //    Symbol = "VHKD/CNY",
+            //    Asks = 0.8840M,
+            //    Bids = 0.8800M,
+            //    AsksAmount = 10000000,
+            //    BidsAmount = 10000000,
+            //    CreateTime = DateTime.Now
+            //});
+            //SendDepth(new Depth()
+            //{
+            //    Symbol = "BTC/CNY",
+            //    Asks = 56293M,
+            //    Bids = 54622M,
+            //    AsksAmount = 10000000,
+            //    BidsAmount = 10000000,
+            //    CreateTime = DateTime.Now
+            //});
+            //SendDepth(new Depth()
+            //{
+            //    Symbol = "ETH/CNY",
+            //    Asks = 900M,
+            //    Bids = 800M,
+            //    AsksAmount = 10000000,
+            //    BidsAmount = 10000000,
+            //    CreateTime = DateTime.Now
+            //});
+            //SendDepth(new Depth()
+            //{
+            //    Symbol = "BTC/VHKD",
+            //    Asks = 36000M,
+            //    Bids = 35000M,
+            //    AsksAmount = 10000000,
+            //    BidsAmount = 10000000,
+            //    CreateTime = DateTime.Now
+            //});
+            //SendDepth(new Depth()
+            //{
+            //    Symbol = "ETH/VHKD",
+            //    Asks = 1000M,
+            //    Bids = 900M,
+            //    AsksAmount = 10000000,
+            //    BidsAmount = 10000000,
+            //    CreateTime = DateTime.Now
+            //});
             return Json("");
         }
 
@@ -213,6 +219,17 @@ namespace Tibos.CAP.Controllers
 
 
 
+
+
+        private void SendFlashDepth(FlashDepth depth)
+        {
+
+            var key = $"_VGPAY_FLASH_{depth.Symbol}_";
+            //var db = _redis.GetDatabase();
+            _redis.Set(key, depth);
+        }
+
+
         private Depth GetDepth(string Symbol)
         {
             var key = $"_VGPAY_{Symbol}_";
@@ -277,6 +294,23 @@ namespace Tibos.CAP.Controllers
         /// <summary>
         /// 推送时间
         /// </summary>
+        public DateTime CreateTime { get; set; }
+    }
+
+
+
+    public class FlashDepth
+    {
+        /// <summary>
+        /// 交易对
+        /// </summary>
+        public string Symbol { get; set; }
+
+        /// <summary>
+        /// 兑换价格
+        /// </summary>
+        public decimal Price { get; set; }
+
         public DateTime CreateTime { get; set; }
     }
 }

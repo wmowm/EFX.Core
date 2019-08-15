@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="man">
+    <h2>Tibos扫雷游戏</h2>
+    <h4>说明:单击扫雷,双击标识地雷,地雷数:<span id="mine_number"></span>,剩余标记数:<span id="tp_number">10</span></h4>
+    <table id="tb" class="tb"></table>
+</div>
+<style>
+    .man {
+        margin: 10% auto;
+        width: 1000px;
+        height: 500px;
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: 1px solid #c0c0c0;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    td {
+        border: 1px solid #d0d0d0;
+        color: #404060;
+        padding: 10px;
+        width: 20px;
+        height: 42px;
+        text-align: center;
+    }
+
+    .mine {
+        color: orangered;
+    }
+</style>
+<script src="~/js/jquery.js"></script>
+<script>
+
+    var line_number = 10; //10*10表格
+    var mine_number = 10; //雷的数量
+    var mine = new Array();//雷的集合
+    var clickTimeId;    //单击延时触发
+    $(function () {
+        //1.生成10*10的表格
+        var tb_html = "";
+        for (var i = 0; i < line_number; i++) {
+            tb_html += "<tr tag='" + (i + 1) + "'>";
+            for (var j = 1; j < line_number+1; j++) {
+                tb_html += "<td id='td_" + (i * line_number + j) + "' tag='" + (i * line_number + j) + "'>*</td>";
+            }
+            tb_html += "</tr>";
+        }
+        $("#tb").html(tb_html);
+        
+
+    }
+</script>

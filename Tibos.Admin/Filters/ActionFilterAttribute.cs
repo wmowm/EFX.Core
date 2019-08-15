@@ -203,7 +203,14 @@ namespace Tibos.Admin.Filters
                 m_log.RoleId = m_dict.Id;
                 m_log.CreateTime = MonLog.ExecuteEndTime;
                 m_log.ExecuteTime = MonLog.TimeConsuming;
-                m_log.LoginIp = context.HttpContext.Connection.RemoteIpAddress.ToString();
+                if (context.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+                {
+                    m_log.LoginIp = context.HttpContext.Request.Headers["X-Forwarded-For"].ToString();
+                }
+                else
+                {
+                    m_log.LoginIp = context.HttpContext.Connection.RemoteIpAddress.ToString();
+                }
                 m_log.FromBady = MonLog.BodyCollections;
                 m_log.UrlParam = MonLog.QueryCollections.ToString();
                 if (m_log.NId != null)

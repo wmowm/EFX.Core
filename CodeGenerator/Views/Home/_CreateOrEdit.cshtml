@@ -1,0 +1,127 @@
+﻿@model SqlConnect
+<link href="~/css/font-awesome.min93e3.css" rel="stylesheet" />
+<form id="form" class="layui-form" action="">
+    <div class="layui-col-xs11" style="margin-top:5%">
+        <div class="layui-form-item">
+            @Html.HiddenFor(m => m.Id)
+            <label class="layui-form-label">数据库类型</label>
+            <div class="layui-input-block">
+                @Html.DropDownListFor(p => p.SqlType, (SelectList)ViewBag.sqlTypeList, new { @class = "form-control", placeholder = "数据库类型", data_validation = "required", data_validation_error_msg = "数据库类型" })
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务器名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" lay-verify="required" placeholder="服务器名称" autocomplete="off" class="layui-input" value="@Model?.Name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="Address" lay-verify="required" placeholder="地址" autocomplete="off" class="layui-input" value="@Model?.Address">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" lay-submit="" lay-filter="layuiadmin-app-form-test" id="layuiadmin-app-form-test" class="layui-btn layui-btn-sm">测试连接</button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据库</label>
+            <div class="layui-input-block">
+                <select id="DbName" name="DbName" lay-verify="required">
+                    @if (!string.IsNullOrEmpty(Model?.DbName))
+                    {
+                        <option value="@Model?.DbName">@Model?.DbName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+            <input type="button" lay-submit="" lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+
+    </div>
+</form>
+<script>
+        layui.use('form', function () {
+            var form = layui.form;
+            //自定义验证规则
+            form.verify({
+
+            });
+            //监听提交
+            form.on('submit(layuiadmin-app-form-submit)', function (data) {
+                var field = data.field; //获取提交的字段
+                return postForm("/home/AddServer", field, "add");
+            });
+            form.on('submit(layuiadmin-app-form-edit)', function (data) {
+                var field = data.field; //获取提交的字段
+                return postForm("/home/UpdateServer", field, "edit");
+            });
+            form.on('submit(layuiadmin-app-form-test)', function (data) {
+                var field = data.field; //获取提交的字段
+
+                var load = layer.load(1, {
+                    shade: [0.3, '#808080'] //0.1透明度的白色背景
+                });
+                $.post('/home/GetServerDbList', field, function (data) {
+                layer.close(load);
+                    if (data.code == 200) {
+                        var $html = "";
+                    $.each(data.data, function (index, item) {
+                        $html += "<option value='" + item.TableName + "'>" + item.TableName + "</option>";
+                    });
+                    $("#DbName").html($html);
+                    //append后必须从新渲染
+                    form.render('select');
+
+                    parent.layer.msg("测试成功!", {
+                        time: 1000,
+                        icon: 1,
+                    });
+                } else {
+                    parent.layer.msg("操作失败!", {
+                        time: 1000,
+                        icon: 2,
+                    });
+                }
+            })
+
+
+                return;
+            });
+            //提取公共提交表单方法
+            function postForm(url, field, type) {
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                //提交 Ajax 成功后，关闭当前弹层并重载表格
+                var load = layer.load(1, {
+                    shade: [0.3, '#808080'] //0.1透明度的白色背景
+                });
+                $.post(url, field, function (data) {
+                    layer.close(load);
+                    if (data.code == 200) {
+                        if (type == "add") {
+                            console.log(data.data);
+                            parent.addNode(data.data);//访问父页面方法
+                        } else {
+                            parent.editNode(data.data);//访问父页面方法
+                        }
+                        parent.layer.close(index); //再执行关闭
+                        parent.layer.msg("操作成功!", {
+                            time: 1000,
+                            icon: 1,
+                        });
+                    } else {
+                        parent.layer.msg("操作失败!", {
+                            time: 1000,
+                            icon: 2,
+                        });
+                    }
+                })
+            }
+        });
+</script>

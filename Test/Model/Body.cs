@@ -22,11 +22,6 @@ namespace Test.Model
         public string n { get; set; }
 
         /// <summary>
-        /// 数量
-        /// </summary>
-        public long num { get; set; }
-
-        /// <summary>
         /// 对象
         /// </summary>
         public DataTrading var { get; set; }
@@ -43,5 +38,7 @@ namespace Test.Model
         /// 币币交易对
         /// </summary>
         public string tradingPair { get; set; }
+
+        public int tradingPairNumber { get; set; }
     }
 }

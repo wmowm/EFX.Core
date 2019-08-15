@@ -1,0 +1,23 @@
+﻿@model TableConfig
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using Tibos.Domain;
+using Tibos.IRepository;
+using Tibos.IService.Tibos;
+
+namespace Tibos.Service.@Model.DbName
+{
+    public class @Model.FullName:BaseService<@Model.TableName>,I@(Model.FullName)
+    {
+        private readonly IBaseRepository<@Model.TableName> dao;
+        public @(Model.FullName)(IBaseRepository<@Model.TableName> dao):base(dao)
+        {
+            this.dao = dao;
+        }
+    }
+}
+</pre>
