@@ -6,17 +6,13 @@
     <title>@ViewData["Title"] - CodeGenerator</title>
     <environment>
         <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
-        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/js/jquery.js"></script>
         <script src="~/lib/layui/layui.js"></script>
     </environment>
 </head>
 <body>
     <div class="container body-content">
         @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; 2019 - CodeGenerator</p>
-        </footer>*@
     </div>
     @RenderSection("Scripts", required: false)
 </body>

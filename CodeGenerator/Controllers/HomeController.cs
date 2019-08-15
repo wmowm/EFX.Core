@@ -29,53 +29,7 @@ namespace CodeGenerator.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //    IFreeSql fsql = new FreeSql.FreeSqlBuilder()
-            //.UseConnectionString(FreeSql.DataType.MySql, "Data Source=193.112.104.103;Port=3306;User ID=root;Password=Aa@123456;Charset=utf8;SslMode=none;Max pool size=10")
-            //.Build();
-
-//            IFreeSql fsql = new FreeSql.FreeSqlBuilder()
-//.UseConnectionString(FreeSql.DataType.SqlServer, "Data Source=.;Integrated Security=True;Initial Catalog=test001;Pooling=true;Max Pool Size=3")
-//.Build();
-
-//            IFreeSql fsql = new FreeSql.FreeSqlBuilder()
-//.UseConnectionString(FreeSql.DataType.SqlServer, "Data Source=192.168.1.249;User ID=sa;Password=Ab#12345")
-//.Build();
-//            var t1 = fsql.DbFirst.GetDatabases();
             return View();
-            //IFreeSql fsql = new FreeSql.FreeSqlBuilder()
-            //        .UseConnectionString(FreeSql.DataType.MySql, "Data Source=193.112.104.103;Port=3306;User ID=root;Password=Aa@123456;Initial Catalog=tibos;Charset=utf8;SslMode=none;Max pool size=10")
-            //        .Build();
-            //var db = fsql.DbFirst.GetTablesByDatabase("tibos");
-            //List<TableConfig> list_table = new List<TableConfig>();
-            //foreach (var table in db)
-            //{
-            //    TableConfig tableConfig = new TableConfig()
-            //    {
-            //        TableName = table.Name,
-            //        ColumnConfig = new List<ColumnConfig>()
-            //    };
-            //    foreach (var column in table.Columns)
-            //    {
-            //        tableConfig.ColumnConfig.Add(new ColumnConfig()
-            //        {
-            //            ColumnName = column.Name,
-            //            CsType = column.CsType.ToString(),
-            //            Remark = column.Coment
-            //        });
-            //    }
-            //    list_table.Add(tableConfig);
-            //}
-            ////自定义参数(ViewDate)
-            //Dictionary<string, object> dic = new Dictionary<string, object>();
-            //var result = await _viewRenderService.RenderToStringAsync("~/Views/Template/Test.cshtml", list_table[0],dic);
-            //result = result.Replace("<pre>", "").Replace("</pre>", "");
-            //var name = "xxx.cs";
-            //var url = "tibos/";
-            //await WriteViewAsync(url, name, result);
-            //return View();
-
-
-
         }
 
         /// <summary>

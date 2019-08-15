@@ -12,6 +12,7 @@
         <li class="layui-nav-item">
             <a id="Generator" href="javascript:void(0)">生成代码</a>
         </li>
+        <li class="layui-nav-item" style="float:right">提伯斯代码生成器v1.0</li>
     </ul>
     <div id="menu-left" class="menu-left">
         <div class="layui-form left-border">
@@ -41,10 +42,10 @@
       border-radius:10px;
     }
     div::-webkit-scrollbar-thumb:hover{
-      background: #333;
+      /*background: #333;*/
     }
     div::-webkit-scrollbar-corner{
-      background: #179a16;
+      background: rgb(239,239,239);
     }
     html body {
 
@@ -58,8 +59,6 @@
         width: 50%;
         height: 600px;
         overflow-y: scroll;
-        /*padding:2%;*/
-        /*border-left:10px solid rgb(239,239,239);*/
     }
     .left-border {
         height: 100%;
@@ -437,15 +436,6 @@
         zTree.addNodes(treeNodeAdd, { id: data.Id, pId: treeNodeAdd.id, name: data.Name, noEditBtn: false, noRemoveBtn: false });
     }
 
-    //function removeHoverDom(treeId, treeNode) {
-    //            console.log(treeNode)
-    //    $("#addBtn_" + treeNode.id).unbind().remove();
-    //};
-
-    //function removeHoverDom2(treeId, treeNode) {
-    //    console.log(treeNode)
-    //    $("#addBtn_" + treeNode.id).unbind().remove();
-    //};
 
     function selectAll() {
         var zTree = $.fn.zTree.getZTreeObj("tree");
@@ -455,19 +445,10 @@
     $(document).ready(function () {
 
         var winHeight = $(window).height() - 60;
-        // ztreeleft为要动态获取浏览器高度的div
-        //$("#menu-left").css("height", winHeight);
-        //$("#menu-right").css("height", winHeight);
-        //$("#temp").css("height",winHeight);
-        //$(window).resize(function() {
-        //    winHeight = $(window).height() - 60;
 
-        //    $("#menu-left").css("height", winHeight);
-        //    $("#menu-rigth").css("height", winHeight);
-        //    $("#temp").css("height",winHeight);
-        //});
-
-
+        layui.use('layer', function () {
+            layer = layui.layer;
+        });
         $.ajax({
             url: '/Home/GetTreeDBList',
             type: 'post',
