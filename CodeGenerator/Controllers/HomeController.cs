@@ -136,7 +136,7 @@ namespace CodeGenerator.Controllers
                             tableConfig.ColumnConfig.Add(new ColumnConfig()
                             {
                                 ColumnName = column.Name,
-                                CsType = column.DbTypeText,
+                                CsType = column.CsType.FullName,
                                 Remark = column.Coment
                             });
                         }

@@ -48,6 +48,53 @@ namespace CodeGenerator.Models
         {
             get
             {
+                switch (_csType)
+                {
+                    case "System.Boolean":
+                        _csType = "bool";
+                        break;
+                    case "System.Byte":
+                        _csType = "byte";
+                        break;
+                    case "System.SByte":
+                        _csType = "sbyte";
+                        break;
+                    case "System.Char":
+                        _csType = "char";
+                        break;
+                    case "System.Decimal":
+                        _csType = "decimal";
+                        break;
+                    case "System.Double":
+                        _csType = "double";
+                        break;
+                    case "System.Single":
+                        _csType = "float";
+                        break;
+                    case "System.Int32":
+                        _csType = "int";
+                        break;
+                    case "System.UInt32":
+                        _csType = "uint";
+                        break;
+                    case "System.Int64":
+                        _csType = "ulong";
+                        break;
+                    case "System.Object":
+                        _csType = "object";
+                        break;
+                    case "System.Int16":
+                        _csType = "short";
+                        break;
+                    case "System.UInt16":
+                        _csType = "ushort";
+                        break;
+                    case "System.String":
+                        _csType = "string";
+                        break;
+                    default:
+                        break;
+                }
                 return _csType;
             }
             set
