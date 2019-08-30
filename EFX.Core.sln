@@ -106,9 +106,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibos.Phantomjs", "Phantomj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{F603CE30-5B64-4CA9-9EAC-77FF09E849BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisClient", "RedisClient\RedisClient.csproj", "{9FEB314F-E3D5-4F73-93A2-EEC561B0C4E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisClient", "RedisClient\RedisClient.csproj", "{9FEB314F-E3D5-4F73-93A2-EEC561B0C4E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisServer", "RedisServer\RedisServer.csproj", "{AC90D486-05FE-4B2C-BA85-E6F6626A5D7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisServer", "RedisServer\RedisServer.csproj", "{AC90D486-05FE-4B2C-BA85-E6F6626A5D7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator", "CodeGenerator\CodeGenerator.csproj", "{1A5A3BC3-D1CF-456E-B3F6-1EAA8247CFE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -252,6 +254,10 @@ Global
 		{AC90D486-05FE-4B2C-BA85-E6F6626A5D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC90D486-05FE-4B2C-BA85-E6F6626A5D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC90D486-05FE-4B2C-BA85-E6F6626A5D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5A3BC3-D1CF-456E-B3F6-1EAA8247CFE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5A3BC3-D1CF-456E-B3F6-1EAA8247CFE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5A3BC3-D1CF-456E-B3F6-1EAA8247CFE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5A3BC3-D1CF-456E-B3F6-1EAA8247CFE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -299,6 +305,7 @@ Global
 		{F603CE30-5B64-4CA9-9EAC-77FF09E849BA} = {10278CAB-48C6-49B9-BA57-D302EB155BE0}
 		{9FEB314F-E3D5-4F73-93A2-EEC561B0C4E9} = {F603CE30-5B64-4CA9-9EAC-77FF09E849BA}
 		{AC90D486-05FE-4B2C-BA85-E6F6626A5D7E} = {F603CE30-5B64-4CA9-9EAC-77FF09E849BA}
+		{1A5A3BC3-D1CF-456E-B3F6-1EAA8247CFE3} = {7564C207-C628-4F92-8E46-C97698AF7DB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A94B1D2-C9FB-4144-B80F-BED3F002B315}

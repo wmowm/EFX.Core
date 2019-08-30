@@ -29,7 +29,7 @@ namespace Tibos.Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var config = JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
+            var config =  JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
             return new string[] { "" };
         }
         [AlwaysAccessible]

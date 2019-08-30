@@ -44,7 +44,7 @@
             标记
             </summary>
         </member>
-        <member name="M:Tibos.Api.Areas.User.Controllers.HomeController.PostTest666(System.Collections.Generic.List{Tibos.Domain.Users})">
+        <member name="M:Tibos.Api.Areas.User.Controllers.HomeController.login(System.String,System.String,System.String,System.String)">
             <summary>
             测试
             </summary>

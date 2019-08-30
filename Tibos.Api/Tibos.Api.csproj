@@ -34,6 +34,7 @@
     <ProjectReference Include="..\Tibos.ConfingModel\Tibos.ConfingModel.csproj" />
     <ProjectReference Include="..\Tibos.Confing\Tibos.Confing.csproj" />
     <ProjectReference Include="..\Tibos.Domain\Tibos.Domain.csproj" />
+    <ProjectReference Include="..\Tibos.Repository\Tibos.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

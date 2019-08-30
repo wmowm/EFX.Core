@@ -30,12 +30,25 @@ namespace EF_Test
         static void Main(string[] args)
         {
 
-            using (var db = new TibosDbContext())
-            {
-                //检查迁移
-                CheckMigrations(db);
-            }
+            //using (var db = new TibosDbContext())
+            //{
+            //    //检查迁移
+            //    //CheckMigrations(db);
 
+
+
+
+
+
+
+            //}
+
+
+            for (int i = 0; i < 1000; i++)
+            {
+                ManagerRepository manager = new ManagerRepository(new TibosDbContext());
+                var model = manager.Get(m => m.UserName == "111222" && m.Password == "111222" && m.Status == 1);
+            }
 
             //DictRepository Dict = new DictRepository(new TibosDbContext());
             //var dict_list = Dict.GetList();

@@ -42,12 +42,12 @@ namespace Tibos.Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
+            //base.OnConfiguring(optionsBuilder);
             optionsBuilder.ConfigureWarnings(opt => opt.Ignore(RelationalEventId.AmbientTransactionWarning));
             switch (ConnType)
             {
                 case "mysql":
-                    optionsBuilder.UseMySql(ConnName).UseLoggerFactory(Mlogger);
+                    optionsBuilder.UseMySql(ConnName);
                     break;
                 case "sqlserver":
                     break;

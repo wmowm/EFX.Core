@@ -12,6 +12,7 @@ namespace Tibos.ConfingModel
     {
         public static T GetAppSettings<T>(string fileName,string key) where T : class, new()
         {
+
             var baseDir = AppContext.BaseDirectory + "json/";
             //var indexSrc = baseDir.IndexOf("src");
             //var subToSrc = baseDir.Substring(0, indexSrc);
@@ -19,9 +20,9 @@ namespace Tibos.ConfingModel
 
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(currentClassDir)
-                .Add(new JsonConfigurationSource { Path =fileName, Optional = false, ReloadOnChange = true })
+                .Add(new JsonConfigurationSource { Path =fileName, Optional = false })
                 .Build();
-            var appconfig = new ServiceCollection()
+            var appconfig = new ServiceCollection().AddSingleton(config)
                 .AddOptions()
                 .Configure<T>(config.GetSection(key))
                 .BuildServiceProvider()

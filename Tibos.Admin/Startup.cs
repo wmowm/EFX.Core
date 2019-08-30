@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Autofac;
@@ -22,6 +23,7 @@ using NLog.Web;
 using Tibos.Admin.Filters;
 using Tibos.Confing.autofac;
 using Tibos.ConfingModel.model;
+using Tibos.IService;
 using Tibos.IService.Tibos;
 
 namespace Tibos.Admin
@@ -63,9 +65,7 @@ namespace Tibos.Admin
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true) //默认
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)//增加环境配置文件，新建项目默认有
-                //.AddJsonFile(env.ContentRootPath + @"\bin\Debug\netcoreapp2.0\application\ManageConfig.json", optional: true)//增加配置 (自定义配置路径)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) //默认
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -146,11 +146,15 @@ namespace Tibos.Admin
             containerBuilder.RegisterModule<DefaultModule>();
             //属性注入控制器
 
-            //containerBuilder.RegisterControllers(Assembly.GetExecutingAssembly());  //注入所有Controller
-            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired();
+
+
+            //注入所有Controller
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired().InstancePerDependency();
+
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {

@@ -32,20 +32,20 @@ namespace Tibos.Confing.autofac
             var IServices = Assembly.Load("Tibos.IService");
             var Services = Assembly.Load("Tibos.Service");
 
-            Assembly.GetExecutingAssembly();
 
-
-            //根据名称约定（仓储层的接口和实现均以Repository结尾），实现服务接口和服务实现的依赖
+            ////根据名称约定（仓储层的接口和实现均以Repository结尾），实现服务接口和服务实现的依赖
             builder.RegisterAssemblyTypes(IRepository, Repository)
               .Where(t => t.Name.EndsWith("Repository"))
-              .AsImplementedInterfaces();
+              .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            //根据名称约定（服务层的接口和实现均以Service结尾），实现服务接口和服务实现的依赖
+            ////根据名称约定（服务层的接口和实现均以Service结尾），实现服务接口和服务实现的依赖
             builder.RegisterAssemblyTypes(IServices, Services)
               .Where(t => t.Name.EndsWith("Service"))
-              .AsImplementedInterfaces();
+              .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            //builder.RegisterAssemblyTypes(IRepository, Repository).AsImplementedInterfaces();
+
+
+
         }
     }
 }

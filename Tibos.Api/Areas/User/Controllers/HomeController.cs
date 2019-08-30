@@ -13,12 +13,12 @@ using Tibos.Confing.autofac;
 using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
 using Tibos.Domain;
+using Tibos.Repository.Tibos;
 using Tibos.Service;
 namespace Tibos.Api.Areas.User.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
-    [EnableCors("any")]
 
     public class HomeController : Controller
     {
@@ -32,7 +32,7 @@ namespace Tibos.Api.Areas.User.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var config = JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
+            var config =  JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
             return new string[] { "" };
         }
         [AlwaysAccessible]
@@ -52,12 +52,10 @@ namespace Tibos.Api.Areas.User.Controllers
         /// <returns></returns>
         [AlwaysAccessible]
         [HttpPost]
-        public async Task<string> PostTest666([FromBody]List<Users> list)
+        public async Task<string> login(string user_name, string password, string code, string returnUrl)
         {
-            return await Task.Run(() => 
-            {
-                return list.Count.ToString(); 
-            });
+            ManagerRepository dal = new ManagerRepository();
+            var model = dal.Get(m => m.UserName == user_name && m.Password == password && m.Status == 1);
             return "777";
         }
 

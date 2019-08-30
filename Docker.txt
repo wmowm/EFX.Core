@@ -20,7 +20,7 @@ kill -QUIT 2072
 
 nginx -t
 nginx
-nginx -s reload
+nginx -s reload or quit or stop
 
 --supervisor
 Æô¶¯
@@ -90,15 +90,11 @@ docker run -d --name zookeeper -p 2181:2181 -t wurstmeister/zookeeper
 docker run -d --name zookeeper --publish 2181:2181 --volume /etc/localtime:/etc/localtime zookeeper:latest
 
 docker run  -d --name kafka \
-
 -v /my/kafka/kafkaconf:/opt/kafkacluster/kafkaconf \
 -p 9092:9092 \
--e KAFKA_BROKER_ID=0 \ 
-
--e KAFKA_ZOOKEEPER_CONNECT=132.232.4.73:2181 \ 
-
--e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://132.232.4.73:9092 \
-
+-e KAFKA_BROKER_ID=0 \
+-e KAFKA_ZOOKEEPER_CONNECT=193.112.104.103:2181 \
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://193.112.104.103:9092 \
 -e KAFKA_HEAP_OPTS="-Xmx256m -Xms256m" \
 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka 
 

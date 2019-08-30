@@ -84,7 +84,7 @@ namespace Tibos.Api
             services.AddTransient<HttpContextAccessor>();
 
             //缓存
-            services.AddMemoryCache();
+            //services.AddMemoryCache();
 
             //配置跨域处理
             services.AddCors(options =>

@@ -17,6 +17,7 @@ using Tibos.Admin.Annotation;
 using Tibos.Admin.Models;
 using Tibos.Common;
 using Tibos.IService.Tibos;
+using Tibos.Repository.Tibos;
 
 namespace Tibos.Admin.Controllers
 {
@@ -103,6 +104,13 @@ namespace Tibos.Admin.Controllers
             {
                 var res = md5.ComputeHash(Encoding.UTF8.GetBytes(code.ToLower()));
                 code = BitConverter.ToString(res);
+            }
+
+            if (string.IsNullOrEmpty(pic_code))
+            {
+                json.status = -1;
+                json.msg = "请获取验证码";
+                return Json(json);
             }
             if (pic_code != code)
             {

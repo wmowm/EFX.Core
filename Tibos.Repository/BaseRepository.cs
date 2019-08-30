@@ -22,8 +22,8 @@ namespace Tibos.Repository.Tibos
 
         public BaseRepository()
         {
-            config = JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
-
+            config =  JsonConfigurationHelper.GetAppSettings<ManageConfig>("ManageConfig.json", "ManageConfig");
+            //config = new ManageConfig() { TibosDB = new DBConfig() { ConnType = "mysql", ConnName="server=47.104.247.70;database=tibos;uid=root;pwd=Root123.;port=3306;Charset=utf8;" } };
         }
 
         public BaseRepository(BaseDbContext dbContext)
