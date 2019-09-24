@@ -14,7 +14,6 @@ using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
 using Tibos.Domain;
 using Tibos.Repository.Tibos;
-using Tibos.Service;
 namespace Tibos.Api.Areas.User.Controllers
 {
     [Produces("application/json")]

@@ -113,6 +113,7 @@ namespace Tibos.Admin.Filters
                 //context.Result = new JsonResult(json);
                 //return;
                 context.HttpContext.Response.Redirect("/home/login");
+                context.Result = new ContentResult();
                 return;
             }
             //获取用户对象
@@ -122,6 +123,7 @@ namespace Tibos.Admin.Filters
             //if (m_manager == null)
             //{
             //    context.HttpContext.Response.Redirect("/home/login");
+            //    context.Result = new ContentResult();
             //    return;
             //}
             //永不过期策略
@@ -162,7 +164,7 @@ namespace Tibos.Admin.Filters
             }
             var list_roleid = m_manager.RoleId.Split(new char[] { ',' }).ToList();
 
-            //根据actionName获取改操作对应的Mark
+            //根据actionName获取该操作对应的Mark
             var m_dict = ActionType(MonLog.ActionName);
             foreach (var item in list_roleid)
             {

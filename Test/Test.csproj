@@ -32,10 +32,4 @@
     <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="2.1.45" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tibos.Domain\Tibos.Domain.csproj" />
-    <ProjectReference Include="..\Tibos.Repository\Tibos.Repository.csproj" />
-  </ItemGroup>
-
 </Project>

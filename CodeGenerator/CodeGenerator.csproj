@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql" Version="0.8.4" />
-    <PackageReference Include="FreeSql.Provider.MySqlConnector" Version="0.8.4" />
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="0.8.4" />
-    <PackageReference Include="FreeSql.Provider.SqlServer" Version="0.8.4" />
+    <PackageReference Include="FreeSql" Version="0.9.18" />
+    <PackageReference Include="FreeSql.Provider.MySqlConnector" Version="0.9.18" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="0.9.18" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="0.9.18" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />

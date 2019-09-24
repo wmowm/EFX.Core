@@ -10,13 +10,15 @@
     "AttachImagesize": 5120,
     "TibosDB": {
       //数据库类型(sqlserver,mysql,sqlite)
-      "ConnType": "mysql",
-      "ConnName": "server=193.112.104.103;database=tibos;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;"
+      "ConnType": "sqlserver",
+      //"ConnName": "server=193.112.104.103;database=tibos;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;"
+      "ConnName": "Data Source=.;Initial Catalog=tibos;User ID=sa;Password=123456"
     },
     "DhmDB": {
       //数据库类型(sqlserver,mysql,sqlite)
-      "ConnType": "mysql",
-      "ConnName": "server=193.112.104.103;database=dhm;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;"
+      "ConnType": "sqlserver",
+      //"ConnName": "server=193.112.104.103;database=dhm;uid=root;pwd=Aa@123456;port=3306;Charset=utf8;",
+      "ConnName": "Data Source=.;Initial Catalog=tibos;User ID=sa;Password=123456"
     }
   }
 }

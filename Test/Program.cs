@@ -10,7 +10,6 @@ using Test.Model;
 using System.Diagnostics;
 using Microsoft.Scripting.Hosting;
 using IronPython.Hosting;
-using Tibos.Repository.Tibos;
 
 namespace Test
 {
@@ -20,11 +19,6 @@ namespace Test
 
         static void Main(string[] args)
         {
-            for (int i = 0; i < 100000; i++)
-            {
-                ManagerRepository dal = new ManagerRepository();
-                var model = dal.Get(m => m.UserName == "111222" && m.Password == "111222" && m.Status == 1);
-            }
 
             Console.Read();
         }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using DotNetCore.CAP;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Tibos.Domain;
 
 namespace Tibos.CAP.Received.Controllers
 {

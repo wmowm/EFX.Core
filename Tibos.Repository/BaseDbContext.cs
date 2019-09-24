@@ -37,8 +37,8 @@ namespace Tibos.Repository
         }
 
         //打印sql
-        private static ILoggerFactory Mlogger => new LoggerFactory()
-               .AddConsole((categoryName, logLevel) => (logLevel == LogLevel.Information) && (categoryName == DbLoggerCategory.Database.Command.Name));
+        //private static ILoggerFactory Mlogger => new LoggerFactory()
+        //       .AddConsole((categoryName, logLevel) => (logLevel == LogLevel.Information) && (categoryName == DbLoggerCategory.Database.Command.Name));
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,9 +47,10 @@ namespace Tibos.Repository
             switch (ConnType)
             {
                 case "mysql":
-                    optionsBuilder.UseMySql(ConnName);
+                    optionsBuilder.UseMySQL(ConnName);
                     break;
                 case "sqlserver":
+                    optionsBuilder.UseSqlServer(ConnName);
                     break;
                 case "sqlite":
                     break;

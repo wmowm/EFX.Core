@@ -64,12 +64,12 @@ namespace Tibos.Repository.Tibos
             response.total = queryList.Count();
             if (response.total > 0)
             {
+                //根据参数进行排序
+                queryList = queryList.OrderByDescending(p => p.CreateTime);
                 if (dto.pageIndex.HasValue && dto.pageSize.HasValue)
                 {
                     queryList = queryList.Skip((dto.pageIndex.Value - 1) * dto.pageSize.Value).Take(dto.pageSize.Value);
                 }
-                //根据参数进行排序
-                queryList = queryList.OrderByDescending(p => p.CreateTime);
             }
             response.status = 0;
             response.code = StatusCodeDefine.Success;

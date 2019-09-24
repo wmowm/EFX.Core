@@ -13,7 +13,6 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Tibos.CAP.Common;
 using Tibos.CAP.Models;
-using Tibos.Domain;
 
 namespace Tibos.CAP.Controllers
 {

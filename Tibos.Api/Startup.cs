@@ -30,11 +30,12 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using System.Reflection;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using AutoMapper;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Tibos.Api
 {
@@ -72,7 +73,7 @@ namespace Tibos.Api
                 options.Filters.Add(typeof(ExceptionFilterAttribute));
                 options.Filters.Add(typeof(ResultFilterAttribute));
 
-            }).AddJsonOptions(options =>
+            }).AddNewtonsoftJson(options =>
                 {
                     //忽略循环引用
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -105,20 +106,25 @@ namespace Tibos.Api
             //权限验证
             services.AddAuthorization();
 
+
             //swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v2.5", new Info
+                c.SwaggerDoc("v2.5", new OpenApiInfo
                 {
                     Version = "v2.5",
                     Title = "Tibos接口文档",
                     Description = "RESTful API for Tibos",
-                    TermsOfService = "None",
-                    Contact = new Contact { Name = "Tibos", Email = "505613913@qq.com", Url = "" }
+                    //TermsOfService = new Uri("node"),
+                    Contact = new OpenApiContact { Name = "Tibos", Email = "505613913@qq.com" }
                 });
 
                 //Set the comments path for the swagger json and ui.
+
+
+
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                
                 var xmlPath = Path.Combine(basePath, "Tibos.Api.xml");
                 c.IncludeXmlComments(xmlPath);
 

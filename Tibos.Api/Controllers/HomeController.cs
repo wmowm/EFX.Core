@@ -12,7 +12,6 @@ using Tibos.Confing.autofac;
 using Tibos.ConfingModel;
 using Tibos.ConfingModel.model;
 using Tibos.Domain;
-using Tibos.Service;
 namespace Tibos.Api.Controllers
 {
     [Route("api/[controller]")]

@@ -17,7 +17,6 @@ using Tibos.Admin.Annotation;
 using Tibos.Admin.Models;
 using Tibos.Common;
 using Tibos.IService.Tibos;
-using Tibos.Repository.Tibos;
 
 namespace Tibos.Admin.Controllers
 {

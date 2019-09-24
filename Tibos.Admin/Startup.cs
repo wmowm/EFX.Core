@@ -22,9 +22,11 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using Tibos.Admin.Filters;
 using Tibos.Confing.autofac;
+using Tibos.Confing.automapper;
 using Tibos.ConfingModel.model;
 using Tibos.IService;
 using Tibos.IService.Tibos;
+
 
 namespace Tibos.Admin
 {
@@ -72,16 +74,20 @@ namespace Tibos.Admin
 
         public IConfiguration Configuration { get; }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            Console.WriteLine("=========================================Autofac替换控制器所有者=============================================");
+            services.AddControllersWithViews();
+
+            //Console.WriteLine("=========================================Autofac替换控制器所有者=============================================");
             //替换控制器所有者
             services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
 
             Console.WriteLine(">>>>>>>==================================注册AutoMapper===============================================<<<<<<<");
             //添加AutoMapper
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(MappingProfile));
             Console.WriteLine(">>>>>>>==================================注册MVC过滤器,设置Json时间格式===============================<<<<<<<");
 
             //添加认证Cookie信息
@@ -98,7 +104,7 @@ namespace Tibos.Admin
                 options.Filters.Add(typeof(ExceptionFilterAttribute));
                 options.Filters.Add(typeof(ResultFilterAttribute));
 
-            }).AddJsonOptions(options =>
+            }).AddNewtonsoftJson(options =>
             {
                 //忽略循环引用
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -107,6 +113,7 @@ namespace Tibos.Admin
                 //设置时间格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
+
             services.AddTransient<HttpContextAccessor>();
             Console.WriteLine(">>>>>>>==================================注册MemoryCache==============================================<<<<<<<");
             //缓存
@@ -128,7 +135,7 @@ namespace Tibos.Admin
             services.AddOptions();
             services.Configure<ManageConfig>(Configuration.GetSection("ManageConfig"));
             Console.WriteLine(">>>>>>>==================================注册MVC======================================================<<<<<<<");
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             Console.WriteLine(">>>>>>>==================================注册Session==================================================<<<<<<<");
             //配置session的有效时间,单位秒
@@ -141,36 +148,49 @@ namespace Tibos.Admin
             //权限验证
             services.AddAuthorization();
             Console.WriteLine(">>>>>>>==================================Autofac注入底层模块==========================================<<<<<<<");
-            var containerBuilder = new ContainerBuilder();
-            //模块化注入
-            containerBuilder.RegisterModule<DefaultModule>();
-            //属性注入控制器
-
-
-
-            //注入所有Controller
-            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired().InstancePerDependency();
-
-
-            containerBuilder.Populate(services);
-            var container = containerBuilder.Build();
-
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+
+
+
+            //var containerBuilder = new ContainerBuilder();
+
+            //模块化注入
+            //containerBuilder.RegisterModule<DefaultModule>();
+            //属性注入控制器
+
+
+
+            //注入所有Controller
+            //containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired().InstancePerDependency();
+
+
+            //containerBuilder.Populate(services);
+            //var container = containerBuilder.Build();
+
             Console.WriteLine("=========================================注册结束============================================================");
-            return new AutofacServiceProvider(container);
+            //return new AutofacServiceProvider(container);
 
 
+        }
+
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired().InstancePerDependency();
+            builder.RegisterModule<DefaultModule>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
         {
+            //this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             app.UseSession();
             //使用NLog作为日志记录工具
             loggerFactory.AddNLog();
@@ -189,21 +209,24 @@ namespace Tibos.Admin
             //验证中间件
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                  name: "CMS",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-                routes.MapRoute(
-                 name: "SYS",
-                 template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-               );
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Login}/{id?}");
-            });
+            app.UseRouting();
 
+            
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "CMS",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "SYS",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            });
             Init(app);
         }
 
