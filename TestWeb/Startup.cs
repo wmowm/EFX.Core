@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Exceptionless;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -74,6 +75,13 @@ namespace TestWeb
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+
+
+            ExceptionlessClient.Default.Configuration.ApiKey = "1VhAaqn7TDrbhIkD1ZsZZOzxvrDIncW8hOuRTxNq";
+            ExceptionlessClient.Default.Configuration.ServerUrl = "http://10.0.1.157:5000";
+            app.UseExceptionless();
+
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

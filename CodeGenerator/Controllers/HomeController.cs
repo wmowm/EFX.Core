@@ -321,9 +321,23 @@ namespace CodeGenerator.Controllers
                 //查询所有需要生成的模板信息
                 var list_temp = _sqliteFreeSql.Select<TemplateConfig>().Where(p => temps.Contains(p.Id)).ToList();
 
+                //dbset
+                var dbset = "";
+
+                //automap
+                var automap = "";
+
                 foreach (var item in tables)
                 {
                     var talbe = _Cache.Get<TableConfig>(item);
+                    string functionStr = talbe.TableName.Substring(0, 1).ToUpper() + talbe.TableName.Substring(1);
+                    talbe.TableName = functionStr;
+                    var dbset_temp = "public DbSet<@@@> @@@ { get; set; }\r\n";
+                    dbset += dbset_temp.Replace("@@@", talbe.TableName);
+
+                    var automap_temp = "CreateMap<@@@, @@@Dto>();\r\n";
+                    automap += automap_temp.Replace("@@@", talbe.TableName);
+
                     foreach (var temp in list_temp)
                     {
                         if (!string.IsNullOrEmpty(temp.FileName))
@@ -334,13 +348,16 @@ namespace CodeGenerator.Controllers
                         {
                             talbe.FullName = talbe.TableName;
                         }
+
                         var result = await _viewRenderService.RenderToStringAsync(temp.TempatePaht, talbe, null);
                         result = result.Replace("<pre>", "").Replace("</pre>", "");
-                        var name = $"{talbe.TableName}{temp.FileSuffix}";
+                        var name = $"{talbe.FullName}{temp.FileSuffix}";
                         var url = temp.FilePath;
                         await WriteViewAsync(url, name, result);
                     }
                 }
+                await WriteViewAsync("temp/", "dbset.cs", dbset);
+                await WriteViewAsync("temp/", "automap.cs", automap);
                 reponse.code = "200";
                 reponse.status = 0;
                 reponse.msg = "生成成功!";

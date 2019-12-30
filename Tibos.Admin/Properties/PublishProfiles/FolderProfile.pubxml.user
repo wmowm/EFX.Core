@@ -6,6 +6,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>F:\GitProject\EFX_Core\Tibos.Admin\bin\Release\netcoreapp3.0\publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>E:\product\EFX.Core\Tibos.Admin\bin\Release\netcoreapp3.0\publish\</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

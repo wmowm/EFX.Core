@@ -57,7 +57,7 @@ namespace CodeGenerator.Models
                         _csType = "byte";
                         break;
                     case "System.SByte":
-                        _csType = "sbyte";
+                        _csType = "bool";
                         break;
                     case "System.Char":
                         _csType = "char";

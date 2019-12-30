@@ -1,15 +1,14 @@
 ﻿@model TableConfig
 <pre>
+using FLShop.BusinessModel.Model;
+using FLShop.IRepository;
+using FLShop.IService.Fulu;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
-using Tibos.Domain;
-using Tibos.IRepository;
-using Tibos.IService.Tibos;
+using FLShop.IService.Fulu;
 
-namespace Tibos.Service.@Model.DbName
+namespace FLShop.Service.Fulu
 {
     public class @Model.FullName:BaseService<@Model.TableName>,I@(Model.FullName)
     {

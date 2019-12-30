@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exceptionless;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,15 @@ namespace TestWeb.Controllers
 
         public IActionResult Index()
         {
+            try
+            {
+                var t = "123xxx";
+                var m = Convert.ToInt32(t);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+            }
             return View();
         }
 

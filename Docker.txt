@@ -1,4 +1,4 @@
-[yum/apt-get] install docker-ce
+[yum/apt-get] install docker-ce        --下载
 
 docker images
 docker ps
@@ -54,6 +54,10 @@ docker build -t testimage .
 docker run --name=test -p 7711:5101 -d  testimage
 
 
+docker run --name tsc.alilog -p 2525:80 -d tsc.alilog
+
+
+
 --打标签
 docker tag [imageid] wmowm/tibos:v1.0
 
@@ -93,11 +97,10 @@ docker run  -d --name kafka \
 -v /my/kafka/kafkaconf:/opt/kafkacluster/kafkaconf \
 -p 9092:9092 \
 -e KAFKA_BROKER_ID=0 \
--e KAFKA_ZOOKEEPER_CONNECT=193.112.104.103:2181 \
--e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://193.112.104.103:9092 \
--e KAFKA_HEAP_OPTS="-Xmx256m -Xms256m" \
+-e KAFKA_ZOOKEEPER_CONNECT=10.0.1.157:2181 \
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://10.0.1.157:9092 \
+-e KAFKA_HEAP_OPTS="-Xmx4096m -Xms4096m" \
 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka 
-
 
 
 
@@ -105,3 +108,17 @@ docker run  -d --name kafka \
 
 --------------------------EF自动迁移
 Add-Migration init -c xxx
+
+
+--kafka
+--------------------------------
+bin/zookeeper-server-start.sh  config/zookeeper.properties 
+bin/kafka-server-start.sh config/server.properties
+
+./zookeeper-server-start.sh  ../config/zookeeper.properties 1>/dev/null  2>&1  &
+./kafka-server-start.sh ../config/server.properties 1>/dev/null  2>&1  &
+
+
+
+bin/kafka-consumer-groups.sh  --list --bootstrap-server localhost:9092
+bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --list

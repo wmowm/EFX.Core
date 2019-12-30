@@ -1,17 +1,26 @@
 ﻿@model TableConfig
+
+@{ 
+    string functionStr = Model.TableName.Substring(0, 1).ToLower() + Model.TableName.Substring(1);
+}
+
 <pre>
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 //EFX Code Generation Template 1.0
 //author:Tibos
 //blog:www.cnblogs.com/Tibos
 //Entity Code Generation Template
-namespace Tibos.Domain.@Model.DbName
+namespace FLShop.BusinessModel.Model
 {
+    [Table("@functionStr")]
 	//@Model.FullName;
 	public class @Model.FullName:BaseEntity
     {
     @foreach (var item in Model.ColumnConfig)
     {
+        if (item.PropName == "Id") { continue; }
+
         <text>
         /// <summary>
 		/// @Html.Raw(item.Remark)

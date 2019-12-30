@@ -34,21 +34,27 @@ namespace Tibos.CAP.Controllers
         [Route("~/adonet/transaction")]
         public IActionResult AdonetWithTransaction()
         {
-            string ConnectionString = "Data Source=148.70.88.40;Initial Catalog=CAP_DB;port=3307; User ID=root;Password=As123456;SslMode = none;";
+            string ConnectionString = "Data Source=10.0.1.157;Initial Catalog=fuluDB;port=3306; User ID=root;Password=fulu123;SslMode = none;";
 
             using (var connection = new MySqlConnection(ConnectionString))
             {
 
                 using (var transaction = connection.BeginTransaction(_capBus, autoCommit: false))
                 {
-                    var sql = $"insert into MessageRecord(UserName,Msg,CreateTime) values('test','这里是正确的sql','{DateTime.Now}')";
-                    var sql2 = $"insert into MessageRecord(UserName,Msg,CreateTime) values('test','这里故意写错','{DateTime.Now}','')";
+                    //var sql = $"insert into MessageRecord(UserName,Msg,CreateTime) values('test','这里是正确的sql','{DateTime.Now}')";
+                    //var sql2 = $"insert into MessageRecord(UserName,Msg,CreateTime) values('test','这里故意写错','{DateTime.Now}','')";
 
-                    connection.Execute(sql, transaction: (IDbTransaction)transaction.DbTransaction);
-                    connection.Execute(sql2, transaction: (IDbTransaction)transaction.DbTransaction);
+                    //connection.Execute(sql, transaction: (IDbTransaction)transaction.DbTransaction);
+                    //connection.Execute(sql2, transaction: (IDbTransaction)transaction.DbTransaction);
                     //your business code
                     Users user = new Users();
                     user.Email = "XX";
+                    //for (int i = 0; i < 10; i++)
+                    //{
+                    //    user.Mobile = i.ToString();
+                    //    _capBus.PublishAsync("tibos.services.bar", user, "callback-show-execute-time", max:i).Wait();
+                    //    Console.WriteLine(i.ToString());
+                    //}
                     _capBus.Publish("tibos.services.bar", user, "callback-show-execute-time");
                     transaction.Commit();
                 }
@@ -137,7 +143,12 @@ namespace Tibos.CAP.Controllers
             return Json(value);
         }
 
-
+        [Route("~/api/sendOrder/")]
+        [HttpGet]
+        public string SendOrder() 
+        {
+            return GetOrder();
+        }
 
         private string GetOrder()
         {
@@ -163,7 +174,7 @@ namespace Tibos.CAP.Controllers
                 }
                 catch (Exception ex)
                 {
-
+                    
                 }
                 finally
                 {
