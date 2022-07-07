@@ -12,7 +12,7 @@
     <PackageReference Include="DotNetCore.CAP" Version="2.3.0" />
     <PackageReference Include="DotNetCore.CAP.MySql" Version="2.3.0" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.15" />
   </ItemGroup>
 
   <ItemGroup>
